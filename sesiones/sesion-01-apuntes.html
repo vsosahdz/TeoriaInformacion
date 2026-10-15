@@ -2326,15 +2326,15 @@ window.Quarto = {
   <li><a href="#un-adelanto-12-cuántos-bits-necesita-realmente-un-peso" id="toc-un-adelanto-12-cuántos-bits-necesita-realmente-un-peso" class="nav-link" data-scroll-target="#un-adelanto-12-cuántos-bits-necesita-realmente-un-peso"><span class="header-section-number">1.7</span> Un adelanto (1/2): ¿cuántos bits necesita realmente un peso?</a></li>
   <li><a href="#un-adelanto-22-y-eso-cuánto-ahorra" id="toc-un-adelanto-22-y-eso-cuánto-ahorra" class="nav-link" data-scroll-target="#un-adelanto-22-y-eso-cuánto-ahorra"><span class="header-section-number">1.8</span> Un adelanto (2/2): ¿y eso cuánto ahorra?</a></li>
   </ul></li>
-  <li><a href="#información-sorpresa" id="toc-información-sorpresa" class="nav-link" data-scroll-target="#información-sorpresa"><span class="header-section-number">2</span> Información = sorpresa</a>
+  <li><a href="#autoinformación-la-información-de-un-evento" id="toc-autoinformación-la-información-de-un-evento" class="nav-link" data-scroll-target="#autoinformación-la-información-de-un-evento"><span class="header-section-number">2</span> Autoinformación: la información de un evento</a>
   <ul class="collapse">
   <li><a href="#qué-noticia-trae-más-información" id="toc-qué-noticia-trae-más-información" class="nav-link" data-scroll-target="#qué-noticia-trae-más-información"><span class="header-section-number">2.1</span> ¿Qué noticia trae más información?</a></li>
-  <li><a href="#definición-sorpresa-surprisal" id="toc-definición-sorpresa-surprisal" class="nav-link" data-scroll-target="#definición-sorpresa-surprisal"><span class="header-section-number">2.2</span> Definición: sorpresa (<em>surprisal</em>)</a></li>
+  <li><a href="#definición-autoinformación-self-information" id="toc-definición-autoinformación-self-information" class="nav-link" data-scroll-target="#definición-autoinformación-self-information"><span class="header-section-number">2.2</span> Definición: autoinformación (<em>self-information</em>)</a></li>
   <li><a href="#qué-significa-un-número-de-bits" id="toc-qué-significa-un-número-de-bits" class="nav-link" data-scroll-target="#qué-significa-un-número-de-bits"><span class="header-section-number">2.3</span> ¿Qué significa un número de bits?</a></li>
   <li><a href="#las-dos-lecturas-evento-por-evento" id="toc-las-dos-lecturas-evento-por-evento" class="nav-link" data-scroll-target="#las-dos-lecturas-evento-por-evento"><span class="header-section-number">2.4</span> Las dos lecturas, evento por evento</a></li>
-  <li><a href="#dos-lecturas-de-la-sorpresa" id="toc-dos-lecturas-de-la-sorpresa" class="nav-link" data-scroll-target="#dos-lecturas-de-la-sorpresa"><span class="header-section-number">2.5</span> Dos lecturas de la sorpresa</a></li>
+  <li><a href="#dos-lecturas-de-la-autoinformación" id="toc-dos-lecturas-de-la-autoinformación" class="nav-link" data-scroll-target="#dos-lecturas-de-la-autoinformación"><span class="header-section-number">2.5</span> Dos lecturas de la autoinformación</a></li>
   <li><a href="#paso-a-paso-una-carta-de-la-baraja" id="toc-paso-a-paso-una-carta-de-la-baraja" class="nav-link" data-scroll-target="#paso-a-paso-una-carta-de-la-baraja"><span class="header-section-number">2.6</span> Paso a paso: una carta de la baraja</a></li>
-  <li><a href="#entropía-la-sorpresa-promedio-expected-surprisal" id="toc-entropía-la-sorpresa-promedio-expected-surprisal" class="nav-link" data-scroll-target="#entropía-la-sorpresa-promedio-expected-surprisal"><span class="header-section-number">2.7</span> Entropía: la sorpresa promedio (<em>expected surprisal</em>)</a></li>
+  <li><a href="#entropía-la-autoinformación-promedio" id="toc-entropía-la-autoinformación-promedio" class="nav-link" data-scroll-target="#entropía-la-autoinformación-promedio"><span class="header-section-number">2.7</span> Entropía: la autoinformación promedio</a></li>
   <li><a href="#paso-a-paso-entropía-de-una-moneda-cargada" id="toc-paso-a-paso-entropía-de-una-moneda-cargada" class="nav-link" data-scroll-target="#paso-a-paso-entropía-de-una-moneda-cargada"><span class="header-section-number">2.8</span> Paso a paso: entropía de una moneda cargada</a></li>
   <li><a href="#paso-a-paso-un-boleto-de-lotería" id="toc-paso-a-paso-un-boleto-de-lotería" class="nav-link" data-scroll-target="#paso-a-paso-un-boleto-de-lotería"><span class="header-section-number">2.9</span> Paso a paso: un boleto de lotería</a></li>
   <li><a href="#el-caso-binario-la-función-hp" id="toc-el-caso-binario-la-función-hp" class="nav-link" data-scroll-target="#el-caso-binario-la-función-hp"><span class="header-section-number">2.10</span> El caso binario: la función <span class="math inline">\(H(p)\)</span></a></li>
@@ -2698,8 +2698,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="información-sorpresa" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Información = sorpresa</h1>
+<section id="autoinformación-la-información-de-un-evento" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Autoinformación: la información de un evento</h1>
 <section id="qué-noticia-trae-más-información" class="level2 smaller" data-number="2.1">
 <h2 class="smaller anchored" data-number="2.1" data-anchor-id="qué-noticia-trae-más-información"><span class="header-section-number">2.1</span> ¿Qué noticia trae más información?</h2>
 <div class="columns">
@@ -2713,15 +2713,15 @@ window.Quarto = {
 <p>. . .</p>
 <p>La <strong>B</strong>, claramente. ¿Por qué? Porque era <strong>improbable</strong>.</p>
 <p>. . .</p>
-<p>Sea <span class="math inline">\(I(p)\)</span> la <strong>cantidad de información</strong> que aporta enterarse de que ocurrió un evento cuya probabilidad era <span class="math inline">\(p\)</span>. Shannon pide que cumpla tres propiedades:</p>
+<p>Sea <span class="math inline">\(I(p)\)</span> la <strong>cantidad de información</strong> que aporta enterarse de que ocurrió un evento cuya probabilidad era <span class="math inline">\(p\)</span> (su nombre formal es <strong>autoinformación</strong>). Shannon pide que cumpla tres propiedades:</p>
 <ol type="1">
 <li><span class="math inline">\(I(p)\)</span> <strong>disminuye</strong> cuando <span class="math inline">\(p\)</span> aumenta — lo improbable informa más.</li>
 <li><span class="math inline">\(I(1) = 0\)</span> — enterarse de algo seguro no informa nada.</li>
 <li><span class="math inline">\(I(p\,q) = I(p) + I(q)\)</span> — si dos eventos son <strong>independientes</strong> (probabilidad conjunta <span class="math inline">\(p\,q\)</span>), la información de ambos se suma.</li>
 </ol>
 </section>
-<section id="definición-sorpresa-surprisal" class="level2 smaller dos-tablas" data-number="2.2">
-<h2 class="smaller dos-tablas anchored" data-number="2.2" data-anchor-id="definición-sorpresa-surprisal"><span class="header-section-number">2.2</span> Definición: sorpresa (<em>surprisal</em>)</h2>
+<section id="definición-autoinformación-self-information" class="level2 smaller dos-tablas" data-number="2.2">
+<h2 class="smaller dos-tablas anchored" data-number="2.2" data-anchor-id="definición-autoinformación-self-information"><span class="header-section-number">2.2</span> Definición: autoinformación (<em>self-information</em>)</h2>
 <p>La única función continua que cumple las tres propiedades es:</p>
 <p><span id="eq-sorpresa"><span class="math display">\[
 I(p) = -\log_2 p \quad \text{bits}
@@ -2747,7 +2747,7 @@ I(p) = -\log_2 p \quad \text{bits}
 </tr>
 <tr class="even">
 <td><span class="math inline">\(I(p)\)</span></td>
-<td>información que aporta saber que el evento ocurrió. Se le llama <strong>sorpresa</strong> (en inglés <em>surprisal</em> o <em>self-information</em>)</td>
+<td><strong>autoinformación</strong>: información que aporta saber que el evento ocurrió. También se le llama <strong>sorpresa</strong> (<em>surprisal</em>): mide qué tan inesperado era el evento según su probabilidad</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\log_2\)</span></td>
@@ -2802,13 +2802,13 @@ I(p) = -\log_2 p \quad \text{bits}
 </tr>
 </tbody>
 </table>
-<p>Cada vez que <span class="math inline">\(p\)</span> se divide entre 2, la sorpresa sube <strong>1 bit</strong>.</p>
+<p>Cada vez que <span class="math inline">\(p\)</span> se divide entre 2, la autoinformación sube <strong>1 bit</strong>.</p>
 </div>
 </div>
 </section>
 <section id="qué-significa-un-número-de-bits" class="level2 smaller" data-number="2.3">
 <h2 class="smaller anchored" data-number="2.3" data-anchor-id="qué-significa-un-número-de-bits"><span class="header-section-number">2.3</span> ¿Qué significa un número de bits?</h2>
-<p>Toda sorpresa en bits se puede leer de dos maneras equivalentes.</p>
+<p>Toda autoinformación en bits se puede leer de dos maneras equivalentes.</p>
 <p><strong>Lectura 1 — monedas.</strong> Despejando <span class="math inline">\(p\)</span> de la ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>:</p>
 <p><span id="eq-monedas"><span class="math display">\[
 I(p) = k \text{ bits} \quad\Longleftrightarrow\quad p = \left(\tfrac12\right)^{k}
@@ -2827,7 +2827,7 @@ I(p) = k \text{ bits} \quad\Longleftrightarrow\quad p = \left(\tfrac12\right)^{k
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(k\)</span></td>
-<td>número de bits de sorpresa</td>
+<td>número de bits de autoinformación</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\left(\tfrac12\right)^k\)</span></td>
@@ -2928,25 +2928,25 @@ I\!\left(\tfrac1N\right) = \log_2 N
 </div>
 </div>
 </section>
-<section id="dos-lecturas-de-la-sorpresa" class="level2" data-background-iframe="../anim/bits-monedas-preguntas.html" data-background-interactive="true" data-number="2.5">
-<h2 data-background-iframe="../anim/bits-monedas-preguntas.html" data-background-interactive="true" data-number="2.5" class="anchored" data-anchor-id="dos-lecturas-de-la-sorpresa"><span class="header-section-number">2.5</span> Dos lecturas de la sorpresa</h2>
+<section id="dos-lecturas-de-la-autoinformación" class="level2" data-background-iframe="../anim/bits-monedas-preguntas.html" data-background-interactive="true" data-number="2.5">
+<h2 data-background-iframe="../anim/bits-monedas-preguntas.html" data-background-interactive="true" data-number="2.5" class="anchored" data-anchor-id="dos-lecturas-de-la-autoinformación"><span class="header-section-number">2.5</span> Dos lecturas de la autoinformación</h2>
 </section>
 <section id="paso-a-paso-una-carta-de-la-baraja" class="level2 smaller" data-number="2.6">
 <h2 class="smaller anchored" data-number="2.6" data-anchor-id="paso-a-paso-una-carta-de-la-baraja"><span class="header-section-number">2.6</span> Paso a paso: una carta de la baraja</h2>
-<p>Sacas una carta al azar de una baraja de 52. Te dicen cuál es <strong>de golpe</strong>, o <strong>en dos partes</strong>. En todos los casos se usa la sorpresa (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>):</p>
+<p>Sacas una carta al azar de una baraja de 52. Te dicen cuál es <strong>de golpe</strong>, o <strong>en dos partes</strong>. En todos los casos se usa la autoinformación (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>):</p>
 <p>. . .</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>De golpe:</strong> “es el 7 de corazones”</p>
 <ul>
 <li>probabilidad: <span class="math inline">\(p = \tfrac{1}{52}\)</span></li>
-<li>sorpresa: <span class="math inline">\(I = -\log_2 \tfrac{1}{52} = \log_2 52 \approx 5.70\)</span> bits</li>
+<li>autoinformación: <span class="math inline">\(I = -\log_2 \tfrac{1}{52} = \log_2 52 \approx 5.70\)</span> bits</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>En dos partes:</strong></p>
 <ol type="1">
-<li>“es de corazones”: <span class="math inline">\(p = \tfrac14\)</span>, sorpresa <span class="math inline">\(= -\log_2 \tfrac14 = 2\)</span> bits</li>
-<li>“es un 7”, <strong>sabiendo</strong> que es corazón: <span class="math inline">\(p = \tfrac1{13}\)</span>, sorpresa <span class="math inline">\(= -\log_2 \tfrac1{13} \approx 3.70\)</span> bits</li>
+<li>“es de corazones”: <span class="math inline">\(p = \tfrac14\)</span>, autoinformación <span class="math inline">\(= -\log_2 \tfrac14 = 2\)</span> bits</li>
+<li>“es un 7”, <strong>sabiendo</strong> que es corazón: <span class="math inline">\(p = \tfrac1{13}\)</span>, autoinformación <span class="math inline">\(= -\log_2 \tfrac1{13} \approx 3.70\)</span> bits</li>
 </ol>
 <p>Total: <span class="math inline">\(2 + 3.70 = 5.70\)</span> bits <span class="math inline">\(\checkmark\)</span></p>
 </div>
@@ -2963,9 +2963,9 @@ I\!\left(\tfrac1N\right) = \log_2 N
 </div>
 </div>
 </section>
-<section id="entropía-la-sorpresa-promedio-expected-surprisal" class="level2 smaller" data-number="2.7">
-<h2 class="smaller anchored" data-number="2.7" data-anchor-id="entropía-la-sorpresa-promedio-expected-surprisal"><span class="header-section-number">2.7</span> Entropía: la sorpresa promedio (<em>expected surprisal</em>)</h2>
-<p>Una fuente (un dado, un texto, un LLM…) produce símbolos al azar, y cada símbolo trae su propia sorpresa. La <strong>entropía</strong> es el <strong>promedio</strong> de esas sorpresas, ponderado por qué tan seguido sale cada símbolo:</p>
+<section id="entropía-la-autoinformación-promedio" class="level2 smaller" data-number="2.7">
+<h2 class="smaller anchored" data-number="2.7" data-anchor-id="entropía-la-autoinformación-promedio"><span class="header-section-number">2.7</span> Entropía: la autoinformación promedio</h2>
+<p>Una fuente (un dado, un texto, un LLM…) produce símbolos al azar, y cada símbolo aporta su propia autoinformación. La <strong>entropía</strong> es el <strong>promedio</strong> de esas autoinformaciones, ponderado por qué tan seguido sale cada símbolo:</p>
 <p><span id="eq-entropia"><span class="math display">\[
 H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 \tag{4}\]</span></span></p>
@@ -2995,11 +2995,11 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 </tr>
 <tr class="even">
 <td><span class="math inline">\(-\log_2 p(x)\)</span></td>
-<td>sorpresa de ver el valor <span class="math inline">\(x\)</span> (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>)</td>
+<td>autoinformación de ver el valor <span class="math inline">\(x\)</span> (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>)</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\sum_x p(x)\,(\cdots)\)</span></td>
-<td>promedio ponderado por las probabilidades, es decir, el <strong>valor esperado</strong> <span class="math inline">\(E[\cdots]\)</span>. Por eso se dice “sorpresa <strong>esperada</strong>”: no es la que se <em>espera sentir</em>, es la sorpresa <strong>promedio</strong></td>
+<td>promedio ponderado por las probabilidades, es decir, el <strong>valor esperado</strong> <span class="math inline">\(E[\cdots]\)</span>. Por eso la entropía es la autoinformación <strong>esperada</strong>; en lenguaje intuitivo, la “sorpresa promedio” (<em>expected surprisal</em>). “Esperada” significa <strong>promedio</strong>, no lo que se espera sentir</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(H(X)\)</span></td>
@@ -3012,10 +3012,10 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 <h2 class="smaller anchored" data-number="2.8" data-anchor-id="paso-a-paso-entropía-de-una-moneda-cargada"><span class="header-section-number">2.8</span> Paso a paso: entropía de una moneda cargada</h2>
 <p>Una moneda cae <strong>cara</strong> con probabilidad <span class="math inline">\(0.9\)</span> y <strong>cruz</strong> con probabilidad <span class="math inline">\(0.1\)</span>. Aplicando la ec. <a href="#eq-entropia" class="quarto-xref">4</a>:</p>
 <div class="fragment">
-<p><strong>1.</strong> Sorpresa de cara: <span class="math inline">\(-\log_2 0.9 = 0.152\)</span> bits — casi no sorprende.</p>
+<p><strong>1.</strong> Autoinformación de cara: <span class="math inline">\(-\log_2 0.9 = 0.152\)</span> bits — casi no sorprende.</p>
 </div>
 <div class="fragment">
-<p><strong>2.</strong> Sorpresa de cruz: <span class="math inline">\(-\log_2 0.1 = 3.322\)</span> bits — sorprende mucho.</p>
+<p><strong>2.</strong> Autoinformación de cruz: <span class="math inline">\(-\log_2 0.1 = 3.322\)</span> bits — sorprende mucho.</p>
 </div>
 <div class="fragment">
 <p><strong>3.</strong> Promedio ponderado: <span class="math inline">\(\ 0.9 \times 0.152 \;+\; 0.1 \times 3.322 \;=\; 0.137 + 0.332 \;=\; \mathbf{0.469}\)</span> bits.</p>
@@ -3067,10 +3067,10 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 <h2 class="smaller anchored" data-number="2.9" data-anchor-id="paso-a-paso-un-boleto-de-lotería"><span class="header-section-number">2.9</span> Paso a paso: un boleto de lotería</h2>
 <p>Se compra <strong>un</strong> boleto de una rifa de 1000. Hay dos resultados posibles: <strong>ganar</strong> (<span class="math inline">\(p = 0.001\)</span>) o <strong>perder</strong> (<span class="math inline">\(p = 0.999\)</span>).</p>
 <div class="fragment">
-<p><strong>1.</strong> Sorpresa de ganar (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>): <span class="math inline">\(-\log_2 0.001 = 9.97\)</span> bits — una sorpresa enorme.</p>
+<p><strong>1.</strong> Autoinformación de ganar (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>): <span class="math inline">\(-\log_2 0.001 = 9.97\)</span> bits — una sorpresa enorme.</p>
 </div>
 <div class="fragment">
-<p><strong>2.</strong> Sorpresa de perder: <span class="math inline">\(-\log_2 0.999 = 0.0014\)</span> bits — prácticamente ninguna.</p>
+<p><strong>2.</strong> Autoinformación de perder: <span class="math inline">\(-\log_2 0.999 = 0.0014\)</span> bits — prácticamente ninguna.</p>
 </div>
 <div class="fragment">
 <p><strong>3.</strong> Entropía del boleto (ec. <a href="#eq-entropia" class="quarto-xref">4</a>): <span class="math inline">\(\ 0.001 \times 9.97 \;+\; 0.999 \times 0.0014 \;=\; 0.0100 + 0.0014 \;=\; \mathbf{0.011}\)</span> bits.</p>
@@ -3085,7 +3085,7 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 <thead>
 <tr class="header">
 <th></th>
-<th>Sorpresa</th>
+<th>Autoinformación</th>
 <th>Entropía</th>
 </tr>
 </thead>
@@ -3142,11 +3142,11 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 </tr>
 <tr class="even">
 <td><span class="math inline">\(-p\,\log_2 p\)</span></td>
-<td>probabilidad de cara × sorpresa de cara</td>
+<td>probabilidad de cara × autoinformación de cara</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(-(1-p)\,\log_2(1-p)\)</span></td>
-<td>probabilidad de cruz × sorpresa de cruz</td>
+<td>probabilidad de cruz × autoinformación de cruz</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(H(p)\)</span></td>
@@ -3158,9 +3158,9 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 <p><strong>Qué muestra la animación siguiente:</strong></p>
 <ol type="1">
 <li><strong>Curva roja:</strong> <span class="math inline">\(H(p)\)</span> para cada <span class="math inline">\(p\)</span> entre 0 y 1. Su máximo es 1 bit, en <span class="math inline">\(p = 0.5\)</span>.</li>
-<li><strong>Punto azul y punto amarillo:</strong> la sorpresa de cara y la de cruz para el <span class="math inline">\(p\)</span> elegido.</li>
+<li><strong>Punto azul y punto amarillo:</strong> la autoinformación de cara y la de cruz para el <span class="math inline">\(p\)</span> elegido.</li>
 <li><strong>Punto rojo:</strong> su promedio ponderado, que es <span class="math inline">\(H(p)\)</span>. El recuadro “Cálculo” lo hace con números.</li>
-<li><strong>Gráfica de abajo:</strong> al lanzar la moneda muchas veces, el promedio de las sorpresas observadas (verde) se acerca a <span class="math inline">\(H(p)\)</span>.</li>
+<li><strong>Gráfica de abajo:</strong> al lanzar la moneda muchas veces, el promedio de las autoinformaciones observadas (verde) se acerca a <span class="math inline">\(H(p)\)</span>.</li>
 </ol>
 </section>
 <section id="entropía-binaria-hp" class="level2" data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.11">
@@ -3168,7 +3168,7 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 </section>
 <section id="interpretación-preguntas-de-síno" class="level2 smaller" data-number="2.12">
 <h2 class="smaller anchored" data-number="2.12" data-anchor-id="interpretación-preguntas-de-síno"><span class="header-section-number">2.12</span> Interpretación: preguntas de sí/no</h2>
-<p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus sorpresas (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
+<p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus autoinformaciones (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
 <p>. . .</p>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -3266,7 +3266,7 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(-\log_2 p(x,y)\)</span></td>
-<td>sorpresa de ver la pareja <span class="math inline">\((x, y)\)</span> (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>)</td>
+<td>autoinformación de ver la pareja <span class="math inline">\((x, y)\)</span> (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>)</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\sum_x\sum_y\)</span></td>
@@ -3274,7 +3274,7 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(H(X,Y)\)</span></td>
-<td><strong>entropía conjunta</strong>: sorpresa promedio de observar el par completo</td>
+<td><strong>entropía conjunta</strong>: autoinformación promedio de observar el par completo</td>
 </tr>
 </tbody>
 </table>
@@ -3520,7 +3520,7 @@ I(X; Y) = H(X) - H(X \mid Y)
 <tbody>
 <tr class="odd">
 <td><a href="#eq-sorpresa" class="quarto-xref">1</a></td>
-<td>Sorpresa</td>
+<td>Autoinformación (sorpresa)</td>
 <td><span class="math inline">\(I(p) = -\log_2 p\)</span></td>
 <td>lo improbable informa más</td>
 </tr>
@@ -3540,7 +3540,7 @@ I(X; Y) = H(X) - H(X \mid Y)
 <td><a href="#eq-entropia" class="quarto-xref">4</a></td>
 <td>Entropía</td>
 <td><span class="math inline">\(H(X) = -\sum_x p(x) \log_2 p(x)\)</span></td>
-<td>sorpresa promedio = bits por símbolo</td>
+<td>autoinformación promedio = bits por símbolo</td>
 </tr>
 <tr class="odd">
 <td><a href="#eq-binaria" class="quarto-xref">5</a></td>
