@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagrama de información — H(X), H(Y), H(X,Y), H(X|Y), I(X;Y)</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d; --vio:#b48cff;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  .grid { display:grid; grid-template-columns:1fr 360px; gap:16px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  .row { display:flex; align-items:center; gap:10px; margin:8px 0; }
+  label { font-size:13px; color:var(--muted); min-width:150px; }
+  input[type=range]{ flex:1; accent-color:var(--cold); }
+  .val { font-variant-numeric:tabular-nums; min-width:44px; text-align:right; font-size:13px; }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:6px 11px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover{ background:#2b3244; }
+  button.primary{ background:var(--cold); color:#03101f; border-color:var(--cold); font-weight:600; }
+  table.joint { border-collapse:collapse; font-size:14px; margin:6px auto 2px; font-variant-numeric:tabular-nums; }
+  table.joint td, table.joint th { border:1px solid var(--line); padding:5px 10px; text-align:center; }
+  table.joint th { color:var(--muted); font-weight:500; }
+  table.joint td.m { color:var(--muted); }
+  .steps { font-size:14px; line-height:1.7; margin-top:6px; font-variant-numeric:tabular-nums; }
+  .steps div { opacity:.45; transition:opacity .25s; }
+  .steps div.on { opacity:1; }
+  .steps b { color:var(--warn); }
+  .note { color:var(--muted); font-size:12px; margin-top:10px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Diagrama de información — ¿cuánto dice el paraguas sobre el clima?</h1>
+  <div class="sub">
+    X = clima (lluvia / sol), Y = la persona trae paraguas (sí / no). Mueve las probabilidades y
+    observa cómo se reparten H(X,Y) = H(X|Y) + I(X;Y) + H(Y|X).
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <canvas id="venn" width="760" height="300"></canvas>
+      <canvas id="bars" width="760" height="190" style="margin-top:12px"></canvas>
+      <div class="note">
+        Arriba: diagrama de Venn de información (las áreas son ilustrativas; los números son exactos).
+        Abajo: la versión <b>exacta</b> a escala: la barra de H(X,Y) se parte en tres pedazos, y H(X), H(Y)
+        son los corchetes que se traslapan exactamente en I(X;Y).
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="row"><label for="a">P(lluvia)</label>
+          <input id="a" type="range" min="10" max="990" value="400"><span class="val" id="av"></span></div>
+        <div class="row"><label for="b">P(paraguas | lluvia)</label>
+          <input id="b" type="range" min="0" max="1000" value="750"><span class="val" id="bv"></span></div>
+        <div class="row"><label for="c">P(paraguas | sol)</label>
+          <input id="c" type="range" min="0" max="1000" step="any" value="166.6667"><span class="val" id="cv"></span></div>
+        <div class="row" style="gap:6px; flex-wrap:wrap; margin-top:10px">
+          <button data-preset="ejemplo">ejemplo de clase</button>
+          <button data-preset="indep">independientes</button>
+          <button data-preset="igual">Y = X</button>
+          <button data-preset="ruido">casi independientes</button>
+        </div>
+        <table class="joint" id="joint"></table>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <div class="row" style="gap:8px; margin:0 0 4px">
+          <button id="step" class="primary">Paso</button>
+          <button id="all">Mostrar todo</button>
+          <button id="reset">Reiniciar</button>
+        </div>
+        <div class="steps" id="steps"></div>
+        <div class="note" style="border-top:1px solid var(--line); padding-top:8px">
+          <b>H(X)</b>: incertidumbre sobre el clima · <b>H(Y)</b>: sobre el paraguas ·
+          <b>H(X,Y)</b>: sobre el par completo · <b>H(X|Y)</b>: la que queda sobre el clima después de ver el paraguas ·
+          <b>H(Y|X)</b>: la que queda sobre el paraguas después de conocer el clima ·
+          <b>I(X;Y)</b>: lo que el paraguas informa sobre el clima (y viceversa).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const lg = Math.log2;
+const H = ps => ps.reduce((s,p) => p>0 ? s - p*lg(p) : s, 0);
+let shown = 0;
+const PRESETS = { ejemplo:[400,750,1000/6], indep:[400,500,500], igual:[400,1000,0], ruido:[400,550,450] };
+
+function model(){
+  const a = $("a").value/1000, b = $("b").value/1000, c = $("c").value/1000;
+  // filas: lluvia, sol; columnas: paraguas, sin paraguas
+  const J = [[a*b, a*(1-b)], [(1-a)*c, (1-a)*(1-c)]];
+  const px = [J[0][0]+J[0][1], J[1][0]+J[1][1]];
+  const py = [J[0][0]+J[1][0], J[0][1]+J[1][1]];
+  const hx = H(px), hy = H(py), hxy = H(J.flat());
+  return { a,b,c,J,px,py,hx,hy,hxy, hxgy:hxy-hy, hygx:hxy-hx, i:Math.max(0,hx+hy-hxy) };
+}
+const f = (x,d=3) => x.toFixed(d);
+
+function render(){
+  const m = model();
+  $("av").textContent = f(m.a); $("bv").textContent = f(m.b); $("cv").textContent = f(m.c);
+  $("joint").innerHTML =
+    `<tr><th></th><th>paraguas</th><th>sin paraguas</th><th>P(X)</th></tr>
+     <tr><th>lluvia</th><td>${f(m.J[0][0])}</td><td>${f(m.J[0][1])}</td><td class="m">${f(m.px[0])}</td></tr>
+     <tr><th>sol</th><td>${f(m.J[1][0])}</td><td>${f(m.J[1][1])}</td><td class="m">${f(m.px[1])}</td></tr>
+     <tr><th>P(Y)</th><td class="m">${f(m.py[0])}</td><td class="m">${f(m.py[1])}</td><td class="m">1</td></tr>`;
+  // Cada paso: [planteamiento, resultado]. Los resultados no revelados se muestran como "?"
+  // para que el grupo los calcule antes de pulsar "Paso".
+  const S = [
+    [`1. Marginales: P(X) = `, `(${f(m.px[0])}, ${f(m.px[1])}), P(Y) = (${f(m.py[0])}, ${f(m.py[1])})`],
+    [`2. H(X) = −Σ p log₂ p = `, `<b>${f(m.hx)}</b> bits`],
+    [`3. H(Y) = `, `<b>${f(m.hy)}</b> bits`],
+    [`4. H(X,Y) = −Σ p(x,y) log₂ p(x,y) = `, `<b>${f(m.hxy)}</b> bits`],
+    [`5. H(X|Y) = H(X,Y) − H(Y) = `, `<b>${f(m.hxgy)}</b> bits`],
+    [`6. H(Y|X) = H(X,Y) − H(X) = `, `<b>${f(m.hygx)}</b> bits`],
+    [`7. I(X;Y) = H(X) − H(X|Y) = `, `<b>${f(m.i)}</b> bits`],
+  ];
+  $("steps").innerHTML = S.map(([q,r],k) =>
+    `<div class="${k<shown?'on':''}">${q}${k<shown ? r : '<b>?</b>'}</div>`).join("");
+  drawVenn(m); drawBars(m);
+}
+
+function drawVenn(m){
+  const c = $("venn"), g = c.getContext("2d"), W = c.width, Hh = c.height;
+  g.clearRect(0,0,W,Hh);
+  const r = 115, cy = Hh/2 + 4;
+  // separación ilustrativa: más información mutua -> más traslape
+  const frac = m.i / Math.max(1e-9, Math.min(m.hx, m.hy));
+  const d = 2*r*(1 - 0.92*Math.min(1,frac));
+  const cx1 = W/2 - d/2, cx2 = W/2 + d/2;
+  g.globalAlpha = .28;
+  g.fillStyle = "#4ea1ff"; g.beginPath(); g.arc(cx1,cy,r,0,7); g.fill();
+  g.fillStyle = "#ffc44d"; g.beginPath(); g.arc(cx2,cy,r,0,7); g.fill();
+  g.globalAlpha = 1; g.lineWidth = 2;
+  g.strokeStyle = "#4ea1ff"; g.beginPath(); g.arc(cx1,cy,r,0,7); g.stroke();
+  g.strokeStyle = "#ffc44d"; g.beginPath(); g.arc(cx2,cy,r,0,7); g.stroke();
+  g.font = "15px ui-sans-serif"; g.textAlign = "center"; g.fillStyle = "#e8eaf0";
+  const on = k => shown >= k;
+  if (on(2)) { g.fillStyle = "#4ea1ff"; g.fillText("H(X) = "+f(m.hx), cx1-40, cy-r-10); }
+  if (on(3)) { g.fillStyle = "#ffc44d"; g.fillText("H(Y) = "+f(m.hy), cx2+40, cy-r-10); }
+  g.fillStyle = "#e8eaf0";
+  if (on(5)) g.fillText("H(X|Y)", cx1 - r/2 - 4, cy-6), g.fillText(f(m.hxgy), cx1 - r/2 - 4, cy+14);
+  if (on(6)) g.fillText("H(Y|X)", cx2 + r/2 + 4, cy-6), g.fillText(f(m.hygx), cx2 + r/2 + 4, cy+14);
+  if (on(7)) { g.font = "bold 15px ui-sans-serif"; g.fillText("I(X;Y)", W/2, cy-6); g.fillText(f(m.i), W/2, cy+14); }
+  if (on(4)) { g.font = "14px ui-sans-serif"; g.fillStyle = "#9aa3b2";
+    g.fillText("toda el área coloreada = H(X,Y) = "+f(m.hxy), W/2, Hh-8); }
+  g.textAlign = "left";
+}
+
+function drawBars(m){
+  const c = $("bars"), g = c.getContext("2d"), W = c.width, Hh = c.height;
+  g.clearRect(0,0,W,Hh);
+  const L = 70, R = 20, pw = W-L-R, sc = pw / 2;   // escala fija: 2 bits = ancho completo
+  const X = v => L + v*sc;
+  g.font = "13px ui-sans-serif"; g.fillStyle = "#9aa3b2";
+  // regla
+  for (let t=0; t<=2; t+=0.5){ g.fillText(t+"", X(t)-6, Hh-6);
+    g.strokeStyle="#2a2f3a"; g.beginPath(); g.moveTo(X(t),20); g.lineTo(X(t),Hh-20); g.stroke(); }
+  const bar = (y, x0, w, col, txt) => { g.fillStyle = col; g.fillRect(X(x0), y, w*sc, 26);
+    g.fillStyle = "#0a0c10"; if (w*sc > 60) g.fillText(txt, X(x0)+6, y+18); };
+  g.fillStyle = "#9aa3b2"; g.fillText("H(X)", 10, 42); g.fillText("H(X,Y)", 10, 95); g.fillText("H(Y)", 10, 148);
+  if (shown >= 2) bar(24, 0, m.hx, "#4ea1ff", "H(X) "+f(m.hx));
+  if (shown >= 4) {
+    bar(77, 0, m.hxgy, "rgba(78,161,255,.75)", "H(X|Y) "+f(m.hxgy));
+    bar(77, m.hxgy, m.i, "#3ddc84", "I "+f(m.i));
+    bar(77, m.hxgy+m.i, m.hygx, "rgba(255,196,77,.8)", "H(Y|X) "+f(m.hygx));
+  }
+  if (shown >= 3) bar(130, m.hxgy, m.hy, "#ffc44d", "H(Y) "+f(m.hy));
+  if (shown >= 7 && m.i > 0.002) {
+    g.strokeStyle = "#3ddc84"; g.setLineDash([4,3]);
+    [m.hxgy, m.hxgy+m.i].forEach(v => { g.beginPath(); g.moveTo(X(v),20); g.lineTo(X(v),160); g.stroke(); });
+    g.setLineDash([]);
+  }
+}
+
+$("step").onclick = () => { shown = Math.min(7, shown+1); render(); };
+$("all").onclick = () => { shown = 7; render(); };
+$("reset").onclick = () => { shown = 0; render(); };
+["a","b","c"].forEach(id => $(id).oninput = render);
+document.querySelectorAll("button[data-preset]").forEach(btn => btn.onclick = () => {
+  const [a,b,c] = PRESETS[btn.dataset.preset]; $("a").value=a; $("b").value=b; $("c").value=c; render();
+});
+render();
+</script>
+</body>
+</html>

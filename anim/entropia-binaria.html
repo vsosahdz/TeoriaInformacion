@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entropía binaria — sorpresa promedio de una moneda</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:14px 20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  .grid { display:grid; grid-template-columns:1fr 340px; gap:16px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  .row { display:flex; align-items:center; gap:10px; margin:9px 0; }
+  label { font-size:13px; color:var(--muted); min-width:104px; }
+  input[type=range]{ flex:1; accent-color:var(--hot); }
+  .val { font-variant-numeric:tabular-nums; min-width:56px; text-align:right; font-size:13px; }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:7px 13px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover{ background:#2b3244; }
+  button.primary{ background:var(--hot); color:#1a0603; border-color:var(--hot); font-weight:600; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+  td { padding:4px 6px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; }
+  td:last-child { text-align:right; }
+  td:first-child { color:var(--muted); }
+  .note { color:var(--muted); font-size:12px; margin-top:10px; line-height:1.5; }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--muted); margin-top:8px; }
+  .chip { display:inline-flex; align-items:center; gap:5px; }
+  .dot { width:9px; height:9px; border-radius:50%; }
+  .big { font-size:22px; font-variant-numeric:tabular-nums; }
+  .flips { font-family:ui-monospace,Menlo,monospace; font-size:15px; letter-spacing:2px;
+    min-height:24px; word-break:break-all; margin-top:10px; line-height:1.5; }
+  .flips .c { color:var(--cold); } .flips .x { color:var(--warn); }
+  .flips .last { background:#2b3244; border-radius:3px; }
+  .calc-title { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+  .calc { font-variant-numeric:tabular-nums; font-size:14px; line-height:1.7; background:#0c0e12;
+    border:1px solid var(--line); border-radius:7px; padding:8px 10px; margin-bottom:6px; }
+  .calc b { color:var(--hot); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Entropía binaria — H(p) es la sorpresa <em>promedio</em> de una moneda</h1>
+  <div class="sub">
+    Una moneda cae cara con probabilidad p y cruz con probabilidad 1−p. Cada resultado trae una sorpresa
+    (−log₂ de su probabilidad). La entropía H(p) es el promedio de esas sorpresas, pesado por qué tan seguido sale cada una.
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <canvas id="curve" width="760" height="300"></canvas>
+      <div class="legend">
+        <span class="chip"><span class="dot" style="background:var(--hot)"></span> H(p) = −p log₂ p − (1−p) log₂(1−p)</span>
+        <span class="chip"><span class="dot" style="background:var(--cold)"></span> sorpresa de cara: −log₂ p</span>
+        <span class="chip"><span class="dot" style="background:var(--warn)"></span> sorpresa de cruz: −log₂(1−p)</span>
+        <span class="chip"><span class="dot" style="background:var(--ok)"></span> promedio observado</span>
+      </div>
+      <canvas id="trace" width="760" height="120" style="margin-top:12px"></canvas>
+      <div class="flips" id="flips"></div>
+      <div class="note" style="margin-top:2px">C = cara, X = cruz (últimos 64 lanzamientos). Las cruces son raras y <b>muy</b>
+        sorprendentes; las caras son comunes y casi no informan.</div>
+      <div class="note">
+        Abajo: la sorpresa promedio de los n lanzamientos hechos hasta ahora (verde) contra H(p) (rojo punteado).
+        Con pocos lanzamientos oscila; con muchos se pega a H(p). Esa idea se formaliza en la próxima sesión como
+        <b>propiedad asintótica de equipartición</b>.
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="row">
+          <label for="p">p = P(cara)</label>
+          <input id="p" type="range" min="1" max="99" value="90">
+          <span class="val" id="pv">0.90</span>
+        </div>
+        <div class="row">
+          <label for="speed">Velocidad</label>
+          <input id="speed" type="range" min="1" max="40" value="6">
+          <span class="val" id="speedv">6/cuadro</span>
+        </div>
+        <div class="row" style="gap:8px; margin-top:12px">
+          <button id="play" class="primary">Reproducir</button>
+          <button id="step">Paso</button>
+          <button id="reset">Reiniciar</button>
+        </div>
+        <div class="row" style="gap:6px; flex-wrap:wrap">
+          <button data-p="50">justa</button>
+          <button data-p="90">cargada 0.9</button>
+          <button data-p="99">casi segura</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <div class="calc-title">Cálculo de H(p)</div>
+        <div class="calc" id="calc"></div>
+        <table>
+          <tr><td><span class="dot" style="background:var(--cold);display:inline-block"></span> sorpresa de cara = −log₂ p</td><td id="sc">0.152 bits</td></tr>
+          <tr><td><span class="dot" style="background:var(--warn);display:inline-block"></span> sorpresa de cruz = −log₂(1−p)</td><td id="sx">3.322 bits</td></tr>
+          <tr><td><span class="dot" style="background:var(--hot);display:inline-block"></span> H(p) = promedio ponderado</td><td class="big" id="H">0.469</td></tr>
+        </table>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <div class="calc-title">Lanzamientos</div>
+        <table>
+          <tr><td>último lanzamiento</td><td id="last">—</td></tr>
+          <tr><td>lanzamientos n</td><td id="n">0</td></tr>
+          <tr><td>caras / cruces</td><td id="cx">0 / 0</td></tr>
+          <tr><td><span class="dot" style="background:var(--ok);display:inline-block"></span> sorpresa promedio observada</td><td class="big" id="avg">—</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const lg = x => Math.log2(x);
+const Hb = p => (p<=0||p>=1) ? 0 : -p*lg(p)-(1-p)*lg(1-p);
+
+let p = 0.9, n = 0, heads = 0, sumS = 0, hist = [], seq = [], running = false, raf = null, lastFlip = null;
+
+function reset(){
+  n = 0; heads = 0; sumS = 0; hist = []; seq = []; lastFlip = null;
+  draw();
+}
+function flip(){
+  const h = Math.random() < p;
+  const s = h ? -lg(p) : -lg(1-p);
+  n++; if (h) heads++; sumS += s;
+  hist.push(sumS/n); seq.push(h); lastFlip = { h, s };
+  if (seq.length > 64) seq.shift();
+}
+function stepOnce(){ flip(); draw(); }
+
+function drawCurve(){
+  const c = $("curve"), g = c.getContext("2d"), W = c.width, Hh = c.height;
+  const L = 52, R = 20, T = 18, B = 40, pw = W-L-R, ph = Hh-T-B, ymax = 4;
+  g.clearRect(0,0,W,Hh);
+  const X = x => L + x*pw, Y = y => T + ph - Math.min(y,ymax)/ymax*ph;
+  // ejes
+  g.strokeStyle = "#2a2f3a"; g.lineWidth = 1; g.font = "12px ui-sans-serif"; g.fillStyle = "#9aa3b2";
+  for (let y=0; y<=ymax; y++){ g.beginPath(); g.moveTo(L,Y(y)); g.lineTo(W-R,Y(y)); g.stroke(); g.fillText(y+" bit"+(y===1?"":"s"), 6, Y(y)+4); }
+  for (let x=0; x<=10; x+=2){ g.fillText((x/10).toFixed(1), X(x/10)-9, Hh-B+18); }
+  g.fillText("p = P(cara)", W/2-30, Hh-6);
+  // sorpresas
+  const line = (f, col, dash) => { g.strokeStyle = col; g.lineWidth = 2; g.setLineDash(dash||[]); g.beginPath();
+    for (let i=1;i<400;i++){ const x=i/400, y=f(x); i===1?g.moveTo(X(x),Y(y)):g.lineTo(X(x),Y(y)); } g.stroke(); g.setLineDash([]); };
+  line(x => -lg(x), "rgba(78,161,255,.55)", [5,4]);
+  line(x => -lg(1-x), "rgba(255,196,77,.55)", [5,4]);
+  line(Hb, "#ff6b5a");
+  // etiquetas directas sobre las curvas
+  g.font = "12px ui-sans-serif";
+  g.fillStyle = "rgba(78,161,255,.9)"; g.fillText("sorpresa de cara", X(0.12), Y(-lg(0.12))-8);
+  g.fillStyle = "rgba(255,196,77,.9)"; g.fillText("sorpresa de cruz", X(0.80), Y(-lg(0.20))-8);
+  g.fillStyle = "#ff6b5a"; g.fillText("H(p)", X(0.24), Y(Hb(0.24))-8);
+  // punto actual
+  const h = Hb(p);
+  g.strokeStyle = "rgba(232,234,240,.35)"; g.setLineDash([3,3]);
+  g.beginPath(); g.moveTo(X(p),Y(0)); g.lineTo(X(p),Y(ymax)); g.stroke(); g.setLineDash([]);
+  const dot = (y,col) => { g.fillStyle=col; g.beginPath(); g.arc(X(p),Y(y),6,0,7); g.fill(); };
+  dot(-lg(p), "#4ea1ff"); dot(-lg(1-p), "#ffc44d"); dot(h, "#ff6b5a");
+  if (n>0) dot(sumS/n, "#3ddc84");
+  g.fillStyle = "#e8eaf0"; g.font = "13px ui-sans-serif";
+  g.fillText("H = "+h.toFixed(3), X(p)+10, Y(h)-8);
+  // máximo
+  g.fillStyle = "#9aa3b2"; g.fillText("máximo: 1 bit en p = 0.5", X(0.5)-70, Y(1.3));
+}
+
+function drawTrace(){
+  const c = $("trace"), g = c.getContext("2d"), W = c.width, Hh = c.height;
+  const L = 52, R = 20, T = 12, B = 22, pw = W-L-R, ph = Hh-T-B;
+  g.clearRect(0,0,W,Hh);
+  const h = Hb(p), ymax = Math.max(1.2, h*2, ...hist.slice(-400).map(v=>Math.min(v,6)));
+  const N = Math.max(50, hist.length);
+  const X = i => L + i/N*pw, Y = y => T + ph - Math.min(y,ymax)/ymax*ph;
+  g.strokeStyle = "#2a2f3a"; g.beginPath(); g.moveTo(L,Y(0)); g.lineTo(W-R,Y(0)); g.stroke();
+  g.fillStyle = "#9aa3b2"; g.font = "12px ui-sans-serif";
+  g.fillText("n = "+hist.length, W-R-70, Hh-6); g.fillText("0", L-14, Y(0)+4);
+  g.fillText(ymax.toFixed(1), 8, Y(ymax)+10);
+  g.strokeStyle = "#ff6b5a"; g.setLineDash([6,4]); g.beginPath(); g.moveTo(L,Y(h)); g.lineTo(W-R,Y(h)); g.stroke(); g.setLineDash([]);
+  if (hist.length){
+    g.strokeStyle = "#3ddc84"; g.lineWidth = 2; g.beginPath();
+    const stride = Math.max(1, Math.floor(hist.length/800));
+    for (let i=0;i<hist.length;i+=stride){ i===0?g.moveTo(X(i),Y(hist[i])):g.lineTo(X(i),Y(hist[i])); }
+    g.stroke(); g.lineWidth = 1;
+  }
+}
+
+function draw(){
+  $("pv").textContent = p.toFixed(2);
+  $("H").textContent = Hb(p).toFixed(3) + " bits";
+  $("sc").textContent = (-lg(p)).toFixed(3) + " bits";
+  $("sx").textContent = (-lg(1-p)).toFixed(3) + " bits";
+  $("n").textContent = n.toLocaleString("es-MX");
+  $("cx").textContent = heads + " / " + (n-heads);
+  $("avg").textContent = n ? (sumS/n).toFixed(3) + " bits" : "—";
+  $("last").textContent = lastFlip ? (lastFlip.h ? "cara" : "cruz") + " → sorpresa " + lastFlip.s.toFixed(3) + " bits" : "—";
+  const sc = -lg(p), sx = -lg(1-p);
+  $("calc").innerHTML =
+    `H(p) = p · sorpresa(cara) + (1−p) · sorpresa(cruz)<br>` +
+    `= ${p.toFixed(2)} × ${sc.toFixed(3)} + ${(1-p).toFixed(2)} × ${sx.toFixed(3)}<br>` +
+    `= ${(p*sc).toFixed(3)} + ${((1-p)*sx).toFixed(3)} = <b>${Hb(p).toFixed(3)} bits</b>`;
+  $("flips").innerHTML = seq.map((h,i)=>`<span class="${h?'c':'x'}${i===seq.length-1?' last':''}">${h?'C':'X'}</span>`).join("");
+  drawCurve(); drawTrace();
+}
+
+function loop(){
+  const k = +$("speed").value;
+  for (let i=0;i<k;i++) flip();
+  draw();
+  if (running) raf = requestAnimationFrame(loop);
+}
+$("play").onclick = () => {
+  running = !running;
+  $("play").textContent = running ? "Pausa" : "Reproducir";
+  if (running) loop(); else cancelAnimationFrame(raf);
+};
+$("step").onclick = () => { if (!running) stepOnce(); };
+$("reset").onclick = reset;
+$("p").oninput = e => { p = e.target.value/100; reset(); };
+$("speed").oninput = e => { $("speedv").textContent = e.target.value+"/cuadro"; };
+document.querySelectorAll("button[data-p]").forEach(b => b.onclick = () => {
+  $("p").value = b.dataset.p; p = b.dataset.p/100; reset();
+});
+reset();
+</script>
+</body>
+</html>
