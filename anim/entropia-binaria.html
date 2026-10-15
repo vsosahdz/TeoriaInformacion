@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entropía binaria — sorpresa promedio de una moneda</title>
+<title>Entropía binaria — autoinformación promedio de una moneda</title>
 <style>
   :root {
     --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
@@ -48,10 +48,10 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Entropía binaria — H(p) es la sorpresa <em>promedio</em> de una moneda</h1>
+  <h1>Entropía binaria — H(p) es la autoinformación <em>promedio</em> de una moneda</h1>
   <div class="sub">
-    Una moneda cae cara con probabilidad p y cruz con probabilidad 1−p. Cada resultado trae una sorpresa
-    (−log₂ de su probabilidad). La entropía H(p) es el promedio de esas sorpresas, pesado por qué tan seguido sale cada una.
+    Una moneda cae cara con probabilidad p y cruz con probabilidad 1−p. Cada resultado aporta una autoinformación
+    (−log₂ de su probabilidad; intuitivamente, su «sorpresa»). La entropía H(p) es el promedio de esas autoinformaciones, pesado por qué tan seguido sale cada una.
   </div>
 
   <div class="grid">
@@ -59,8 +59,8 @@
       <canvas id="curve" width="760" height="300"></canvas>
       <div class="legend">
         <span class="chip"><span class="dot" style="background:var(--hot)"></span> H(p) = −p log₂ p − (1−p) log₂(1−p)</span>
-        <span class="chip"><span class="dot" style="background:var(--cold)"></span> sorpresa de cara: −log₂ p</span>
-        <span class="chip"><span class="dot" style="background:var(--warn)"></span> sorpresa de cruz: −log₂(1−p)</span>
+        <span class="chip"><span class="dot" style="background:var(--cold)"></span> autoinformación de cara: −log₂ p</span>
+        <span class="chip"><span class="dot" style="background:var(--warn)"></span> autoinformación de cruz: −log₂(1−p)</span>
         <span class="chip"><span class="dot" style="background:var(--ok)"></span> promedio observado</span>
       </div>
       <canvas id="trace" width="760" height="120" style="margin-top:12px"></canvas>
@@ -68,7 +68,7 @@
       <div class="note" style="margin-top:2px">C = cara, X = cruz (últimos 64 lanzamientos). Las cruces son raras y <b>muy</b>
         sorprendentes; las caras son comunes y casi no informan.</div>
       <div class="note">
-        Abajo: la sorpresa promedio de los n lanzamientos hechos hasta ahora (verde) contra H(p) (rojo punteado).
+        Abajo: la autoinformación promedio de los n lanzamientos hechos hasta ahora (verde) contra H(p) (rojo punteado).
         Con pocos lanzamientos oscila; con muchos se pega a H(p). Esa idea se formaliza en la próxima sesión como
         <b>propiedad asintótica de equipartición</b>.
       </div>
@@ -99,12 +99,12 @@
       </div>
 
       <div class="panel" style="margin-top:12px">
-        <div class="calc-title">Cálculo de H(p)</div>
+        <div class="calc-title">Cálculo de H(p) · I = autoinformación</div>
         <div class="calc" id="calc"></div>
         <table>
-          <tr><td><span class="dot" style="background:var(--cold);display:inline-block"></span> sorpresa de cara = −log₂ p</td><td id="sc">0.152 bits</td></tr>
-          <tr><td><span class="dot" style="background:var(--warn);display:inline-block"></span> sorpresa de cruz = −log₂(1−p)</td><td id="sx">3.322 bits</td></tr>
-          <tr><td><span class="dot" style="background:var(--hot);display:inline-block"></span> H(p) = promedio ponderado</td><td class="big" id="H">0.469</td></tr>
+          <tr><td><span class="dot" style="background:var(--cold);display:inline-block"></span> I(cara) = −log₂ p</td><td id="sc">0.152 bits</td></tr>
+          <tr><td><span class="dot" style="background:var(--warn);display:inline-block"></span> I(cruz) = −log₂(1−p)</td><td id="sx">3.322 bits</td></tr>
+          <tr><td><span class="dot" style="background:var(--hot);display:inline-block"></span> H(p)</td><td class="big" id="H">0.469</td></tr>
         </table>
       </div>
 
@@ -114,7 +114,7 @@
           <tr><td>último lanzamiento</td><td id="last">—</td></tr>
           <tr><td>lanzamientos n</td><td id="n">0</td></tr>
           <tr><td>caras / cruces</td><td id="cx">0 / 0</td></tr>
-          <tr><td><span class="dot" style="background:var(--ok);display:inline-block"></span> sorpresa promedio observada</td><td class="big" id="avg">—</td></tr>
+          <tr><td><span class="dot" style="background:var(--ok);display:inline-block"></span> promedio observado</td><td class="big" id="avg">—</td></tr>
         </table>
       </div>
     </div>
@@ -151,7 +151,7 @@ function drawCurve(){
   for (let y=0; y<=ymax; y++){ g.beginPath(); g.moveTo(L,Y(y)); g.lineTo(W-R,Y(y)); g.stroke(); g.fillText(y+" bit"+(y===1?"":"s"), 6, Y(y)+4); }
   for (let x=0; x<=10; x+=2){ g.fillText((x/10).toFixed(1), X(x/10)-9, Hh-B+18); }
   g.fillText("p = P(cara)", W/2-30, Hh-6);
-  // sorpresas
+  // autoinformación de cada resultado
   const line = (f, col, dash) => { g.strokeStyle = col; g.lineWidth = 2; g.setLineDash(dash||[]); g.beginPath();
     for (let i=1;i<400;i++){ const x=i/400, y=f(x); i===1?g.moveTo(X(x),Y(y)):g.lineTo(X(x),Y(y)); } g.stroke(); g.setLineDash([]); };
   line(x => -lg(x), "rgba(78,161,255,.55)", [5,4]);
@@ -159,8 +159,8 @@ function drawCurve(){
   line(Hb, "#ff6b5a");
   // etiquetas directas sobre las curvas
   g.font = "12px ui-sans-serif";
-  g.fillStyle = "rgba(78,161,255,.9)"; g.fillText("sorpresa de cara", X(0.12), Y(-lg(0.12))-8);
-  g.fillStyle = "rgba(255,196,77,.9)"; g.fillText("sorpresa de cruz", X(0.80), Y(-lg(0.20))-8);
+  g.fillStyle = "rgba(78,161,255,.9)"; g.fillText("autoinformación de cara", X(0.12), Y(-lg(0.12))-8);
+  g.fillStyle = "rgba(255,196,77,.9)"; g.fillText("autoinformación de cruz", X(0.74), Y(-lg(0.20))-8);
   g.fillStyle = "#ff6b5a"; g.fillText("H(p)", X(0.24), Y(Hb(0.24))-8);
   // punto actual
   const h = Hb(p);
@@ -203,10 +203,10 @@ function draw(){
   $("n").textContent = n.toLocaleString("es-MX");
   $("cx").textContent = heads + " / " + (n-heads);
   $("avg").textContent = n ? (sumS/n).toFixed(3) + " bits" : "—";
-  $("last").textContent = lastFlip ? (lastFlip.h ? "cara" : "cruz") + " → sorpresa " + lastFlip.s.toFixed(3) + " bits" : "—";
+  $("last").textContent = lastFlip ? (lastFlip.h ? "cara" : "cruz") + " → I = " + lastFlip.s.toFixed(3) + " bits" : "—";
   const sc = -lg(p), sx = -lg(1-p);
   $("calc").innerHTML =
-    `H(p) = p · sorpresa(cara) + (1−p) · sorpresa(cruz)<br>` +
+    `H(p) = p · I(cara) + (1−p) · I(cruz)<br>` +
     `= ${p.toFixed(2)} × ${sc.toFixed(3)} + ${(1-p).toFixed(2)} × ${sx.toFixed(3)}<br>` +
     `= ${(p*sc).toFixed(3)} + ${((1-p)*sx).toFixed(3)} = <b>${Hb(p).toFixed(3)} bits</b>`;
   $("flips").innerHTML = seq.map((h,i)=>`<span class="${h?'c':'x'}${i===seq.length-1?' last':''}">${h?'C':'X'}</span>`).join("");
