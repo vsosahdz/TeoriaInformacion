@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teoría de la Información</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2; --acc:#4ea1ff; --hot:#ff6b5a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:960px; margin:0 auto; padding:40px 16px 60px; }
+  h1 { font-size:30px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin-bottom:32px; }
+  h2 { font-size:18px; margin:32px 0 12px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.06em; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:12px; }
+  .card h3 { margin:0 0 4px; font-size:19px; }
+  .card p { margin:0 0 12px; color:var(--muted); font-size:14px; }
+  .links { display:flex; flex-wrap:wrap; gap:8px; }
+  a.btn { display:inline-block; padding:7px 14px; border-radius:8px; border:1px solid var(--line);
+    background:#222836; color:var(--ink); text-decoration:none; font-size:14px; }
+  a.btn:hover { background:#2b3244; }
+  a.btn.primary { background:var(--hot); border-color:var(--hot); color:#1a0603; font-weight:600; }
+  .note { color:var(--muted); font-size:13px; margin-top:28px; }
+  .note kbd { background:#222836; border:1px solid var(--line); border-radius:4px; padding:0 5px; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Teoría de la Información</h1>
+  <div class="sub">Prof. Víctor Adrián Sosa Hernández</div>
+
+  <h2>Sesiones</h2>
+
+  <div class="card">
+    <h3>Sesión 1 · Encuadre y entropía</h3>
+    <p>Sorpresa, entropía, entropía conjunta y condicional, regla de la cadena e información mutua.</p>
+    <div class="links">
+      <a class="btn primary" href="sesiones/sesion-01.html">Presentación</a>
+      <a class="btn" href="sesiones/sesion-01-apuntes.html">Apuntes</a>
+      <a class="btn" href="https://colab.research.google.com/github/vsosahdz/TeoriaInformacion/blob/main/practicas/S01-entropia.ipynb" target="_blank" rel="noopener">Práctica en Colab</a>
+    </div>
+  </div>
+
+  <h2>Repaso</h2>
+
+  <div class="card">
+    <h3>Conocimientos previos</h3>
+    <p>Probabilidad, logaritmos, valor esperado, distribuciones conjuntas, convexidad, cadenas de Markov y búsqueda binaria, con ejercicios resueltos.</p>
+    <div class="links">
+      <a class="btn" href="repaso/repaso-prerrequisitos.pdf">Abrir PDF</a>
+    </div>
+  </div>
+
+  <h2>Animaciones</h2>
+
+  <div class="card">
+    <div class="links">
+      <a class="btn" href="anim/entropia-binaria.html">Entropía binaria H(p)</a>
+      <a class="btn" href="anim/diagrama-informacion.html">Diagrama de información</a>
+    </div>
+  </div>
+
+  <div class="note">
+    En las presentaciones: <kbd>→</kbd> avanzar · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> vista general.
+    La práctica se abre en Google Colab; para guardar cambios, usa <em>Archivo → Guardar una copia en Drive</em>.
+  </div>
+</div>
+</body>
+</html>

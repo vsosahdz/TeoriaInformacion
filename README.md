@@ -4,6 +4,8 @@ Prof. Víctor Adrián Sosa Hernández
 
 Material del curso: presentaciones, animaciones interactivas, prácticas en Google Colab y documentos de repaso.
 
+**Sitio del curso: https://vsosahdz.github.io/TeoriaInformacion/** — ahí se abre todo directamente en el navegador.
+
 ## Contenido
 
 | Carpeta | Qué hay |
@@ -15,18 +17,18 @@ Material del curso: presentaciones, animaciones interactivas, prácticas en Goog
 
 ## Cómo usar el material
 
-**Presentaciones.** Descarga el repositorio completo (botón *Code → Download ZIP*) y abre
-`sesiones/sesion-XX.html` en el navegador. Las animaciones se cargan desde la carpeta `anim/`, así que
-la presentación debe abrirse **desde la carpeta descargada**, no como archivo suelto.
+**Presentaciones.** Ábrelas desde el [sitio del curso](https://vsosahdz.github.io/TeoriaInformacion/).
+Sin internet: descarga el repositorio (*Code → Download ZIP*) y abre `sesiones/sesion-XX.html` desde la
+carpeta descargada (las animaciones se cargan de `anim/`).
 Teclas útiles: `→` avanzar, `F` pantalla completa, `Esc` vista general.
 
-**Prácticas.** Entra a [colab.research.google.com](https://colab.research.google.com), elige
-*Archivo → Subir notebook* y selecciona el `.ipynb` de `practicas/`. Ejecuta las celdas en orden.
+**Prácticas.** Usa el enlace "Práctica en Colab" del sitio: abre el notebook directamente en Google Colab.
+Para guardar tu trabajo: *Archivo → Guardar una copia en Drive*.
 
 ## Sesiones
 
 | Sesión | Tema | Presentación | Apuntes | Práctica |
 |---|---|---|---|---|
-| 1 | Encuadre y entropía | [sesion-01.html](sesiones/sesion-01.html) | [sesion-01-apuntes.html](sesiones/sesion-01-apuntes.html) | [S01-entropia.ipynb](practicas/S01-entropia.ipynb) |
+| 1 | Encuadre y entropía | [sesion-01.html](sesiones/sesion-01.html) | [sesion-01-apuntes.html](sesiones/sesion-01-apuntes.html) | [Abrir en Colab](https://colab.research.google.com/github/vsosahdz/TeoriaInformacion/blob/main/practicas/S01-entropia.ipynb) |
 
 **Repaso de conocimientos previos:** [repaso-prerrequisitos.pdf](repaso/repaso-prerrequisitos.pdf)
