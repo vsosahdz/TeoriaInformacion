@@ -1362,7 +1362,7 @@ Prof. Víctor Adrián Sosa Hernández
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Autoinformación: la información de un evento</h1>
+<h1>Contenido de información: cuánto informa un evento</h1>
 
 </section>
 <section class="slide level2 smaller">
@@ -1378,7 +1378,7 @@ Prof. Víctor Adrián Sosa Hernández
 <p>La <strong>B</strong>, claramente. ¿Por qué? Porque era <strong>improbable</strong>.</p>
 </div>
 <div class="fragment">
-<p>Sea <span class="math inline">\(I(p)\)</span> la <strong>cantidad de información</strong> que aporta enterarse de que ocurrió un evento cuya probabilidad era <span class="math inline">\(p\)</span> (su nombre formal es <strong>autoinformación</strong>). Shannon pide que cumpla tres propiedades:</p>
+<p>Sea <span class="math inline">\(I(p)\)</span> la <strong>cantidad de información</strong> que aporta enterarse de que ocurrió un evento cuya probabilidad era <span class="math inline">\(p\)</span> (su nombre formal es <strong>contenido de información</strong>). Shannon pide que cumpla tres propiedades:</p>
 <ol type="1">
 <li><span class="math inline">\(I(p)\)</span> <strong>disminuye</strong> cuando <span class="math inline">\(p\)</span> aumenta — lo improbable informa más.</li>
 <li><span class="math inline">\(I(1) = 0\)</span> — enterarse de algo seguro no informa nada.</li>
@@ -1387,8 +1387,8 @@ Prof. Víctor Adrián Sosa Hernández
 </div>
 </section>
 <section class="slide level2 smaller dos-tablas">
-<h2>Definición: autoinformación (<em>self-information</em>)</h2>
-<p>La única función continua que cumple las tres propiedades es:</p>
+<h2>Definición: contenido de información</h2>
+<p>La única función continua que cumple las tres propiedades (<em>Shannon information content</em>):</p>
 <p><span id="eq-sorpresa"><span class="math display">\[
 I(p) = -\log_2 p \quad \text{bits}
 \tag{1}\]</span></span></p>
@@ -1409,11 +1409,11 @@ I(p) = -\log_2 p \quad \text{bits}
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(p\)</span></td>
-<td>probabilidad del evento, un número entre 0 y 1</td>
+<td>probabilidad del evento (entre 0 y 1)</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(I(p)\)</span></td>
-<td><strong>autoinformación</strong>: información que aporta saber que el evento ocurrió. También se le llama <strong>sorpresa</strong> (<em>surprisal</em>): mide qué tan inesperado era el evento según su probabilidad</td>
+<td><strong>contenido de información</strong>: lo que aporta saber que el evento ocurrió. Otros nombres: <em>autoinformación</em> y <em>sorpresa</em></td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\log_2\)</span></td>
@@ -1421,7 +1421,7 @@ I(p) = -\log_2 p \quad \text{bits}
 </tr>
 <tr class="even">
 <td>signo <span class="math inline">\(-\)</span></td>
-<td>como <span class="math inline">\(p \le 1\)</span>, <span class="math inline">\(\log_2 p \le 0\)</span>; el signo menos la vuelve positiva</td>
+<td><span class="math inline">\(\log_2 p \le 0\)</span> porque <span class="math inline">\(p \le 1\)</span>; el menos lo vuelve positivo</td>
 </tr>
 </tbody>
 </table>
@@ -1468,12 +1468,12 @@ I(p) = -\log_2 p \quad \text{bits}
 </tr>
 </tbody>
 </table>
-<p>Cada vez que <span class="math inline">\(p\)</span> se divide entre 2, la autoinformación sube <strong>1 bit</strong>.</p>
+<p>Cada vez que <span class="math inline">\(p\)</span> se divide entre 2, el contenido de información sube <strong>1 bit</strong>.</p>
 </div></div>
 </section>
 <section class="slide level2 smaller">
 <h2>¿Qué significa un número de bits?</h2>
-<p>Toda autoinformación en bits se puede leer de dos maneras equivalentes.</p>
+<p>Todo contenido de información en bits se puede leer de dos maneras equivalentes.</p>
 <p><strong>Lectura 1 — monedas.</strong> Despejando <span class="math inline">\(p\)</span> de la ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>:</p>
 <p><span id="eq-monedas"><span class="math display">\[
 I(p) = k \text{ bits} \quad\Longleftrightarrow\quad p = \left(\tfrac12\right)^{k}
@@ -1492,7 +1492,7 @@ I(p) = k \text{ bits} \quad\Longleftrightarrow\quad p = \left(\tfrac12\right)^{k
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(k\)</span></td>
-<td>número de bits de autoinformación</td>
+<td>número de bits de contenido de información</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\left(\tfrac12\right)^k\)</span></td>
@@ -1592,24 +1592,24 @@ I\!\left(\tfrac1N\right) = \log_2 N
 </div>
 </section>
 <section class="slide level2" data-background-iframe="../anim/bits-monedas-preguntas.html" data-background-interactive="true">
-<h2>Dos lecturas de la autoinformación</h2>
+<h2>Dos lecturas del contenido de información</h2>
 </section>
 <section class="slide level2 smaller">
 <h2>Paso a paso: una carta de la baraja</h2>
-<p>Sacas una carta al azar de una baraja de 52. Te dicen cuál es <strong>de golpe</strong>, o <strong>en dos partes</strong>. En todos los casos se usa la autoinformación (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>):</p>
+<p>Sacas una carta al azar de una baraja de 52. Te dicen cuál es <strong>de golpe</strong>, o <strong>en dos partes</strong>. En todos los casos se usa el contenido de información (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>):</p>
 <div class="fragment">
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>De golpe:</strong> “es el 7 de corazones”</p>
 <ul>
 <li>probabilidad: <span class="math inline">\(p = \tfrac{1}{52}\)</span></li>
-<li>autoinformación: <span class="math inline">\(I = -\log_2 \tfrac{1}{52} = \log_2 52 \approx 5.70\)</span> bits</li>
+<li>contenido de información: <span class="math inline">\(I = -\log_2 \tfrac{1}{52} = \log_2 52 \approx 5.70\)</span> bits</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>En dos partes:</strong></p>
 <ol type="1">
-<li>“es de corazones”: <span class="math inline">\(p = \tfrac14\)</span>, autoinformación <span class="math inline">\(= -\log_2 \tfrac14 = 2\)</span> bits</li>
-<li>“es un 7”, <strong>sabiendo</strong> que es corazón: <span class="math inline">\(p = \tfrac1{13}\)</span>, autoinformación <span class="math inline">\(= -\log_2 \tfrac1{13} \approx 3.70\)</span> bits</li>
+<li>“es de corazones”: <span class="math inline">\(p = \tfrac14\)</span>, contenido de información <span class="math inline">\(= -\log_2 \tfrac14 = 2\)</span> bits</li>
+<li>“es un 7”, <strong>sabiendo</strong> que es corazón: <span class="math inline">\(p = \tfrac1{13}\)</span>, contenido de información <span class="math inline">\(= -\log_2 \tfrac1{13} \approx 3.70\)</span> bits</li>
 </ol>
 <p>Total: <span class="math inline">\(2 + 3.70 = 5.70\)</span> bits <span class="math inline">\(\checkmark\)</span></p>
 </div></div>
@@ -1625,8 +1625,8 @@ I\!\left(\tfrac1N\right) = \log_2 N
 </div>
 </section>
 <section class="slide level2 smaller">
-<h2>Entropía: la autoinformación promedio</h2>
-<p>Una fuente (un dado, un texto, un LLM…) produce símbolos al azar, y cada símbolo aporta su propia autoinformación. La <strong>entropía</strong> es el <strong>promedio</strong> de esas autoinformaciones, ponderado por qué tan seguido sale cada símbolo:</p>
+<h2>Entropía: el contenido de información promedio</h2>
+<p>Una fuente (un dado, un texto, un LLM…) produce símbolos al azar, y cada símbolo aporta su propio contenido de información. La <strong>entropía</strong> es el <strong>promedio</strong> de esos contenidos de información, ponderado por qué tan seguido sale cada símbolo:</p>
 <p><span id="eq-entropia"><span class="math display">\[
 H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 \tag{4}\]</span></span></p>
@@ -1656,11 +1656,11 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 </tr>
 <tr class="even">
 <td><span class="math inline">\(-\log_2 p(x)\)</span></td>
-<td>autoinformación de ver el valor <span class="math inline">\(x\)</span> (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>)</td>
+<td>contenido de información de ver el valor <span class="math inline">\(x\)</span> (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>)</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\sum_x p(x)\,(\cdots)\)</span></td>
-<td>promedio ponderado por las probabilidades, es decir, el <strong>valor esperado</strong> <span class="math inline">\(E[\cdots]\)</span>. Por eso la entropía es la autoinformación <strong>esperada</strong>; en lenguaje intuitivo, la “sorpresa promedio” (<em>expected surprisal</em>). “Esperada” significa <strong>promedio</strong>, no lo que se espera sentir</td>
+<td>promedio ponderado por las probabilidades, es decir, el <strong>valor esperado</strong> <span class="math inline">\(E[\cdots]\)</span>. Por eso la entropía es el contenido de información <strong>esperado</strong>; en lenguaje intuitivo, la “sorpresa promedio” (<em>expected surprisal</em>). “Esperada” significa <strong>promedio</strong>, no lo que se espera sentir</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(H(X)\)</span></td>
@@ -1673,10 +1673,10 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 <h2>Paso a paso: entropía de una moneda cargada</h2>
 <p>Una moneda cae <strong>cara</strong> con probabilidad <span class="math inline">\(0.9\)</span> y <strong>cruz</strong> con probabilidad <span class="math inline">\(0.1\)</span>. Aplicando la ec. <a href="#/eq-entropia" class="quarto-xref">4</a>:</p>
 <div class="fragment">
-<p><strong>1.</strong> Autoinformación de cara: <span class="math inline">\(-\log_2 0.9 = 0.152\)</span> bits — casi no sorprende.</p>
+<p><strong>1.</strong> Contenido de información de cara: <span class="math inline">\(-\log_2 0.9 = 0.152\)</span> bits — casi no sorprende.</p>
 </div>
 <div class="fragment">
-<p><strong>2.</strong> Autoinformación de cruz: <span class="math inline">\(-\log_2 0.1 = 3.322\)</span> bits — sorprende mucho.</p>
+<p><strong>2.</strong> Contenido de información de cruz: <span class="math inline">\(-\log_2 0.1 = 3.322\)</span> bits — sorprende mucho.</p>
 </div>
 <div class="fragment">
 <p><strong>3.</strong> Promedio ponderado: <span class="math inline">\(\ 0.9 \times 0.152 \;+\; 0.1 \times 3.322 \;=\; 0.137 + 0.332 \;=\; \mathbf{0.469}\)</span> bits.</p>
@@ -1729,10 +1729,10 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 <h2>Paso a paso: un boleto de lotería</h2>
 <p>Se compra <strong>un</strong> boleto de una rifa de 1000. Hay dos resultados posibles: <strong>ganar</strong> (<span class="math inline">\(p = 0.001\)</span>) o <strong>perder</strong> (<span class="math inline">\(p = 0.999\)</span>).</p>
 <div class="fragment">
-<p><strong>1.</strong> Autoinformación de ganar (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>): <span class="math inline">\(-\log_2 0.001 = 9.97\)</span> bits — una sorpresa enorme.</p>
+<p><strong>1.</strong> Contenido de información de ganar (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>): <span class="math inline">\(-\log_2 0.001 = 9.97\)</span> bits — una sorpresa enorme.</p>
 </div>
 <div class="fragment">
-<p><strong>2.</strong> Autoinformación de perder: <span class="math inline">\(-\log_2 0.999 = 0.0014\)</span> bits — prácticamente ninguna.</p>
+<p><strong>2.</strong> Contenido de información de perder: <span class="math inline">\(-\log_2 0.999 = 0.0014\)</span> bits — prácticamente ninguna.</p>
 </div>
 <div class="fragment">
 <p><strong>3.</strong> Entropía del boleto (ec. <a href="#/eq-entropia" class="quarto-xref">4</a>): <span class="math inline">\(\ 0.001 \times 9.97 \;+\; 0.999 \times 0.0014 \;=\; 0.0100 + 0.0014 \;=\; \mathbf{0.011}\)</span> bits.</p>
@@ -1747,7 +1747,7 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 <thead>
 <tr class="header">
 <th></th>
-<th>Autoinformación</th>
+<th>Contenido de información</th>
 <th>Entropía</th>
 </tr>
 </thead>
@@ -1802,11 +1802,11 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 </tr>
 <tr class="even">
 <td><span class="math inline">\(-p\,\log_2 p\)</span></td>
-<td>probabilidad de cara × autoinformación de cara</td>
+<td>probabilidad de cara × contenido de información de cara</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(-(1-p)\,\log_2(1-p)\)</span></td>
-<td>probabilidad de cruz × autoinformación de cruz</td>
+<td>probabilidad de cruz × contenido de información de cruz</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(H(p)\)</span></td>
@@ -1818,9 +1818,9 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 <p><strong>Qué muestra la animación siguiente:</strong></p>
 <ol type="1">
 <li><strong>Curva roja:</strong> <span class="math inline">\(H(p)\)</span> para cada <span class="math inline">\(p\)</span> entre 0 y 1. Su máximo es 1 bit, en <span class="math inline">\(p = 0.5\)</span>.</li>
-<li><strong>Punto azul y punto amarillo:</strong> la autoinformación de cara y la de cruz para el <span class="math inline">\(p\)</span> elegido.</li>
+<li><strong>Punto azul y punto amarillo:</strong> el contenido de información de cara y el de cruz para el <span class="math inline">\(p\)</span> elegido.</li>
 <li><strong>Punto rojo:</strong> su promedio ponderado, que es <span class="math inline">\(H(p)\)</span>. El recuadro “Cálculo” lo hace con números.</li>
-<li><strong>Gráfica de abajo:</strong> al lanzar la moneda muchas veces, el promedio de las autoinformaciones observadas (verde) se acerca a <span class="math inline">\(H(p)\)</span>.</li>
+<li><strong>Gráfica de abajo:</strong> al lanzar la moneda muchas veces, el promedio de los contenidos de información observados (verde) se acerca a <span class="math inline">\(H(p)\)</span>.</li>
 </ol>
 </div>
 </section>
@@ -1829,7 +1829,7 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 </section>
 <section class="slide level2 smaller">
 <h2>Interpretación: preguntas de sí/no</h2>
-<p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus autoinformaciones (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#/eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
+<p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus contenidos de información (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#/eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
 <div class="fragment">
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1928,7 +1928,7 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(-\log_2 p(x,y)\)</span></td>
-<td>autoinformación de ver la pareja <span class="math inline">\((x, y)\)</span> (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>)</td>
+<td>contenido de información de ver la pareja <span class="math inline">\((x, y)\)</span> (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>)</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\sum_x\sum_y\)</span></td>
@@ -1936,7 +1936,7 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(H(X,Y)\)</span></td>
-<td><strong>entropía conjunta</strong>: autoinformación promedio de observar el par completo</td>
+<td><strong>entropía conjunta</strong>: contenido de información promedio de observar el par completo</td>
 </tr>
 </tbody>
 </table>
@@ -2183,7 +2183,7 @@ I(X; Y) = H(X) - H(X \mid Y)
 <tbody>
 <tr class="odd">
 <td><a href="#/eq-sorpresa" class="quarto-xref">1</a></td>
-<td>Autoinformación (sorpresa)</td>
+<td>Contenido de información (sorpresa)</td>
 <td><span class="math inline">\(I(p) = -\log_2 p\)</span></td>
 <td>lo improbable informa más</td>
 </tr>
@@ -2203,7 +2203,7 @@ I(X; Y) = H(X) - H(X \mid Y)
 <td><a href="#/eq-entropia" class="quarto-xref">4</a></td>
 <td>Entropía</td>
 <td><span class="math inline">\(H(X) = -\sum_x p(x) \log_2 p(x)\)</span></td>
-<td>autoinformación promedio = bits por símbolo</td>
+<td>contenido de información promedio = bits por símbolo</td>
 </tr>
 <tr class="odd">
 <td><a href="#/eq-binaria" class="quarto-xref">5</a></td>
