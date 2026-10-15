@@ -533,6 +533,17 @@ z-index: 50;
 .reveal section[data-background-iframe] ~ .slide-number {
 right: 12px;
 }
+
+.reveal .dos-tablas .columns > .column {
+box-sizing: border-box;
+}
+.reveal .dos-tablas .columns > .column:first-child {
+border-right: 2px solid #5b6577;
+padding-right: 28px;
+}
+.reveal .dos-tablas .columns > .column + .column {
+padding-left: 28px;
+}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1375,7 +1386,7 @@ Prof. Víctor Adrián Sosa Hernández
 </ol>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 smaller dos-tablas">
 <h2>Definición: sorpresa (<em>surprisal</em>)</h2>
 <p>La única función continua que cumple las tres propiedades es:</p>
 <p><span id="eq-sorpresa"><span class="math display">\[
@@ -1383,6 +1394,7 @@ I(p) = -\log_2 p \quad \text{bits}
 \tag{1}\]</span></span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
+<p><strong>Cada parte de la fórmula</strong></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 22%">
@@ -1414,6 +1426,7 @@ I(p) = -\log_2 p \quad \text{bits}
 </tbody>
 </table>
 </div><div class="column" style="width:50%;">
+<p><strong>Ejemplos</strong></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 56%">
