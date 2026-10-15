@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Qué significa un número de bits?</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:14px 20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:12px; }
+  .bar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:12px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .panel h2 { font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 8px; font-weight:600; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:6px 12px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover{ background:#2b3244; }
+  button.on { background:var(--cold); color:#03101f; border-color:var(--cold); font-weight:600; }
+  button.primary{ background:var(--hot); color:#1a0603; border-color:var(--hot); font-weight:600; }
+  input[type=range]{ accent-color:var(--cold); width:160px; }
+  .big { font-size:22px; font-variant-numeric:tabular-nums; }
+  .facts { display:flex; gap:22px; flex-wrap:wrap; margin:0 0 4px; font-variant-numeric:tabular-nums; }
+  .facts div span { display:block; color:var(--muted); font-size:12px; }
+  .msg { min-height:44px; font-size:14px; margin-top:8px; line-height:1.5; }
+  .msg b { color:var(--warn); }
+  .log { font-size:13px; color:var(--muted); max-height:96px; overflow:auto; margin-top:6px; font-variant-numeric:tabular-nums; }
+  .row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .note { color:var(--muted); font-size:12px; margin-top:10px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>¿Qué significa un número de bits? — dos lecturas de la sorpresa</h1>
+  <div class="sub">
+    Para un evento con probabilidad p = 1/N (una opción entre N igual de probables), la sorpresa es I(p) = log₂ N bits.
+    Elige un evento y observa las dos lecturas.
+  </div>
+
+  <div class="bar" id="presets"></div>
+
+  <div class="panel" style="margin-bottom:12px">
+    <div class="facts">
+      <div><span>evento</span><b id="fEvent"></b></div>
+      <div><span>opciones igual de probables N</span><b class="big" id="fN"></b></div>
+      <div><span>probabilidad p = 1/N</span><b class="big" id="fP"></b></div>
+      <div><span>sorpresa I(p) = log₂ N</span><b class="big" id="fI" style="color:var(--hot)"></b></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="display:inline">N libre:</span>
+        <input id="nSlider" type="range" min="2" max="1024" value="52"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Lectura 1 · ¿a cuántas monedas equivale?</h2>
+      <canvas id="coins" width="540" height="250"></canvas>
+      <div class="msg" id="coinMsg"></div>
+      <div class="row">
+        <button id="flip" class="primary">Lanzar monedas</button>
+      </div>
+      <div class="note">Si I(p) = k bits, el evento es tan improbable como que <b>k monedas justas caigan todas cara</b>:
+        p = (½)<sup>k</sup>. La moneda parcial representa la parte fraccionaria de k.</div>
+    </div>
+
+    <div class="panel">
+      <h2>Lectura 2 · ¿cuántas preguntas de sí/no?</h2>
+      <canvas id="opts" width="540" height="250"></canvas>
+      <div class="msg" id="qMsg"></div>
+      <div class="row">
+        <button id="ask" class="primary">Hacer una pregunta</button>
+        <button id="solve">Resolver todo</button>
+        <button id="again">Nueva opción oculta</button>
+      </div>
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const lg = Math.log2;
+const PALOS = ["♠","♥","♦","♣"], VAL = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+const PRESETS = [
+  { name:"una moneda cae cara", N:2, labels:["C","X"] },
+  { name:"dos monedas caen cara", N:4, labels:["CC","CX","XC","XX"] },
+  { name:"un dado cae 6", N:6, labels:["1","2","3","4","5","6"] },
+  { name:"se adivina una carta", N:52, labels:PALOS.flatMap(s => VAL.map(v => v+s)) },
+  { name:"gana un boleto entre 1000", N:1000, labels:null },
+];
+let ev = PRESETS[3], target = 0, lo = 0, hi = 52, asked = 0, history = [];
+let coinState = { t: -1, raf: null };
+
+function setEvent(e){
+  ev = e; $("nSlider").value = e.N;
+  document.querySelectorAll("#presets button").forEach(b => b.classList.toggle("on", b.textContent === e.name));
+  coinState.t = -1; cancelAnimationFrame(coinState.raf);
+  newTarget();
+}
+function newTarget(){
+  target = Math.floor(Math.random() * ev.N); lo = 0; hi = ev.N; asked = 0; history = [];
+  render();
+}
+function label(i){ return ev.labels ? ev.labels[i] : String(i+1); }
+
+function render(){
+  const N = ev.N, I = lg(N);
+  $("fEvent").textContent = ev.name;
+  $("fN").textContent = N;
+  $("fP").textContent = N <= 64 ? `1/${N}` : (1/N).toFixed(4);
+  $("fI").textContent = I.toFixed(2) + " bits";
+  drawCoins(); drawOpts();
+  const k = I, kInt = Math.floor(k + 1e-9), frac = k - kInt;
+  $("coinMsg").innerHTML = frac < 1e-6
+    ? `I(p) = <b>${kInt} bits</b>: tan improbable como <b>${kInt}</b> moneda${kInt===1?"":"s"} seguida${kInt===1?"":"s"} en cara, (½)<sup>${kInt}</sup> = 1/${2**kInt}.`
+    : `I(p) = <b>${k.toFixed(2)} bits</b>: entre <b>${kInt}</b> y <b>${kInt+1}</b> monedas seguidas en cara — (½)<sup>${kInt}</sup> = 1/${2**kInt} es más probable que el evento y (½)<sup>${kInt+1}</sup> = 1/${2**(kInt+1)} es menos probable.`;
+  const worst = Math.ceil(I - 1e-9);
+  if (hi - lo === 1) {
+    $("qMsg").innerHTML = `Encontrada: <b>${label(lo)}</b> con <b>${asked}</b> pregunta${asked===1?"":"s"}. ` +
+      (Number.isInteger(+I.toFixed(6)) ? `Con N = ${N} siempre bastan exactamente ${worst}: justo I(p).`
+       : `Con N = ${N} a veces bastan ${worst-1} y a veces ${worst}; I(p) = ${I.toFixed(2)} es el promedio ideal si se adivinan muchas a la vez.`);
+  } else {
+    $("qMsg").innerHTML = `Quedan <b>${hi-lo}</b> candidatas. Cada pregunta descarta la mitad. Preguntas hechas: <b>${asked}</b> · en el peor caso hacen falta ⌈log₂ ${N}⌉ = <b>${worst}</b>.`;
+  }
+  $("log").innerHTML = history.map((h,i) => `${i+1}. ${h}`).join("<br>");
+}
+
+function ask(){
+  if (hi - lo <= 1) return;
+  const mid = lo + Math.ceil((hi - lo) / 2);
+  const yes = target < mid;
+  const desc = (mid - lo === 1) ? `¿es ${label(lo)}?` : `¿está entre ${label(lo)} y ${label(mid-1)}?`;
+  history.push(`${desc} → <b style="color:${yes?'var(--ok)':'var(--hot)'}">${yes?"sí":"no"}</b>`);
+  if (yes) hi = mid; else lo = mid;
+  asked++; render();
+}
+
+function drawOpts(){
+  const c = $("opts"), g = c.getContext("2d"), W = c.width, H = c.height, N = ev.N;
+  g.clearRect(0,0,W,H);
+  const cols = Math.ceil(Math.sqrt(N * W / H)), rows = Math.ceil(N / cols);
+  const cw = (W - 8) / cols, ch = (H - 8) / rows, pad = Math.min(cw, ch) > 14 ? 2 : 0.5;
+  g.textAlign = "center"; g.textBaseline = "middle";
+  for (let i = 0; i < N; i++){
+    const x = 4 + (i % cols) * cw, y = 4 + Math.floor(i / cols) * ch;
+    const alive = i >= lo && i < hi, found = alive && hi - lo === 1;
+    g.fillStyle = found ? "#3ddc84" : alive ? "#2b4a73" : "#1a1d24";
+    g.fillRect(x + pad, y + pad, cw - 2*pad, ch - 2*pad);
+    if (ev.labels && cw > 22 && ch > 16){
+      const s = ev.labels[i];
+      g.fillStyle = alive ? (/[♥♦]/.test(s) ? "#ff8a7a" : "#e8eaf0") : "#3a404c";
+      g.font = `${Math.min(15, ch*0.45)}px ui-sans-serif`;
+      g.fillText(s, x + cw/2, y + ch/2);
+    }
+  }
+}
+
+function drawCoins(){
+  const c = $("coins"), g = c.getContext("2d"), W = c.width, H = c.height;
+  g.clearRect(0,0,W,H);
+  const k = lg(ev.N), n = Math.ceil(k - 1e-9), kInt = Math.floor(k + 1e-9), frac = k - kInt;
+  const perRow = Math.min(n, 6), rows = Math.ceil(n / perRow);
+  const r = Math.min(34, (W - 20) / perRow / 2 - 8, (H - 30) / rows / 2 - 10);
+  const t = coinState.t;
+  for (let i = 0; i < n; i++){
+    const col = i % perRow, row = Math.floor(i / perRow);
+    const cx = W/2 + (col - (perRow-1)/2) * (2*r + 16), cy = 20 + r + row * (2*r + 26);
+    const partial = (i === n - 1 && frac > 1e-6);
+    // animación: cada moneda gira y aterriza en "cara" en orden
+    let sx = 1, shown = t < 0 ? "C" : "?";
+    if (t >= 0){
+      const local = t - i * 0.35;
+      if (local < 0) { shown = "?"; sx = 1; }
+      else if (local < 0.6) { sx = Math.abs(Math.cos(local * Math.PI * 4)); shown = "?"; }
+      else { shown = "C"; sx = 1; }
+    }
+    g.save(); g.translate(cx, cy); g.scale(Math.max(sx, 0.05), 1);
+    g.beginPath(); g.arc(0, 0, r, 0, 2*Math.PI);
+    g.fillStyle = "#1c2433"; g.fill();
+    if (shown === "C"){
+      g.save(); g.beginPath(); g.arc(0, 0, r, 0, 2*Math.PI); g.clip();
+      g.fillStyle = "#4ea1ff";
+      const fill = partial ? frac : 1;
+      g.fillRect(-r, r - 2*r*fill, 2*r, 2*r*fill);
+      g.restore();
+    }
+    g.lineWidth = 2; g.strokeStyle = partial ? "#ffc44d" : "#4ea1ff"; g.setLineDash(partial ? [5,4] : []);
+    g.beginPath(); g.arc(0, 0, r, 0, 2*Math.PI); g.stroke(); g.setLineDash([]);
+    g.fillStyle = "#0a0c10"; g.font = `bold ${Math.round(r*0.8)}px ui-sans-serif`;
+    g.textAlign = "center"; g.textBaseline = "middle";
+    if (shown === "C" && !partial) g.fillText("C", 0, 1);
+    if (shown === "?") { g.fillStyle = "#9aa3b2"; g.fillText("?", 0, 1); }
+    g.restore();
+    if (partial && shown === "C"){
+      g.fillStyle = "#ffc44d"; g.font = "12px ui-sans-serif"; g.textAlign = "center";
+      g.fillText(frac.toFixed(2) + " de moneda", cx, cy + r + 12);
+    }
+  }
+}
+
+function flip(){
+  cancelAnimationFrame(coinState.raf);
+  const n = Math.ceil(lg(ev.N) - 1e-9), start = performance.now(), dur = (n * 0.35 + 0.7) * 1000;
+  const loop = now => {
+    coinState.t = (now - start) / 1000;
+    drawCoins();
+    if (now - start < dur) coinState.raf = requestAnimationFrame(loop);
+    else { coinState.t = -1; drawCoins(); }
+  };
+  coinState.raf = requestAnimationFrame(loop);
+}
+
+PRESETS.forEach(p => {
+  const b = document.createElement("button"); b.textContent = p.name;
+  b.onclick = () => setEvent(p); $("presets").appendChild(b);
+});
+$("nSlider").oninput = e => {
+  const N = +e.target.value;
+  const match = PRESETS.find(p => p.N === N);
+  setEvent(match || { name:`una opción entre ${N}`, N, labels:null });
+};
+$("ask").onclick = ask;
+$("solve").onclick = () => { while (hi - lo > 1) ask(); };
+$("again").onclick = newTarget;
+$("flip").onclick = flip;
+setEvent(PRESETS[3]);
+</script>
+</body>
+</html>
