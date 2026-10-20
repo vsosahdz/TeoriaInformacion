@@ -1472,6 +1472,62 @@ I(p) = -\log_2 p \quad \text{bits}
 </div></div>
 </section>
 <section class="slide level2 smaller">
+<h2>¿Por qué monedas y preguntas de sí/no?</h2>
+<p>Con logaritmo base 2, la unidad quedó fijada así: <span class="math inline">\(I(1/2) = 1\)</span> bit. Es decir, <strong>un bit es la información de una elección entre dos opciones igual de probables</strong>. Las monedas y las preguntas de sí/no son justo eso:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 34%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Moneda justa</th>
+<th>Pregunta de sí/no</th>
+<th>Dígito de un archivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dos opciones</td>
+<td>cara / cruz</td>
+<td>sí / no</td>
+<td>0 / 1</td>
+</tr>
+<tr class="even">
+<td>¿Igual de probables?</td>
+<td>sí, ½ cada una</td>
+<td>sí, <strong>si la pregunta parte la probabilidad a la mitad</strong></td>
+<td>sí, en un buen código</td>
+</tr>
+<tr class="odd">
+<td>Información de una</td>
+<td>1 bit</td>
+<td>1 bit</td>
+<td>1 bit</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span> de ellas miden…</td>
+<td>qué tan <strong>improbable</strong> es un evento</td>
+<td>cuánto cuesta <strong>descubrirlo</strong></td>
+<td>cuánto <strong>espacio</strong> ocupa escribirlo</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Por eso un número de bits se puede leer de tres maneras: en <strong>monedas</strong> (el azar lo produce con <span class="math inline">\(k\)</span> elecciones binarias), en <strong>preguntas</strong> (se descubre con <span class="math inline">\(k\)</span> elecciones binarias) y en <strong>dígitos 0/1</strong> (se escribe con <span class="math inline">\(k\)</span> dígitos binarios). Las dos primeras están en la lámina siguiente; la tercera es la compresión, en la Unidad II.</p>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Una pregunta sólo vale 1 bit si sus dos respuestas son igual de probables. “¿Mañana sale el sol?” casi no informa: la respuesta ya se sabía.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
 <h2>¿Qué significa un número de bits?</h2>
 <p>Todo contenido de información en bits se puede leer de dos maneras equivalentes.</p>
 <p><strong>Lectura 1 — monedas.</strong> Despejando <span class="math inline">\(p\)</span> de la ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>:</p>
