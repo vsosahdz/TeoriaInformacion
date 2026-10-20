@@ -1367,24 +1367,137 @@ Prof. Víctor Adrián Sosa Hernández
 </section>
 <section class="slide level2 smaller">
 <h2>¿Qué noticia trae más información?</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>A.</strong> “Mañana sale el sol en Mexicali.”</p>
-<p><strong>B.</strong> “Mañana nieva en Mérida.”</p>
-</div><div class="column" style="width:50%;">
-
-</div></div>
+<p>En cada par, ¿cuál de las dos noticias informa <strong>más</strong>?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 46%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Par</th>
+<th>Noticia A</th>
+<th>Noticia B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>“Mañana sale el sol en Mexicali.”</td>
+<td>“Mañana nieva en Mérida.”</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>“El dado cayó en un número menor que 7.”</td>
+<td>“El dado cayó en 6.”</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>“Una moneda justa cayó cara.”</td>
+<td>“Diez monedas justas cayeron cara.”</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>“El boleto de la rifa de 1000 no ganó.”</td>
+<td>“El boleto de la rifa de 1000 ganó.”</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>“Llovió en Villahermosa en septiembre.”</td>
+<td>“Llovió en Mexicali en septiembre.”</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>“La moneda justa cayó cara.”</td>
+<td>“La moneda justa cayó cruz.”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level2 smaller">
+<h2>Las respuestas</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 14%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Par</th>
+<th>Informa más</th>
+<th>Probabilidad de A</th>
+<th>Probabilidad de B</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>B</strong></td>
+<td>casi 1</td>
+<td>casi 0</td>
+<td>en Mérida casi nunca nieva</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>B</strong></td>
+<td>1 (siempre pasa)</td>
+<td>1/6</td>
+<td>A no dice nada nuevo: ya se sabía</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>B</strong></td>
+<td>1/2</td>
+<td><span class="math inline">\((1/2)^{10} = 1/1024\)</span></td>
+<td>diez caras seguidas es mucho más raro</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>B</strong></td>
+<td>0.999</td>
+<td>0.001</td>
+<td>perder era lo esperado</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>B</strong></td>
+<td>alta (temporada de lluvias)</td>
+<td>baja (desierto)</td>
+<td>mismo hecho, distinto contexto</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>empate</strong></td>
+<td>1/2</td>
+<td>1/2</td>
+<td>las dos eran igual de probables</td>
+</tr>
+</tbody>
+</table>
 <div class="fragment">
-<p>La <strong>B</strong>, claramente. ¿Por qué? Porque era <strong>improbable</strong>.</p>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>En todos los pares gana la noticia <strong>menos probable</strong>. La información no depende de qué tan importante o interesante sea la noticia, sino de <strong>qué tan inesperada era</strong>: el par 5 es el mismo hecho con distinta probabilidad, y en el par 6 empatan porque las dos tenían probabilidad ½.</p>
 </div>
-<div class="fragment">
-<p>Sea <span class="math inline">\(I(p)\)</span> la <strong>cantidad de información</strong> que aporta enterarse de que ocurrió un evento cuya probabilidad era <span class="math inline">\(p\)</span> (su nombre formal es <strong>contenido de información</strong>). Shannon pide que cumpla tres propiedades:</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tres propiedades que debe cumplir <span class="math inline">\(I(p)\)</span></h2>
+<p>Sea <span class="math inline">\(I(p)\)</span> la <strong>cantidad de información</strong> que aporta enterarse de que ocurrió un evento cuya probabilidad era <span class="math inline">\(p\)</span> (su nombre formal es <strong>contenido de información</strong>). Los pares anteriores sugieren tres propiedades, y Shannon pide que se cumplan:</p>
 <ol type="1">
-<li><span class="math inline">\(I(p)\)</span> <strong>disminuye</strong> cuando <span class="math inline">\(p\)</span> aumenta — lo improbable informa más.</li>
-<li><span class="math inline">\(I(1) = 0\)</span> — enterarse de algo seguro no informa nada.</li>
-<li><span class="math inline">\(I(p\,q) = I(p) + I(q)\)</span> — si dos eventos son <strong>independientes</strong> (probabilidad conjunta <span class="math inline">\(p\,q\)</span>), la información de ambos se suma.</li>
+<li><span class="math inline">\(I(p)\)</span> <strong>disminuye</strong> cuando <span class="math inline">\(p\)</span> aumenta — lo improbable informa más (pares 1, 4 y 5).</li>
+<li><span class="math inline">\(I(1) = 0\)</span> — enterarse de algo seguro no informa nada (par 2, noticia A).</li>
+<li><span class="math inline">\(I(p\,q) = I(p) + I(q)\)</span> — si dos eventos son <strong>independientes</strong> (probabilidad conjunta <span class="math inline">\(p\,q\)</span>), la información de ambos se suma (par 3: diez monedas informan diez veces lo que una).</li>
 </ol>
-</div>
+<p>Y si dos eventos tienen la misma probabilidad, informan lo mismo (par 6).</p>
 </section>
 <section class="slide level2 smaller dos-tablas">
 <h2>Definición: contenido de información</h2>
