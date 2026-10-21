@@ -1948,6 +1948,63 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 </div>
 </section>
 <section class="slide level2 smaller">
+<h2>Una analogía: ¿cuánto se aprende cada día?</h2>
+<p>Cada mañana se consulta el pronóstico. <strong>Antes</strong> no se sabe qué tiempo hará; <strong>después</strong>, sí. Lo que se aprende ese día es el contenido de información de lo que salió (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>); lo que se aprende <strong>en promedio por día</strong> es la entropía (ec. <a href="#/eq-entropia" class="quarto-xref">4</a>).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ciudad</th>
+<th>Clima</th>
+<th>Se aprende en un día típico</th>
+<th>Se aprende en un día raro</th>
+<th>Se aprende en promedio por día</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Desierto en verano</td>
+<td>sol 99 %, lluvia 1 %</td>
+<td>0.014 bits (sol)</td>
+<td>6.64 bits (lluvia)</td>
+<td><strong>0.081 bits</strong></td>
+</tr>
+<tr class="even">
+<td>Clima cargado</td>
+<td>sol 90 %, lluvia 10 %</td>
+<td>0.152 bits (sol)</td>
+<td>3.32 bits (lluvia)</td>
+<td><strong>0.469 bits</strong></td>
+</tr>
+<tr class="odd">
+<td>Clima impredecible</td>
+<td>sol 50 %, lluvia 50 %</td>
+<td>1 bit</td>
+<td>1 bit</td>
+<td><strong>1 bit</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>En el desierto, el día que llueve se aprende muchísimo, pero casi nunca pasa: consultar el pronóstico ahí enseña, en promedio, casi nada. Donde el clima es impredecible, cada consulta enseña 1 bit.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>Otra forma de verlo: un sueldo.</strong> El contenido de información es lo que se gana <strong>un</strong> día; la entropía es el <strong>sueldo diario promedio</strong>. La rifa es un trabajo que paga 0.0014 bits casi todos los días y 9.97 bits un día de cada mil: el sueldo promedio es 0.011 bits por día, y hacen falta unos 88 días para juntar 1 bit.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
 <h2>El caso binario: la función <span class="math inline">\(H(p)\)</span></h2>
 <p>Para una moneda con <span class="math inline">\(P(\text{cara}) = p\)</span>, la ec. <a href="#/eq-entropia" class="quarto-xref">4</a> con sólo dos valores queda:</p>
 <p><span id="eq-binaria"><span class="math display">\[

@@ -2340,10 +2340,11 @@ window.Quarto = {
   <li><a href="#entropía-el-contenido-de-información-promedio" id="toc-entropía-el-contenido-de-información-promedio" class="nav-link" data-scroll-target="#entropía-el-contenido-de-información-promedio"><span class="header-section-number">2.10</span> Entropía: el contenido de información promedio</a></li>
   <li><a href="#paso-a-paso-entropía-de-una-moneda-cargada" id="toc-paso-a-paso-entropía-de-una-moneda-cargada" class="nav-link" data-scroll-target="#paso-a-paso-entropía-de-una-moneda-cargada"><span class="header-section-number">2.11</span> Paso a paso: entropía de una moneda cargada</a></li>
   <li><a href="#paso-a-paso-un-boleto-de-lotería" id="toc-paso-a-paso-un-boleto-de-lotería" class="nav-link" data-scroll-target="#paso-a-paso-un-boleto-de-lotería"><span class="header-section-number">2.12</span> Paso a paso: un boleto de lotería</a></li>
-  <li><a href="#el-caso-binario-la-función-hp" id="toc-el-caso-binario-la-función-hp" class="nav-link" data-scroll-target="#el-caso-binario-la-función-hp"><span class="header-section-number">2.13</span> El caso binario: la función <span class="math inline">\(H(p)\)</span></a></li>
-  <li><a href="#entropía-binaria-hp" id="toc-entropía-binaria-hp" class="nav-link" data-scroll-target="#entropía-binaria-hp"><span class="header-section-number">2.14</span> Entropía binaria <span class="math inline">\(H(p)\)</span></a></li>
-  <li><a href="#interpretación-preguntas-de-síno" id="toc-interpretación-preguntas-de-síno" class="nav-link" data-scroll-target="#interpretación-preguntas-de-síno"><span class="header-section-number">2.15</span> Interpretación: preguntas de sí/no</a></li>
-  <li><a href="#propiedades-básicas" id="toc-propiedades-básicas" class="nav-link" data-scroll-target="#propiedades-básicas"><span class="header-section-number">2.16</span> Propiedades básicas</a></li>
+  <li><a href="#una-analogía-cuánto-se-aprende-cada-día" id="toc-una-analogía-cuánto-se-aprende-cada-día" class="nav-link" data-scroll-target="#una-analogía-cuánto-se-aprende-cada-día"><span class="header-section-number">2.13</span> Una analogía: ¿cuánto se aprende cada día?</a></li>
+  <li><a href="#el-caso-binario-la-función-hp" id="toc-el-caso-binario-la-función-hp" class="nav-link" data-scroll-target="#el-caso-binario-la-función-hp"><span class="header-section-number">2.14</span> El caso binario: la función <span class="math inline">\(H(p)\)</span></a></li>
+  <li><a href="#entropía-binaria-hp" id="toc-entropía-binaria-hp" class="nav-link" data-scroll-target="#entropía-binaria-hp"><span class="header-section-number">2.15</span> Entropía binaria <span class="math inline">\(H(p)\)</span></a></li>
+  <li><a href="#interpretación-preguntas-de-síno" id="toc-interpretación-preguntas-de-síno" class="nav-link" data-scroll-target="#interpretación-preguntas-de-síno"><span class="header-section-number">2.16</span> Interpretación: preguntas de sí/no</a></li>
+  <li><a href="#propiedades-básicas" id="toc-propiedades-básicas" class="nav-link" data-scroll-target="#propiedades-básicas"><span class="header-section-number">2.17</span> Propiedades básicas</a></li>
   </ul></li>
   <li><a href="#dos-variables" id="toc-dos-variables" class="nav-link" data-scroll-target="#dos-variables"><span class="header-section-number">3</span> Dos variables</a>
   <ul class="collapse">
@@ -3295,8 +3296,66 @@ H(X) = \sum_{x} p(x)\,\big(-\log_2 p(x)\big) = -\sum_{x} p(x)\,\log_2 p(x)
 </div>
 </div>
 </section>
-<section id="el-caso-binario-la-función-hp" class="level2 smaller" data-number="2.13">
-<h2 class="smaller anchored" data-number="2.13" data-anchor-id="el-caso-binario-la-función-hp"><span class="header-section-number">2.13</span> El caso binario: la función <span class="math inline">\(H(p)\)</span></h2>
+<section id="una-analogía-cuánto-se-aprende-cada-día" class="level2 smaller" data-number="2.13">
+<h2 class="smaller anchored" data-number="2.13" data-anchor-id="una-analogía-cuánto-se-aprende-cada-día"><span class="header-section-number">2.13</span> Una analogía: ¿cuánto se aprende cada día?</h2>
+<p>Cada mañana se consulta el pronóstico. <strong>Antes</strong> no se sabe qué tiempo hará; <strong>después</strong>, sí. Lo que se aprende ese día es el contenido de información de lo que salió (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>); lo que se aprende <strong>en promedio por día</strong> es la entropía (ec. <a href="#eq-entropia" class="quarto-xref">4</a>).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ciudad</th>
+<th>Clima</th>
+<th>Se aprende en un día típico</th>
+<th>Se aprende en un día raro</th>
+<th>Se aprende en promedio por día</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Desierto en verano</td>
+<td>sol 99 %, lluvia 1 %</td>
+<td>0.014 bits (sol)</td>
+<td>6.64 bits (lluvia)</td>
+<td><strong>0.081 bits</strong></td>
+</tr>
+<tr class="even">
+<td>Clima cargado</td>
+<td>sol 90 %, lluvia 10 %</td>
+<td>0.152 bits (sol)</td>
+<td>3.32 bits (lluvia)</td>
+<td><strong>0.469 bits</strong></td>
+</tr>
+<tr class="odd">
+<td>Clima impredecible</td>
+<td>sol 50 %, lluvia 50 %</td>
+<td>1 bit</td>
+<td>1 bit</td>
+<td><strong>1 bit</strong></td>
+</tr>
+</tbody>
+</table>
+<p>. . .</p>
+<p>En el desierto, el día que llueve se aprende muchísimo, pero casi nunca pasa: consultar el pronóstico ahí enseña, en promedio, casi nada. Donde el clima es impredecible, cada consulta enseña 1 bit.</p>
+<p>. . .</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Otra forma de verlo: un sueldo.</strong> El contenido de información es lo que se gana <strong>un</strong> día; la entropía es el <strong>sueldo diario promedio</strong>. La rifa es un trabajo que paga 0.0014 bits casi todos los días y 9.97 bits un día de cada mil: el sueldo promedio es 0.011 bits por día, y hacen falta unos 88 días para juntar 1 bit.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="el-caso-binario-la-función-hp" class="level2 smaller" data-number="2.14">
+<h2 class="smaller anchored" data-number="2.14" data-anchor-id="el-caso-binario-la-función-hp"><span class="header-section-number">2.14</span> El caso binario: la función <span class="math inline">\(H(p)\)</span></h2>
 <p>Para una moneda con <span class="math inline">\(P(\text{cara}) = p\)</span>, la ec. <a href="#eq-entropia" class="quarto-xref">4</a> con sólo dos valores queda:</p>
 <p><span id="eq-binaria"><span class="math display">\[
 H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
@@ -3340,11 +3399,11 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 <li><strong>Gráfica de abajo:</strong> al lanzar la moneda muchas veces, el promedio de los contenidos de información observados (verde) se acerca a <span class="math inline">\(H(p)\)</span>.</li>
 </ol>
 </section>
-<section id="entropía-binaria-hp" class="level2" data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.14">
-<h2 data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.14" class="anchored" data-anchor-id="entropía-binaria-hp"><span class="header-section-number">2.14</span> Entropía binaria <span class="math inline">\(H(p)\)</span></h2>
+<section id="entropía-binaria-hp" class="level2" data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.15">
+<h2 data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.15" class="anchored" data-anchor-id="entropía-binaria-hp"><span class="header-section-number">2.15</span> Entropía binaria <span class="math inline">\(H(p)\)</span></h2>
 </section>
-<section id="interpretación-preguntas-de-síno" class="level2 smaller" data-number="2.15">
-<h2 class="smaller anchored" data-number="2.15" data-anchor-id="interpretación-preguntas-de-síno"><span class="header-section-number">2.15</span> Interpretación: preguntas de sí/no</h2>
+<section id="interpretación-preguntas-de-síno" class="level2 smaller" data-number="2.16">
+<h2 class="smaller anchored" data-number="2.16" data-anchor-id="interpretación-preguntas-de-síno"><span class="header-section-number">2.16</span> Interpretación: preguntas de sí/no</h2>
 <p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus contenidos de información (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
 <p>. . .</p>
 <div class="columns">
@@ -3370,8 +3429,8 @@ L = \sum_x p(x)\,\ell(x)
 </div>
 </div>
 </section>
-<section id="propiedades-básicas" class="level2 smaller" data-number="2.16">
-<h2 class="smaller anchored" data-number="2.16" data-anchor-id="propiedades-básicas"><span class="header-section-number">2.16</span> Propiedades básicas</h2>
+<section id="propiedades-básicas" class="level2 smaller" data-number="2.17">
+<h2 class="smaller anchored" data-number="2.17" data-anchor-id="propiedades-básicas"><span class="header-section-number">2.17</span> Propiedades básicas</h2>
 <p>Si <span class="math inline">\(X\)</span> puede tomar <span class="math inline">\(n\)</span> valores distintos:</p>
 <p><span id="eq-cotas"><span class="math display">\[
 0 \;\le\; H(X) \;\le\; \log_2 n
