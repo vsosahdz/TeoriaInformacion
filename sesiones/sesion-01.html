@@ -2366,6 +2366,15 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </table>
 <p><strong>Paso 4.</strong> <span class="math inline">\(H(X,Y) = 0.500 + 0.500 + 0.375 + 0.531 = \mathbf{1.906}\)</span> bits</p>
 </div>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>¿Qué significa 1.906 bits?</strong> Es la información que trae, en promedio, enterarse del clima <strong>y</strong> del tráfico de un día: unas 1.9 preguntas de sí/no para adivinar la pareja completa. Hay 4 parejas posibles; si fueran igual de probables serían <span class="math inline">\(\log_2 4 = 2\)</span> bits. Da un poco menos porque (lluvia, pesado) es más probable que las demás.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section class="slide level2 smaller">
 <h2>Ejercicio: entropía conjunta</h2>
@@ -2438,6 +2447,7 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </table>
 </div></div>
 <p><em>Pista:</em> una celda con probabilidad 0 aporta 0 al promedio (convención <span class="math inline">\(0 \log_2 0 = 0\)</span>).</p>
+<p><strong>Y después:</strong> interpretar el resultado. ¿Cuántas parejas pueden ocurrir realmente? ¿Con cuántas preguntas de sí/no, en promedio, se adivina la pareja?</p>
 </section>
 <section class="slide level2 smaller">
 <h2>Solución: entropía conjunta</h2>
@@ -2489,6 +2499,7 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </tr>
 </tbody>
 </table>
+<p><strong>Interpretación.</strong> Sólo pueden ocurrir <strong>3</strong> parejas, porque <span class="math inline">\((1,1)\)</span> nunca pasa. Con preguntas: “¿<span class="math inline">\(X = 1\)</span>?” — si sí (la mitad de las veces), la pareja es <span class="math inline">\((1,0)\)</span> con <strong>1</strong> pregunta; si no, “¿<span class="math inline">\(Y = 0\)</span>?” la resuelve con <strong>2</strong>. En promedio <span class="math inline">\(\tfrac12 \times 1 + \tfrac12 \times 2 = 1.5\)</span> preguntas: exactamente <span class="math inline">\(H(X,Y)\)</span>, porque las probabilidades son potencias de ½.</p>
 </section>
 <section class="slide level2 smaller">
 <h2>Entropía condicional</h2>
