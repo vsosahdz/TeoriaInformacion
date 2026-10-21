@@ -2343,8 +2343,9 @@ window.Quarto = {
   <li><a href="#una-analogía-cuánto-se-aprende-cada-día" id="toc-una-analogía-cuánto-se-aprende-cada-día" class="nav-link" data-scroll-target="#una-analogía-cuánto-se-aprende-cada-día"><span class="header-section-number">2.13</span> Una analogía: ¿cuánto se aprende cada día?</a></li>
   <li><a href="#el-caso-binario-la-función-hp" id="toc-el-caso-binario-la-función-hp" class="nav-link" data-scroll-target="#el-caso-binario-la-función-hp"><span class="header-section-number">2.14</span> El caso binario: la función <span class="math inline">\(H(p)\)</span></a></li>
   <li><a href="#entropía-binaria-hp" id="toc-entropía-binaria-hp" class="nav-link" data-scroll-target="#entropía-binaria-hp"><span class="header-section-number">2.15</span> Entropía binaria <span class="math inline">\(H(p)\)</span></a></li>
-  <li><a href="#interpretación-preguntas-de-síno" id="toc-interpretación-preguntas-de-síno" class="nav-link" data-scroll-target="#interpretación-preguntas-de-síno"><span class="header-section-number">2.16</span> Interpretación: preguntas de sí/no</a></li>
-  <li><a href="#propiedades-básicas" id="toc-propiedades-básicas" class="nav-link" data-scroll-target="#propiedades-básicas"><span class="header-section-number">2.17</span> Propiedades básicas</a></li>
+  <li><a href="#el-juego-de-las-preguntas" id="toc-el-juego-de-las-preguntas" class="nav-link" data-scroll-target="#el-juego-de-las-preguntas"><span class="header-section-number">2.16</span> El juego de las preguntas</a></li>
+  <li><a href="#preguntas-promedio-entropía" id="toc-preguntas-promedio-entropía" class="nav-link" data-scroll-target="#preguntas-promedio-entropía"><span class="header-section-number">2.17</span> Preguntas promedio = entropía</a></li>
+  <li><a href="#propiedades-básicas" id="toc-propiedades-básicas" class="nav-link" data-scroll-target="#propiedades-básicas"><span class="header-section-number">2.18</span> Propiedades básicas</a></li>
   </ul></li>
   <li><a href="#dos-variables" id="toc-dos-variables" class="nav-link" data-scroll-target="#dos-variables"><span class="header-section-number">3</span> Dos variables</a>
   <ul class="collapse">
@@ -2357,7 +2358,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">4</span> Manos a la obra</a>
   <ul class="collapse">
-  <li><a href="#mini-colab-15-min" id="toc-mini-colab-15-min" class="nav-link" data-scroll-target="#mini-colab-15-min"><span class="header-section-number">4.1</span> Mini-Colab (15 min)</a></li>
+  <li><a href="#mini-colab" id="toc-mini-colab" class="nav-link" data-scroll-target="#mini-colab"><span class="header-section-number">4.1</span> Mini-Colab</a></li>
   <li><a href="#resumen-de-hoy" id="toc-resumen-de-hoy" class="nav-link" data-scroll-target="#resumen-de-hoy"><span class="header-section-number">4.2</span> Resumen de hoy</a></li>
   <li><a href="#para-la-próxima-sesión" id="toc-para-la-próxima-sesión" class="nav-link" data-scroll-target="#para-la-próxima-sesión"><span class="header-section-number">4.3</span> Para la próxima sesión</a></li>
   </ul></li>
@@ -3402,35 +3403,158 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 <section id="entropía-binaria-hp" class="level2" data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.15">
 <h2 data-background-iframe="../anim/entropia-binaria.html" data-background-interactive="true" data-number="2.15" class="anchored" data-anchor-id="entropía-binaria-hp"><span class="header-section-number">2.15</span> Entropía binaria <span class="math inline">\(H(p)\)</span></h2>
 </section>
-<section id="interpretación-preguntas-de-síno" class="level2 smaller" data-number="2.16">
-<h2 class="smaller anchored" data-number="2.16" data-anchor-id="interpretación-preguntas-de-síno"><span class="header-section-number">2.16</span> Interpretación: preguntas de sí/no</h2>
-<p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus contenidos de información (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
+<section id="el-juego-de-las-preguntas" class="level2 smaller" data-number="2.16">
+<h2 class="smaller anchored" data-number="2.16" data-anchor-id="el-juego-de-las-preguntas"><span class="header-section-number">2.16</span> El juego de las preguntas</h2>
+<p>Alguien elige en secreto una letra de <span class="math inline">\(\{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Hay que adivinarla con preguntas de sí/no. <strong>¿Qué estrategia usa, en promedio, menos preguntas?</strong></p>
 <p>. . .</p>
 <div class="columns">
-<div class="column" style="width:40%;">
-<p>Estrategia de preguntas:</p>
-<div style="font-size:1.4em">
-<pre><code>        ¿es a?
-       sí/   \no
-       a    ¿es b?
-           sí/   \no
-           b    ¿es c?
-               sí/   \no
-               c      d</code></pre>
+<div class="column" style="width:38%;">
+<p><strong>Estrategia 1:</strong> partir siempre las <strong>letras</strong> a la mitad.</p>
+<div style="font-size:1.25em">
+<pre><code>     ¿es a o b?
+     sí/      \no
+  ¿es a?     ¿es c?
+  /    \     /    \
+ a      b   c      d</code></pre>
 </div>
-</div><div class="column" style="width:60%;">
-<p>Número <strong>promedio</strong> de preguntas:</p>
+<p>Siempre 2 preguntas.</p>
+</div><div class="column" style="width:62%;">
+<p><strong>Estrategia 2:</strong> preguntar primero por lo <strong>más probable</strong> (parte la <strong>probabilidad</strong> a la mitad).</p>
+<div style="font-size:1.25em">
+<pre><code>   ¿es a?
+  sí/   \no
+  a    ¿es b?
+      sí/   \no
+      b    ¿es c?
+          sí/   \no
+          c      d</code></pre>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 22%">
+<col style="width: 34%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Letra</th>
+<th>Probabilidad <span class="math inline">\(p(x)\)</span></th>
+<th>Preguntas con la estrategia 2: <span class="math inline">\(\ell(x)\)</span></th>
+<th>Contenido de información <span class="math inline">\(-\log_2 p(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a\)</span></td>
+<td>1/2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(b\)</span></td>
+<td>1/4</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c\)</span></td>
+<td>1/8</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d\)</span></td>
+<td>1/8</td>
+<td>3</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Con la estrategia 2, <strong>cada letra necesita tantas preguntas como bits de contenido de información tiene</strong>.</p>
+</section>
+<section id="preguntas-promedio-entropía" class="level2 smaller" data-number="2.17">
+<h2 class="smaller anchored" data-number="2.17" data-anchor-id="preguntas-promedio-entropía"><span class="header-section-number">2.17</span> Preguntas promedio = entropía</h2>
+<p>El número <strong>promedio</strong> de preguntas de una estrategia pesa cada letra por su probabilidad:</p>
 <p><span id="eq-preguntas"><span class="math display">\[
 L = \sum_x p(x)\,\ell(x)
 \tag{6}\]</span></span></p>
-<p>donde <span class="math inline">\(\ell(x)\)</span> es el número de preguntas para identificar <span class="math inline">\(x\)</span> (1, 2, 3, 3) y <span class="math inline">\(L\)</span> su promedio:</p>
-<p><span class="math inline">\(L = 1\cdot\tfrac12 + 2\cdot\tfrac14 + 3\cdot\tfrac18 + 3\cdot\tfrac18 = 1.75\)</span> — ¡exactamente <span class="math inline">\(H(X)\)</span>!</p>
-<p>Si cada respuesta se escribe como bit: <span class="math inline">\(a{=}0,\ b{=}10,\ c{=}110,\ d{=}111\)</span> — es un <strong>código de Huffman</strong> (Unidad II).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\ell(x)\)</span></td>
+<td>número de preguntas que la estrategia necesita cuando la letra es <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(x)\)</span></td>
+<td>qué tan seguido sale esa letra</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(L\)</span></td>
+<td>preguntas <strong>promedio</strong> por letra adivinada</td>
+</tr>
+</tbody>
+</table>
+<p>. . .</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 56%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Cálculo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Estrategia 1</td>
+<td><span class="math inline">\(\tfrac12 \cdot 2 + \tfrac14 \cdot 2 + \tfrac18 \cdot 2 + \tfrac18 \cdot 2\)</span></td>
+<td><span class="math inline">\(L = 2\)</span></td>
+</tr>
+<tr class="even">
+<td>Estrategia 2</td>
+<td><span class="math inline">\(\tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3\)</span></td>
+<td><span class="math inline">\(L = 1.75\)</span></td>
+</tr>
+<tr class="odd">
+<td>Entropía (ec. <a href="#eq-entropia" class="quarto-xref">4</a>)</td>
+<td><span class="math inline">\(\tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3\)</span></td>
+<td><span class="math inline">\(H = 1.75\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Las sumas de la estrategia 2 y de la entropía son <strong>la misma</strong>: término por término, <span class="math inline">\(\ell(x) = -\log_2 p(x)\)</span>. Por eso <span class="math inline">\(L = H\)</span>.</p>
+<p>. . .</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>¿Siempre <span class="math inline">\(L = H\)</span>?</strong> No: aquí funciona porque las probabilidades son potencias de ½. En general no se puede hacer una fracción de pregunta y la mejor estrategia cumple <span class="math inline">\(H \le L &lt; H + 1\)</span> (Unidad II). Si cada respuesta se escribe como bit (<span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 10\)</span>, <span class="math inline">\(c = 110\)</span>, <span class="math inline">\(d = 111\)</span>), la estrategia 2 es un <strong>código de Huffman</strong>.</p>
+</div>
 </div>
 </div>
 </section>
-<section id="propiedades-básicas" class="level2 smaller" data-number="2.17">
-<h2 class="smaller anchored" data-number="2.17" data-anchor-id="propiedades-básicas"><span class="header-section-number">2.17</span> Propiedades básicas</h2>
+<section id="propiedades-básicas" class="level2 smaller" data-number="2.18">
+<h2 class="smaller anchored" data-number="2.18" data-anchor-id="propiedades-básicas"><span class="header-section-number">2.18</span> Propiedades básicas</h2>
 <p>Si <span class="math inline">\(X\)</span> puede tomar <span class="math inline">\(n\)</span> valores distintos:</p>
 <p><span id="eq-cotas"><span class="math display">\[
 0 \;\le\; H(X) \;\le\; \log_2 n
@@ -3717,8 +3841,8 @@ I(X; Y) = H(X) - H(X \mid Y)
 </section>
 <section id="manos-a-la-obra" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Manos a la obra</h1>
-<section id="mini-colab-15-min" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="mini-colab-15-min"><span class="header-section-number">4.1</span> Mini-Colab (15 min)</h2>
+<section id="mini-colab" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="mini-colab"><span class="header-section-number">4.1</span> Mini-Colab</h2>
 <p>Abre <strong><code>S01-entropia.ipynb</code></strong> en Google Colab y ejecuta las celdas.</p>
 <ol type="1">
 <li><strong>Español:</strong> entropía de las letras de <em>El Quijote</em>; luego, condicionada a la letra anterior.</li>

@@ -2054,30 +2054,153 @@ H(p) = -p\,\log_2 p \;-\; (1-p)\,\log_2 (1-p)
 <h2>Entropía binaria <span class="math inline">\(H(p)\)</span></h2>
 </section>
 <section class="slide level2 smaller">
-<h2>Interpretación: preguntas de sí/no</h2>
-<p><span class="math inline">\(X \in \{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Sus contenidos de información (ec. <a href="#/eq-sorpresa" class="quarto-xref">1</a>) son 1, 2, 3 y 3 bits, así que por la ec. <a href="#/eq-entropia" class="quarto-xref">4</a>: <span class="math inline">\(\ H(X) = \tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3 = 1.75\)</span> bits.</p>
+<h2>El juego de las preguntas</h2>
+<p>Alguien elige en secreto una letra de <span class="math inline">\(\{a, b, c, d\}\)</span> con probabilidades <span class="math inline">\(\tfrac12, \tfrac14, \tfrac18, \tfrac18\)</span>. Hay que adivinarla con preguntas de sí/no. <strong>¿Qué estrategia usa, en promedio, menos preguntas?</strong></p>
 <div class="fragment">
 <div class="columns">
-<div class="column" style="width:40%;">
-<p>Estrategia de preguntas:</p>
-<div style="font-size:1.4em">
-<pre><code>        ¿es a?
-       sí/   \no
-       a    ¿es b?
-           sí/   \no
-           b    ¿es c?
-               sí/   \no
-               c      d</code></pre>
+<div class="column" style="width:38%;">
+<p><strong>Estrategia 1:</strong> partir siempre las <strong>letras</strong> a la mitad.</p>
+<div style="font-size:1.25em">
+<pre><code>     ¿es a o b?
+     sí/      \no
+  ¿es a?     ¿es c?
+  /    \     /    \
+ a      b   c      d</code></pre>
 </div>
-</div><div class="column" style="width:60%;">
-<p>Número <strong>promedio</strong> de preguntas:</p>
+<p>Siempre 2 preguntas.</p>
+</div><div class="column" style="width:62%;">
+<p><strong>Estrategia 2:</strong> preguntar primero por lo <strong>más probable</strong> (parte la <strong>probabilidad</strong> a la mitad).</p>
+<div style="font-size:1.25em">
+<pre><code>   ¿es a?
+  sí/   \no
+  a    ¿es b?
+      sí/   \no
+      b    ¿es c?
+          sí/   \no
+          c      d</code></pre>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 22%">
+<col style="width: 34%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Letra</th>
+<th>Probabilidad <span class="math inline">\(p(x)\)</span></th>
+<th>Preguntas con la estrategia 2: <span class="math inline">\(\ell(x)\)</span></th>
+<th>Contenido de información <span class="math inline">\(-\log_2 p(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a\)</span></td>
+<td>1/2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(b\)</span></td>
+<td>1/4</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c\)</span></td>
+<td>1/8</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d\)</span></td>
+<td>1/8</td>
+<td>3</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Con la estrategia 2, <strong>cada letra necesita tantas preguntas como bits de contenido de información tiene</strong>.</p>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Preguntas promedio = entropía</h2>
+<p>El número <strong>promedio</strong> de preguntas de una estrategia pesa cada letra por su probabilidad:</p>
 <p><span id="eq-preguntas"><span class="math display">\[
 L = \sum_x p(x)\,\ell(x)
 \tag{6}\]</span></span></p>
-<p>donde <span class="math inline">\(\ell(x)\)</span> es el número de preguntas para identificar <span class="math inline">\(x\)</span> (1, 2, 3, 3) y <span class="math inline">\(L\)</span> su promedio:</p>
-<p><span class="math inline">\(L = 1\cdot\tfrac12 + 2\cdot\tfrac14 + 3\cdot\tfrac18 + 3\cdot\tfrac18 = 1.75\)</span> — ¡exactamente <span class="math inline">\(H(X)\)</span>!</p>
-<p>Si cada respuesta se escribe como bit: <span class="math inline">\(a{=}0,\ b{=}10,\ c{=}110,\ d{=}111\)</span> — es un <strong>código de Huffman</strong> (Unidad II).</p>
-</div></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\ell(x)\)</span></td>
+<td>número de preguntas que la estrategia necesita cuando la letra es <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(x)\)</span></td>
+<td>qué tan seguido sale esa letra</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(L\)</span></td>
+<td>preguntas <strong>promedio</strong> por letra adivinada</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 56%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Cálculo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Estrategia 1</td>
+<td><span class="math inline">\(\tfrac12 \cdot 2 + \tfrac14 \cdot 2 + \tfrac18 \cdot 2 + \tfrac18 \cdot 2\)</span></td>
+<td><span class="math inline">\(L = 2\)</span></td>
+</tr>
+<tr class="even">
+<td>Estrategia 2</td>
+<td><span class="math inline">\(\tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3\)</span></td>
+<td><span class="math inline">\(L = 1.75\)</span></td>
+</tr>
+<tr class="odd">
+<td>Entropía (ec. <a href="#/eq-entropia" class="quarto-xref">4</a>)</td>
+<td><span class="math inline">\(\tfrac12 \cdot 1 + \tfrac14 \cdot 2 + \tfrac18 \cdot 3 + \tfrac18 \cdot 3\)</span></td>
+<td><span class="math inline">\(H = 1.75\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Las sumas de la estrategia 2 y de la entropía son <strong>la misma</strong>: término por término, <span class="math inline">\(\ell(x) = -\log_2 p(x)\)</span>. Por eso <span class="math inline">\(L = H\)</span>.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>¿Siempre <span class="math inline">\(L = H\)</span>?</strong> No: aquí funciona porque las probabilidades son potencias de ½. En general no se puede hacer una fracción de pregunta y la mejor estrategia cumple <span class="math inline">\(H \le L &lt; H + 1\)</span> (Unidad II). Si cada respuesta se escribe como bit (<span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 10\)</span>, <span class="math inline">\(c = 110\)</span>, <span class="math inline">\(d = 111\)</span>), la estrategia 2 es un <strong>código de Huffman</strong>.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section class="slide level2 smaller">
@@ -2374,7 +2497,7 @@ I(X; Y) = H(X) - H(X \mid Y)
 
 </section>
 <section class="slide level2">
-<h2>Mini-Colab (15 min)</h2>
+<h2>Mini-Colab</h2>
 <p>Abre <strong><code>S01-entropia.ipynb</code></strong> en Google Colab y ejecuta las celdas.</p>
 <ol type="1">
 <li><strong>Español:</strong> entropía de las letras de <em>El Quijote</em>; luego, condicionada a la letra anterior.</li>
