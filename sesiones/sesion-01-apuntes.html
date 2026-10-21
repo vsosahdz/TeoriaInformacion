@@ -2350,11 +2350,17 @@ window.Quarto = {
   <li><a href="#dos-variables" id="toc-dos-variables" class="nav-link" data-scroll-target="#dos-variables"><span class="header-section-number">3</span> Dos variables</a>
   <ul class="collapse">
   <li><a href="#entropía-conjunta" id="toc-entropía-conjunta" class="nav-link" data-scroll-target="#entropía-conjunta"><span class="header-section-number">3.1</span> Entropía conjunta</a></li>
-  <li><a href="#entropía-condicional" id="toc-entropía-condicional" class="nav-link" data-scroll-target="#entropía-condicional"><span class="header-section-number">3.2</span> Entropía condicional</a></li>
-  <li><a href="#regla-de-la-cadena" id="toc-regla-de-la-cadena" class="nav-link" data-scroll-target="#regla-de-la-cadena"><span class="header-section-number">3.3</span> Regla de la cadena</a></li>
-  <li><a href="#paso-a-paso-clima-y-paraguas" id="toc-paso-a-paso-clima-y-paraguas" class="nav-link" data-scroll-target="#paso-a-paso-clima-y-paraguas"><span class="header-section-number">3.4</span> Paso a paso: clima y paraguas</a></li>
-  <li><a href="#información-mutua" id="toc-información-mutua" class="nav-link" data-scroll-target="#información-mutua"><span class="header-section-number">3.5</span> Información mutua</a></li>
-  <li><a href="#diagrama-de-información" id="toc-diagrama-de-información" class="nav-link" data-scroll-target="#diagrama-de-información"><span class="header-section-number">3.6</span> Diagrama de información</a></li>
+  <li><a href="#paso-a-paso-entropía-conjunta" id="toc-paso-a-paso-entropía-conjunta" class="nav-link" data-scroll-target="#paso-a-paso-entropía-conjunta"><span class="header-section-number">3.2</span> Paso a paso: entropía conjunta</a></li>
+  <li><a href="#ejercicio-entropía-conjunta" id="toc-ejercicio-entropía-conjunta" class="nav-link" data-scroll-target="#ejercicio-entropía-conjunta"><span class="header-section-number">3.3</span> Ejercicio: entropía conjunta</a></li>
+  <li><a href="#solución-entropía-conjunta" id="toc-solución-entropía-conjunta" class="nav-link" data-scroll-target="#solución-entropía-conjunta"><span class="header-section-number">3.4</span> Solución: entropía conjunta</a></li>
+  <li><a href="#entropía-condicional" id="toc-entropía-condicional" class="nav-link" data-scroll-target="#entropía-condicional"><span class="header-section-number">3.5</span> Entropía condicional</a></li>
+  <li><a href="#paso-a-paso-entropía-condicional" id="toc-paso-a-paso-entropía-condicional" class="nav-link" data-scroll-target="#paso-a-paso-entropía-condicional"><span class="header-section-number">3.6</span> Paso a paso: entropía condicional</a></li>
+  <li><a href="#ejercicio-entropía-condicional" id="toc-ejercicio-entropía-condicional" class="nav-link" data-scroll-target="#ejercicio-entropía-condicional"><span class="header-section-number">3.7</span> Ejercicio: entropía condicional</a></li>
+  <li><a href="#solución-entropía-condicional" id="toc-solución-entropía-condicional" class="nav-link" data-scroll-target="#solución-entropía-condicional"><span class="header-section-number">3.8</span> Solución: entropía condicional</a></li>
+  <li><a href="#regla-de-la-cadena" id="toc-regla-de-la-cadena" class="nav-link" data-scroll-target="#regla-de-la-cadena"><span class="header-section-number">3.9</span> Regla de la cadena</a></li>
+  <li><a href="#paso-a-paso-clima-y-paraguas" id="toc-paso-a-paso-clima-y-paraguas" class="nav-link" data-scroll-target="#paso-a-paso-clima-y-paraguas"><span class="header-section-number">3.10</span> Paso a paso: clima y paraguas</a></li>
+  <li><a href="#información-mutua" id="toc-información-mutua" class="nav-link" data-scroll-target="#información-mutua"><span class="header-section-number">3.11</span> Información mutua</a></li>
+  <li><a href="#diagrama-de-información" id="toc-diagrama-de-información" class="nav-link" data-scroll-target="#diagrama-de-información"><span class="header-section-number">3.12</span> Diagrama de información</a></li>
   </ul></li>
   <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">4</span> Manos a la obra</a>
   <ul class="collapse">
@@ -3640,8 +3646,208 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 </table>
 <p>Es la misma ec. <a href="#eq-entropia" class="quarto-xref">4</a>, aplicada al par <span class="math inline">\((X, Y)\)</span> como si fuera un solo símbolo.</p>
 </section>
-<section id="entropía-condicional" class="level2 smaller" data-number="3.2">
-<h2 class="smaller anchored" data-number="3.2" data-anchor-id="entropía-condicional"><span class="header-section-number">3.2</span> Entropía condicional</h2>
+<section id="paso-a-paso-entropía-conjunta" class="level2 smaller" data-number="3.2">
+<h2 class="smaller anchored" data-number="3.2" data-anchor-id="paso-a-paso-entropía-conjunta"><span class="header-section-number">3.2</span> Paso a paso: entropía conjunta</h2>
+<p><span class="math inline">\(X\)</span> = clima (sol, lluvia), <span class="math inline">\(Y\)</span> = tráfico (ligero, pesado). Cada celda es <span class="math inline">\(p(x,y)\)</span>:</p>
+<div class="columns">
+<div class="column" style="width:42%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>tráfico ligero</th>
+<th>tráfico pesado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sol</td>
+<td>1/4</td>
+<td>1/4</td>
+</tr>
+<tr class="even">
+<td>lluvia</td>
+<td>1/8</td>
+<td>3/8</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:58%;">
+<p><strong>Paso 1.</strong> Comprobar que las celdas suman 1: <span class="math inline">\(\tfrac28 + \tfrac28 + \tfrac18 + \tfrac38 = \tfrac88 = 1\)</span> ✓</p>
+</div>
+</div>
+<p>. . .</p>
+<p><strong>Pasos 2 a 4.</strong> Para cada pareja: su contenido de información (ec. <a href="#eq-sorpresa" class="quarto-xref">1</a>), el término <span class="math inline">\(p \cdot (-\log_2 p)\)</span>, y al final la suma (ec. <a href="#eq-conjunta" class="quarto-xref">8</a>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th><span class="math inline">\(p\)</span></th>
+<th>Paso 2: <span class="math inline">\(-\log_2 p\)</span></th>
+<th>Paso 3: <span class="math inline">\(p \cdot (-\log_2 p)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sol, ligero</td>
+<td>1/4</td>
+<td><span class="math inline">\(-\log_2 \tfrac14 = 2\)</span></td>
+<td><span class="math inline">\(\tfrac14 \times 2 = 0.500\)</span></td>
+</tr>
+<tr class="even">
+<td>sol, pesado</td>
+<td>1/4</td>
+<td><span class="math inline">\(-\log_2 \tfrac14 = 2\)</span></td>
+<td><span class="math inline">\(\tfrac14 \times 2 = 0.500\)</span></td>
+</tr>
+<tr class="odd">
+<td>lluvia, ligero</td>
+<td>1/8</td>
+<td><span class="math inline">\(-\log_2 \tfrac18 = 3\)</span></td>
+<td><span class="math inline">\(\tfrac18 \times 3 = 0.375\)</span></td>
+</tr>
+<tr class="even">
+<td>lluvia, pesado</td>
+<td>3/8</td>
+<td><span class="math inline">\(-\log_2 \tfrac38 = 3 - \log_2 3 = 1.415\)</span></td>
+<td><span class="math inline">\(\tfrac38 \times 1.415 = 0.531\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 4.</strong> <span class="math inline">\(H(X,Y) = 0.500 + 0.500 + 0.375 + 0.531 = \mathbf{1.906}\)</span> bits</p>
+</section>
+<section id="ejercicio-entropía-conjunta" class="level2 smaller" data-number="3.3">
+<h2 class="smaller anchored" data-number="3.3" data-anchor-id="ejercicio-entropía-conjunta"><span class="header-section-number">3.3</span> Ejercicio: entropía conjunta</h2>
+<p>Calcular <span class="math inline">\(H(X, Y)\)</span> para esta distribución, siguiendo los mismos cuatro pasos:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(Y = 0\)</span></th>
+<th><span class="math inline">\(Y = 1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X = 0\)</span></td>
+<td>1/4</td>
+<td>1/4</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X = 1\)</span></td>
+<td>1/2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:60%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th><span class="math inline">\(p\)</span></th>
+<th><span class="math inline">\(-\log_2 p\)</span></th>
+<th>término</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((0, 0)\)</span></td>
+<td>1/4</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((0, 1)\)</span></td>
+<td>1/4</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((1, 0)\)</span></td>
+<td>1/2</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((1, 1)\)</span></td>
+<td>0</td>
+<td>—</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td><strong>suma</strong></td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(H(X,Y)\)</span> = ?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em>Pista:</em> una celda con probabilidad 0 aporta 0 al promedio (convención <span class="math inline">\(0 \log_2 0 = 0\)</span>).</p>
+</section>
+<section id="solución-entropía-conjunta" class="level2 smaller" data-number="3.4">
+<h2 class="smaller anchored" data-number="3.4" data-anchor-id="solución-entropía-conjunta"><span class="header-section-number">3.4</span> Solución: entropía conjunta</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 14%">
+<col style="width: 20%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th><span class="math inline">\(p\)</span></th>
+<th><span class="math inline">\(-\log_2 p\)</span></th>
+<th>término</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((0, 0)\)</span></td>
+<td>1/4</td>
+<td>2</td>
+<td><span class="math inline">\(\tfrac14 \times 2 = 0.5\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((0, 1)\)</span></td>
+<td>1/4</td>
+<td>2</td>
+<td><span class="math inline">\(\tfrac14 \times 2 = 0.5\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((1, 0)\)</span></td>
+<td>1/2</td>
+<td>1</td>
+<td><span class="math inline">\(\tfrac12 \times 1 = 0.5\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((1, 1)\)</span></td>
+<td>0</td>
+<td>—</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>suma</strong></td>
+<td>1</td>
+<td></td>
+<td><span class="math inline">\(H(X,Y) = 0.5 + 0.5 + 0.5 + 0 = \mathbf{1.5}\)</span> bits</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="entropía-condicional" class="level2 smaller" data-number="3.5">
+<h2 class="smaller anchored" data-number="3.5" data-anchor-id="entropía-condicional"><span class="header-section-number">3.5</span> Entropía condicional</h2>
 <p>¿Cuánta incertidumbre <strong>queda</strong> sobre <span class="math inline">\(Y\)</span> cuando ya se conoce <span class="math inline">\(X\)</span>?</p>
 <p><span id="eq-condicional"><span class="math display">\[
 H(Y \mid X) = \sum_x p(x)\, H(Y \mid X = x)
@@ -3679,8 +3885,125 @@ H(Y \mid X = x) = -\sum_y p(y \mid x)\,\log_2 p(y \mid x)
 </tbody>
 </table>
 </section>
-<section id="regla-de-la-cadena" class="level2 smaller" data-number="3.3">
-<h2 class="smaller anchored" data-number="3.3" data-anchor-id="regla-de-la-cadena"><span class="header-section-number">3.3</span> Regla de la cadena</h2>
+<section id="paso-a-paso-entropía-condicional" class="level2 smaller" data-number="3.6">
+<h2 class="smaller anchored" data-number="3.6" data-anchor-id="paso-a-paso-entropía-condicional"><span class="header-section-number">3.6</span> Paso a paso: entropía condicional</h2>
+<p>Mismo ejemplo: ¿cuánta incertidumbre queda sobre el <strong>tráfico</strong> cuando ya se conoce el <strong>clima</strong>? Se busca <span class="math inline">\(H(Y \mid X)\)</span>.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>tráfico ligero</th>
+<th>tráfico pesado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sol</td>
+<td>1/4</td>
+<td>1/4</td>
+</tr>
+<tr class="even">
+<td>lluvia</td>
+<td>1/8</td>
+<td>3/8</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:60%;">
+<p><strong>Paso 1.</strong> Probabilidad de cada clima (sumar cada renglón):</p>
+<p><span class="math inline">\(p(\text{sol}) = \tfrac14 + \tfrac14 = \tfrac12 \qquad p(\text{lluvia}) = \tfrac18 + \tfrac38 = \tfrac12\)</span></p>
+</div>
+</div>
+<p>. . .</p>
+<p><strong>Paso 2.</strong> Probabilidades <strong>condicionales</strong>: cada celda entre la probabilidad de su renglón, <span class="math inline">\(p(y \mid x) = p(x,y)/p(x)\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 38%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Escenario</th>
+<th><span class="math inline">\(p(\text{ligero} \mid x)\)</span></th>
+<th><span class="math inline">\(p(\text{pesado} \mid x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sol</td>
+<td><span class="math inline">\(\tfrac{1/4}{1/2} = \tfrac12\)</span></td>
+<td><span class="math inline">\(\tfrac{1/4}{1/2} = \tfrac12\)</span></td>
+</tr>
+<tr class="even">
+<td>lluvia</td>
+<td><span class="math inline">\(\tfrac{1/8}{1/2} = \tfrac14\)</span></td>
+<td><span class="math inline">\(\tfrac{3/8}{1/2} = \tfrac34\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>. . .</p>
+<p><strong>Paso 3.</strong> Entropía de cada escenario (ec. <a href="#eq-entropia" class="quarto-xref">4</a> con esas probabilidades):</p>
+<ul>
+<li><span class="math inline">\(H(Y \mid \text{sol}) = \tfrac12 \times 1 + \tfrac12 \times 1 = 1\)</span> bit — con sol, el tráfico es una moneda justa.</li>
+<li><span class="math inline">\(H(Y \mid \text{lluvia}) = \tfrac14 \times 2 + \tfrac34 \times 0.415 = 0.500 + 0.311 = 0.811\)</span> bits — con lluvia, casi siempre es pesado.</li>
+</ul>
+<p>. . .</p>
+<p><strong>Paso 4.</strong> Promedio pesado por la probabilidad de cada escenario (ec. <a href="#eq-condicional" class="quarto-xref">9</a>):</p>
+<p><span class="math display">\[H(Y \mid X) = p(\text{sol}) \cdot 1 + p(\text{lluvia}) \cdot 0.811 = \tfrac12 \times 1 + \tfrac12 \times 0.811 = 0.500 + 0.406 = \mathbf{0.906} \text{ bits}\]</span></p>
+</section>
+<section id="ejercicio-entropía-condicional" class="level2 smaller" data-number="3.7">
+<h2 class="smaller anchored" data-number="3.7" data-anchor-id="ejercicio-entropía-condicional"><span class="header-section-number">3.7</span> Ejercicio: entropía condicional</h2>
+<p>Con la misma tabla del ejercicio anterior, calcular <span class="math inline">\(H(Y \mid X)\)</span>:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(Y = 0\)</span></th>
+<th><span class="math inline">\(Y = 1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X = 0\)</span></td>
+<td>1/4</td>
+<td>1/4</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X = 1\)</span></td>
+<td>1/2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:60%;">
+<ol type="1">
+<li><span class="math inline">\(p(X{=}0)\)</span> = ? y <span class="math inline">\(p(X{=}1)\)</span> = ?</li>
+<li>Si <span class="math inline">\(X = 0\)</span>: <span class="math inline">\(p(Y{=}0 \mid X{=}0)\)</span> = ? y <span class="math inline">\(p(Y{=}1 \mid X{=}0)\)</span> = ?</li>
+<li>Si <span class="math inline">\(X = 1\)</span>: <span class="math inline">\(p(Y{=}0 \mid X{=}1)\)</span> = ? y <span class="math inline">\(p(Y{=}1 \mid X{=}1)\)</span> = ?</li>
+<li><span class="math inline">\(H(Y \mid X{=}0)\)</span> = ? y <span class="math inline">\(H(Y \mid X{=}1)\)</span> = ?</li>
+<li><span class="math inline">\(H(Y \mid X)\)</span> = ?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="solución-entropía-condicional" class="level2 smaller" data-number="3.8">
+<h2 class="smaller anchored" data-number="3.8" data-anchor-id="solución-entropía-condicional"><span class="header-section-number">3.8</span> Solución: entropía condicional</h2>
+<p>Tabla: <span class="math inline">\(p(0,0) = \tfrac14\)</span>, <span class="math inline">\(p(0,1) = \tfrac14\)</span>, <span class="math inline">\(p(1,0) = \tfrac12\)</span>, <span class="math inline">\(p(1,1) = 0\)</span>.</p>
+<ol type="1">
+<li><span class="math inline">\(p(X{=}0) = \tfrac14 + \tfrac14 = \tfrac12\)</span>, <span class="math inline">\(\quad p(X{=}1) = \tfrac12 + 0 = \tfrac12\)</span></li>
+<li><span class="math inline">\(p(Y{=}0 \mid X{=}0) = \tfrac{1/4}{1/2} = \tfrac12\)</span>, <span class="math inline">\(\quad p(Y{=}1 \mid X{=}0) = \tfrac{1/4}{1/2} = \tfrac12\)</span></li>
+<li><span class="math inline">\(p(Y{=}0 \mid X{=}1) = \tfrac{1/2}{1/2} = 1\)</span>, <span class="math inline">\(\quad p(Y{=}1 \mid X{=}1) = \tfrac{0}{1/2} = 0\)</span></li>
+<li><span class="math inline">\(H(Y \mid X{=}0) = \tfrac12 \times 1 + \tfrac12 \times 1 = 1\)</span> bit; <span class="math inline">\(\quad H(Y \mid X{=}1) = 1 \times 0 + 0 = 0\)</span> bits (si <span class="math inline">\(X = 1\)</span>, <span class="math inline">\(Y\)</span> es seguro)</li>
+<li><span class="math inline">\(H(Y \mid X) = \tfrac12 \times 1 + \tfrac12 \times 0 = \mathbf{0.5}\)</span> bits</li>
+</ol>
+</section>
+<section id="regla-de-la-cadena" class="level2 smaller" data-number="3.9">
+<h2 class="smaller anchored" data-number="3.9" data-anchor-id="regla-de-la-cadena"><span class="header-section-number">3.9</span> Regla de la cadena</h2>
 <p><span id="eq-cadena"><span class="math display">\[
 H(X, Y) = H(X) + H(Y \mid X)
 \tag{10}\]</span></span></p>
@@ -3713,9 +4036,36 @@ H(X, Y) = H(X) + H(Y \mid X)
 <p>. . .</p>
 <p>En palabras: <strong>averiguar el par = averiguar <span class="math inline">\(X\)</span> + averiguar lo que falta de <span class="math inline">\(Y\)</span></strong>.</p>
 <p>Es exactamente lo que pasó con la carta: <span class="math inline">\(5.70 = 2 + 3.70\)</span> (palo + número sabiendo el palo).</p>
+<p>Y se comprueba con los ejemplos anteriores (<span class="math inline">\(H(X) = 1\)</span> en los dos, porque <span class="math inline">\(p(x) = \tfrac12, \tfrac12\)</span>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 24%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(H(X,Y)\)</span></th>
+<th><span class="math inline">\(H(X) + H(Y \mid X)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Clima y tráfico</td>
+<td>1.906</td>
+<td><span class="math inline">\(1 + 0.906 = 1.906\)</span> ✓</td>
+</tr>
+<tr class="even">
+<td>Ejercicio</td>
+<td>1.5</td>
+<td><span class="math inline">\(1 + 0.5 = 1.5\)</span> ✓</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="paso-a-paso-clima-y-paraguas" class="level2 smaller" data-number="3.4">
-<h2 class="smaller anchored" data-number="3.4" data-anchor-id="paso-a-paso-clima-y-paraguas"><span class="header-section-number">3.4</span> Paso a paso: clima y paraguas</h2>
+<section id="paso-a-paso-clima-y-paraguas" class="level2 smaller" data-number="3.10">
+<h2 class="smaller anchored" data-number="3.10" data-anchor-id="paso-a-paso-clima-y-paraguas"><span class="header-section-number">3.10</span> Paso a paso: clima y paraguas</h2>
 <p><span class="math inline">\(X\)</span> = clima (lluvia / sol), <span class="math inline">\(Y\)</span> = la persona trae paraguas (sí / no).</p>
 <div class="columns">
 <div class="column" style="width:38%;">
@@ -3772,8 +4122,8 @@ H(X, Y) = H(X) + H(Y \mid X)
 </div>
 </div>
 </section>
-<section id="información-mutua" class="level2 smaller" data-number="3.5">
-<h2 class="smaller anchored" data-number="3.5" data-anchor-id="información-mutua"><span class="header-section-number">3.5</span> Información mutua</h2>
+<section id="información-mutua" class="level2 smaller" data-number="3.11">
+<h2 class="smaller anchored" data-number="3.11" data-anchor-id="información-mutua"><span class="header-section-number">3.11</span> Información mutua</h2>
 <p>¿Cuánto <strong>dice</strong> <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span>? Lo que baja la incertidumbre de <span class="math inline">\(X\)</span> al conocer <span class="math inline">\(Y\)</span>:</p>
 <p><span id="eq-mutua"><span class="math display">\[
 I(X; Y) = H(X) - H(X \mid Y)
@@ -3835,15 +4185,15 @@ I(X; Y) = H(X) - H(X \mid Y)
 </tbody>
 </table>
 </section>
-<section id="diagrama-de-información" class="level2" data-background-iframe="../anim/diagrama-informacion.html" data-background-interactive="true" data-number="3.6">
-<h2 data-background-iframe="../anim/diagrama-informacion.html" data-background-interactive="true" data-number="3.6" class="anchored" data-anchor-id="diagrama-de-información"><span class="header-section-number">3.6</span> Diagrama de información</h2>
+<section id="diagrama-de-información" class="level2" data-background-iframe="../anim/diagrama-informacion.html" data-background-interactive="true" data-number="3.12">
+<h2 data-background-iframe="../anim/diagrama-informacion.html" data-background-interactive="true" data-number="3.12" class="anchored" data-anchor-id="diagrama-de-información"><span class="header-section-number">3.12</span> Diagrama de información</h2>
 </section>
 </section>
 <section id="manos-a-la-obra" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Manos a la obra</h1>
 <section id="mini-colab" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="mini-colab"><span class="header-section-number">4.1</span> Mini-Colab</h2>
-<p>Abre <strong><code>S01-entropia.ipynb</code></strong> en Google Colab y ejecuta las celdas.</p>
+<p>Abre <strong><code>S01-entropia.ipynb</code></strong> en Google Colab. En clase: parte 0 y arrancar la descarga del modelo (celda 2.3); el resto se termina en casa.</p>
 <ol type="1">
 <li><strong>Español:</strong> entropía de las letras de <em>El Quijote</em>; luego, condicionada a la letra anterior.</li>
 <li><strong>Un LLM real:</strong> descarga SmolLM2-135M (270 MB) y mide la entropía de <strong>signo, exponente y mantisa</strong> de sus pesos.</li>
