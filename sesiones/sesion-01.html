@@ -2502,6 +2502,131 @@ H(X, Y) = -\sum_{x}\sum_{y} p(x,y)\,\log_2 p(x,y)
 <p><strong>Interpretación.</strong> Sólo pueden ocurrir <strong>3</strong> parejas, porque <span class="math inline">\((1,1)\)</span> nunca pasa. Con preguntas: “¿<span class="math inline">\(X = 1\)</span>?” — si sí (la mitad de las veces), la pareja es <span class="math inline">\((1,0)\)</span> con <strong>1</strong> pregunta; si no, “¿<span class="math inline">\(Y = 0\)</span>?” la resuelve con <strong>2</strong>. En promedio <span class="math inline">\(\tfrac12 \times 1 + \tfrac12 \times 2 = 1.5\)</span> preguntas: exactamente <span class="math inline">\(H(X,Y)\)</span>, porque las probabilidades son potencias de ½.</p>
 </section>
 <section class="slide level2 smaller">
+<h2>Ejercicio 2: entropía conjunta</h2>
+<p>Una persona va a su trabajo cada día. <span class="math inline">\(X\)</span> = transporte que usa, <span class="math inline">\(Y\)</span> = si llega a tiempo. Calcular <span class="math inline">\(H(X, Y)\)</span>:</p>
+<div class="columns">
+<div class="column" style="width:42%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>llega a tiempo</th>
+<th>llega tarde</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>metro</td>
+<td>1/2</td>
+<td>1/8</td>
+</tr>
+<tr class="even">
+<td>camión</td>
+<td>1/8</td>
+<td>1/4</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:58%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th><span class="math inline">\(p\)</span></th>
+<th><span class="math inline">\(-\log_2 p\)</span></th>
+<th>término</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>metro, a tiempo</td>
+<td>1/2</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>metro, tarde</td>
+<td>1/8</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>camión, a tiempo</td>
+<td>1/8</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>camión, tarde</td>
+<td>1/4</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td><strong>suma</strong></td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(H(X,Y)\)</span> = ?</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<p><strong>Paso 1:</strong> comprobar que la tabla suma 1. <strong>Y después:</strong> ¿qué estrategia de preguntas de sí/no adivina la pareja con el menor número promedio de preguntas? ¿Cuántas preguntas usa en promedio?</p>
+</section>
+<section class="slide level2 smaller">
+<h2>Solución: ejercicio 2</h2>
+<p><strong>Paso 1.</strong> <span class="math inline">\(\tfrac12 + \tfrac18 + \tfrac18 + \tfrac14 = \tfrac48 + \tfrac18 + \tfrac18 + \tfrac28 = \tfrac88 = 1\)</span> ✓</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 10%">
+<col style="width: 30%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pareja</th>
+<th><span class="math inline">\(p\)</span></th>
+<th><span class="math inline">\(-\log_2 p\)</span></th>
+<th>término <span class="math inline">\(p \cdot (-\log_2 p)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>metro, a tiempo</td>
+<td>1/2</td>
+<td><span class="math inline">\(-\log_2 \tfrac12 = 1\)</span></td>
+<td><span class="math inline">\(\tfrac12 \times 1 = 0.500\)</span></td>
+</tr>
+<tr class="even">
+<td>metro, tarde</td>
+<td>1/8</td>
+<td><span class="math inline">\(-\log_2 \tfrac18 = 3\)</span></td>
+<td><span class="math inline">\(\tfrac18 \times 3 = 0.375\)</span></td>
+</tr>
+<tr class="odd">
+<td>camión, a tiempo</td>
+<td>1/8</td>
+<td><span class="math inline">\(-\log_2 \tfrac18 = 3\)</span></td>
+<td><span class="math inline">\(\tfrac18 \times 3 = 0.375\)</span></td>
+</tr>
+<tr class="even">
+<td>camión, tarde</td>
+<td>1/4</td>
+<td><span class="math inline">\(-\log_2 \tfrac14 = 2\)</span></td>
+<td><span class="math inline">\(\tfrac14 \times 2 = 0.500\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>suma</strong></td>
+<td>1</td>
+<td></td>
+<td><span class="math inline">\(0.500 + 0.375 + 0.375 + 0.500 = \mathbf{1.75}\)</span> bits</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretación.</strong> Preguntar primero por lo más probable: “¿metro y a tiempo?” (sí la mitad de las veces: <strong>1</strong> pregunta); si no, “¿camión y tarde?” (<strong>2</strong>); si no, “¿metro y tarde?” (<strong>3</strong>, y la respuesta deja resuelta la última pareja). En promedio <span class="math inline">\(\tfrac12 \times 1 + \tfrac14 \times 2 + \tfrac18 \times 3 + \tfrac18 \times 3 = 1.75\)</span> preguntas <span class="math inline">\(= H(X,Y)\)</span>. Con 4 parejas igual de probables harían falta 2: la rutina de esta persona es predecible.</p>
+</section>
+<section class="slide level2 smaller">
 <h2>Entropía condicional</h2>
 <p>¿Cuánta incertidumbre <strong>queda</strong> sobre <span class="math inline">\(Y\)</span> cuando ya se conoce <span class="math inline">\(X\)</span>?</p>
 <p><span id="eq-condicional"><span class="math display">\[
