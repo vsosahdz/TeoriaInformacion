@@ -10,7 +10,7 @@ Material del curso: presentaciones, animaciones interactivas, prácticas en Goog
 
 | Carpeta | Qué hay |
 |---|---|
-| `sesiones/` | Presentaciones de cada sesión (`sesion-XX.html`) y la misma clase en formato de apuntes (`sesion-XX-apuntes.html`) |
+| `sesiones/` | Presentaciones (`sesion-XX.html`) y el mismo contenido en formato de apuntes (`sesion-XX-apuntes.html`) |
 | `anim/` | Animaciones interactivas que usan las presentaciones |
 | `practicas/` | Notebooks para Google Colab |
 | `repaso/` | Documentos de repaso con ejercicios resueltos |
@@ -22,13 +22,12 @@ Sin internet: descarga el repositorio (*Code → Download ZIP*) y abre `sesiones
 carpeta descargada (las animaciones se cargan de `anim/`).
 Teclas útiles: `→` avanzar, `F` pantalla completa, `Esc` vista general.
 
-**Prácticas.** Usa el enlace "Práctica en Colab" del sitio: abre el notebook directamente en Google Colab.
-Para guardar tu trabajo: *Archivo → Guardar una copia en Drive*.
+**Prácticas.** Se habilitarán más adelante.
 
-## Sesiones
+## Contenido
 
-| Sesión | Tema | Presentación | Apuntes | Práctica |
-|---|---|---|---|---|
-| 1 | Encuadre y entropía | [sesion-01.html](sesiones/sesion-01.html) | [sesion-01-apuntes.html](sesiones/sesion-01-apuntes.html) | [Abrir en Colab](https://colab.research.google.com/github/vsosahdz/TeoriaInformacion/blob/main/practicas/S01-entropia.ipynb) |
+| Tema | Presentación | Apuntes |
+|---|---|---|
+| Encuadre del curso, contenido de información y entropía | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01-apuntes.html) |
 
-**Repaso de conocimientos previos:** [repaso-prerrequisitos.pdf](repaso/repaso-prerrequisitos.pdf)
+**Repaso de conocimientos previos:** [repaso-prerrequisitos.pdf](https://vsosahdz.github.io/TeoriaInformacion/repaso/repaso-prerrequisitos.pdf)
