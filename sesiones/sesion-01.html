@@ -2968,6 +2968,123 @@ I(X; Y) = H(X) - H(X \mid Y)
 </table>
 </div>
 </section>
+<section class="slide level2 smaller">
+<h2>¿Qué pregunta responde cada medida?</h2>
+<p>Las cuatro miden incertidumbre o información en bits, pero responden preguntas <strong>distintas</strong>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 38%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th>Pregunta que responde</th>
+<th>Se usa cuando…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Entropía conjunta</strong> <span class="math inline">\(H(X,Y)\)</span></td>
+<td>¿Cuánta información hay en el <strong>par completo</strong>?</td>
+<td>hay que describir, guardar o adivinar <strong>las dos cosas juntas</strong> y no se sabe ninguna</td>
+</tr>
+<tr class="even">
+<td><strong>Entropía condicional</strong> <span class="math inline">\(H(Y \mid X)\)</span></td>
+<td>¿Cuánta incertidumbre <strong>queda</strong> sobre <span class="math inline">\(Y\)</span> si ya se conoce <span class="math inline">\(X\)</span>?</td>
+<td>una de las dos <strong>ya se sabe</strong> (o el receptor ya la tiene) y sólo interesa lo que falta</td>
+</tr>
+<tr class="odd">
+<td><strong>Regla de la cadena</strong></td>
+<td>¿Cómo se reparte la información del par si se averigua <strong>por etapas</strong>?</td>
+<td>la información llega o se procesa <strong>en orden</strong>: primero una cosa, luego la otra</td>
+</tr>
+<tr class="even">
+<td><strong>Información mutua</strong> <span class="math inline">\(I(X;Y)\)</span></td>
+<td>¿Cuánto <strong>dice</strong> una variable sobre la otra?</td>
+<td>se quiere saber si <strong>vale la pena observar</strong> <span class="math inline">\(Y\)</span> para conocer <span class="math inline">\(X\)</span>, o qué tan relacionadas están</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>Palabras clave:</strong> “las dos juntas” → conjunta · “ya se sabe” → condicional · “por partes, en orden” → regla de la cadena · “¿cuánto ayuda?”, “¿qué tan relacionadas?” → información mutua.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>¿Cuál se usa?</h2>
+<p>Para cada situación, ¿qué medida responde la pregunta?</p>
+<ol type="1">
+<li>Una app de mensajería quiere guardar, en el menor espacio posible, <strong>la fecha y la hora</strong> de cada mensaje.</li>
+<li>Un teclado de celular ya sabe que la palabra anterior fue “buenos”. ¿Qué tan difícil es adivinar la <strong>siguiente</strong>?</li>
+<li>Un médico quiere saber qué tanto le <strong>ayuda una prueba de laboratorio</strong> a saber si un paciente tiene cierta enfermedad.</li>
+<li>Se manda por radio el clima de una ciudad: primero si llueve y <strong>después</strong> la temperatura.</li>
+<li>El periódico ya publicó el clima de hoy. ¿Cuántos bits hacen falta para informar <strong>además</strong> el tráfico?</li>
+<li>En el proyecto: ¿cuánto <strong>dice el exponente</strong> de un peso sobre su mantisa? Si dice mucho, conviene codificarlos juntos.</li>
+</ol>
+</section>
+<section class="slide level2 smaller">
+<h2>Respuestas</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 40%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Medida</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Conjunta</strong> <span class="math inline">\(H(\text{fecha}, \text{hora})\)</span></td>
+<td>se guardan <strong>las dos</strong> juntas y no se conoce ninguna de antemano</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Condicional</strong> <span class="math inline">\(H(\text{siguiente} \mid \text{anterior})\)</span></td>
+<td>la palabra anterior <strong>ya se sabe</strong>; sólo importa lo que falta</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>Información mutua</strong> <span class="math inline">\(I(\text{enfermedad}; \text{prueba})\)</span></td>
+<td>se pregunta <strong>cuánto ayuda</strong> observar la prueba</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Regla de la cadena</strong> <span class="math inline">\(H(L, T) = H(L) + H(T \mid L)\)</span></td>
+<td>se manda <strong>por etapas</strong> (<span class="math inline">\(L\)</span> = si llueve, <span class="math inline">\(T\)</span> = temperatura): lo segundo cuesta sólo lo que no dijo lo primero</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Condicional</strong> <span class="math inline">\(H(\text{tráfico} \mid \text{clima})\)</span></td>
+<td>el receptor <strong>ya tiene</strong> el clima</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Información mutua</strong> <span class="math inline">\(I(\text{exponente}; \text{mantisa})\)</span></td>
+<td>mide <strong>qué tan relacionados</strong> están; si es 0, da igual codificarlos por separado</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Las cuatro están conectadas: la conjunta es el total, la condicional es lo que falta, la regla de la cadena dice que <strong>total = lo primero + lo que falta</strong>, y la información mutua es <strong>lo que se ahorra</strong> por saber una de las dos.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section class="slide level2" data-background-iframe="../anim/diagrama-informacion.html" data-background-interactive="true">
 <h2>Diagrama de información</h2>
 </section></section>
