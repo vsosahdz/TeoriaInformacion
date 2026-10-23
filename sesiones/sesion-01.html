@@ -3093,6 +3093,104 @@ I(X; Y) = H(X) - H(X \mid Y)
 <h1>Manos a la obra</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>Cómo se lee un peso del LLM</h2>
+<p>Cada peso ocupa 16 bits en formato <code>bfloat16</code>: 1 de <strong>signo</strong>, 8 de <strong>exponente</strong> y 7 de <strong>mantisa</strong>. Su valor es</p>
+<p><span id="eq-bf16"><span class="math display">\[
+\text{valor} = (-1)^{s} \cdot 2^{e-127} \cdot \left(1 + \frac{m}{128}\right)
+\tag{12}\]</span></span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(s\)</span></td>
+<td>bit de signo: 0 positivo, 1 negativo; <span class="math inline">\((-1)^0 = 1\)</span> y <span class="math inline">\((-1)^1 = -1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(e\)</span></td>
+<td>los 8 bits del exponente leídos como un entero de 0 a 255</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e - 127\)</span></td>
+<td>exponente <strong>sin sesgo</strong>: la potencia de 2 que da el <strong>tamaño</strong> del peso (se resta 127 para poder tener potencias negativas)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(m\)</span></td>
+<td>los 7 bits de la mantisa leídos como un entero de 0 a 127</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(1 + m/128\)</span></td>
+<td>factor entre 1 y 2 que ubica el peso dentro de su potencia de 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leer bits como entero:</strong> cada posición vale una potencia de 2, de derecha a izquierda <span class="math inline">\(1, 2, 4, 8, 16, 32, 64, 128\)</span>; se suman las posiciones que tienen 1. Por ejemplo, <code>00001011</code> <span class="math inline">\(= 8 + 2 + 1 = 11\)</span>.</p>
+</section>
+<section class="slide level2 smaller">
+<h2>Paso a paso: el primer peso de SmolLM2</h2>
+<p>El primer peso guardado en el archivo (primer número de la tabla de <em>embeddings</em>) tiene estos 16 bits:</p>
+<div style="font-size:1.4em; text-align:center">
+<p><code>1</code> | <code>01111011</code> | <code>1110001</code></p>
+</div>
+<div class="fragment">
+<p><strong>Paso 1. Signo:</strong> <span class="math inline">\(s = 1\)</span> → negativo, <span class="math inline">\((-1)^1 = -1\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Paso 2. Exponente:</strong> <code>01111011</code> <span class="math inline">\(= 64 + 32 + 16 + 8 + 2 + 1 = 123\)</span>, así que <span class="math inline">\(e - 127 = 123 - 127 = -4\)</span> y <span class="math inline">\(2^{-4} = \tfrac1{16} = 0.0625\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Paso 3. Mantisa:</strong> <code>1110001</code> <span class="math inline">\(= 64 + 32 + 16 + 1 = 113\)</span>, así que <span class="math inline">\(1 + \tfrac{113}{128} = 1 + 0.8828 = 1.8828\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Paso 4. Valor</strong> (ec. <a href="#/eq-bf16" class="quarto-xref">12</a>): <span class="math inline">\((-1) \times 0.0625 \times 1.8828 = \mathbf{-0.1177}\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Lectura:</strong> el peso está entre <span class="math inline">\(2^{-4} = 0.0625\)</span> y <span class="math inline">\(2^{-3} = 0.125\)</span> en valor absoluto. Su exponente, <span class="math inline">\(-4\)</span>, es uno de los cuatro que cubren el 82 % de los pesos (lámina 9): por eso el exponente trae tan poca información.</p>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Ejercicio: el segundo peso</h2>
+<p>El segundo peso del archivo tiene estos 16 bits:</p>
+<div style="font-size:1.4em; text-align:center">
+<p><code>0</code> | <code>01111001</code> | <code>1100100</code></p>
+</div>
+<ol type="1">
+<li>¿Es positivo o negativo?</li>
+<li>¿Cuánto vale <span class="math inline">\(e\)</span>? ¿Y el exponente sin sesgo <span class="math inline">\(e - 127\)</span>? ¿Cuánto es <span class="math inline">\(2^{e-127}\)</span>?</li>
+<li>¿Cuánto vale <span class="math inline">\(m\)</span>? ¿Y <span class="math inline">\(1 + m/128\)</span>?</li>
+<li>¿Cuál es el valor del peso? (ec. <a href="#/eq-bf16" class="quarto-xref">12</a>)</li>
+<li>¿Entre qué dos potencias de 2 está?</li>
+</ol>
+</section>
+<section class="slide level2 smaller">
+<h2>Solución: el segundo peso</h2>
+<p><code>0</code> | <code>01111001</code> | <code>1100100</code></p>
+<ol type="1">
+<li><strong>Signo:</strong> <span class="math inline">\(s = 0\)</span> → positivo, <span class="math inline">\((-1)^0 = 1\)</span>.</li>
+<li><strong>Exponente:</strong> <code>01111001</code> <span class="math inline">\(= 64 + 32 + 16 + 8 + 1 = 121\)</span>, así que <span class="math inline">\(e - 127 = -6\)</span> y <span class="math inline">\(2^{-6} = \tfrac1{64} = 0.015625\)</span>.</li>
+<li><strong>Mantisa:</strong> <code>1100100</code> <span class="math inline">\(= 64 + 32 + 4 = 100\)</span>, así que <span class="math inline">\(1 + \tfrac{100}{128} = 1.78125\)</span>.</li>
+<li><strong>Valor:</strong> <span class="math inline">\(1 \times 0.015625 \times 1.78125 = \mathbf{0.0278}\)</span>.</li>
+<li>Está entre <span class="math inline">\(2^{-6} = 0.0156\)</span> y <span class="math inline">\(2^{-5} = 0.03125\)</span>.</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Los dos pesos son pequeños: exponentes <span class="math inline">\(-4\)</span> y <span class="math inline">\(-6\)</span>, como casi todos. En el mini-Colab se hace esta misma separación para los <strong>134.5 millones</strong> de pesos a la vez, se cuenta cuántas veces aparece cada exponente y se calcula su entropía.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section class="slide level2">
 <h2>Mini-Colab</h2>
 <p>Abre <strong><code>S01-entropia.ipynb</code></strong> en Google Colab. En clase: parte 0 y arrancar la descarga del modelo (celda 2.3); el resto se termina en casa.</p>
@@ -3192,6 +3290,12 @@ I(X; Y) = H(X) - H(X \mid Y)
 <td>Información mutua</td>
 <td><span class="math inline">\(I(X;Y) = H(X) - H(X\mid Y)\)</span></td>
 <td>lo que <span class="math inline">\(Y\)</span> dice de <span class="math inline">\(X\)</span></td>
+</tr>
+<tr class="even">
+<td><a href="#/eq-bf16" class="quarto-xref">12</a></td>
+<td>Peso bfloat16</td>
+<td><span class="math inline">\((-1)^s \cdot 2^{e-127} \cdot (1 + m/128)\)</span></td>
+<td>signo · tamaño · ajuste fino</td>
 </tr>
 </tbody>
 </table>

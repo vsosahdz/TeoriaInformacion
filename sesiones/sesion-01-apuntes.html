@@ -2369,9 +2369,13 @@ window.Quarto = {
   </ul></li>
   <li><a href="#manos-a-la-obra" id="toc-manos-a-la-obra" class="nav-link" data-scroll-target="#manos-a-la-obra"><span class="header-section-number">4</span> Manos a la obra</a>
   <ul class="collapse">
-  <li><a href="#mini-colab" id="toc-mini-colab" class="nav-link" data-scroll-target="#mini-colab"><span class="header-section-number">4.1</span> Mini-Colab</a></li>
-  <li><a href="#resumen-de-hoy" id="toc-resumen-de-hoy" class="nav-link" data-scroll-target="#resumen-de-hoy"><span class="header-section-number">4.2</span> Resumen de hoy</a></li>
-  <li><a href="#para-la-próxima-sesión" id="toc-para-la-próxima-sesión" class="nav-link" data-scroll-target="#para-la-próxima-sesión"><span class="header-section-number">4.3</span> Para la próxima sesión</a></li>
+  <li><a href="#cómo-se-lee-un-peso-del-llm" id="toc-cómo-se-lee-un-peso-del-llm" class="nav-link" data-scroll-target="#cómo-se-lee-un-peso-del-llm"><span class="header-section-number">4.1</span> Cómo se lee un peso del LLM</a></li>
+  <li><a href="#paso-a-paso-el-primer-peso-de-smollm2" id="toc-paso-a-paso-el-primer-peso-de-smollm2" class="nav-link" data-scroll-target="#paso-a-paso-el-primer-peso-de-smollm2"><span class="header-section-number">4.2</span> Paso a paso: el primer peso de SmolLM2</a></li>
+  <li><a href="#ejercicio-el-segundo-peso" id="toc-ejercicio-el-segundo-peso" class="nav-link" data-scroll-target="#ejercicio-el-segundo-peso"><span class="header-section-number">4.3</span> Ejercicio: el segundo peso</a></li>
+  <li><a href="#solución-el-segundo-peso" id="toc-solución-el-segundo-peso" class="nav-link" data-scroll-target="#solución-el-segundo-peso"><span class="header-section-number">4.4</span> Solución: el segundo peso</a></li>
+  <li><a href="#mini-colab" id="toc-mini-colab" class="nav-link" data-scroll-target="#mini-colab"><span class="header-section-number">4.5</span> Mini-Colab</a></li>
+  <li><a href="#resumen-de-hoy" id="toc-resumen-de-hoy" class="nav-link" data-scroll-target="#resumen-de-hoy"><span class="header-section-number">4.6</span> Resumen de hoy</a></li>
+  <li><a href="#para-la-próxima-sesión" id="toc-para-la-próxima-sesión" class="nav-link" data-scroll-target="#para-la-próxima-sesión"><span class="header-section-number">4.7</span> Para la próxima sesión</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="_pub-sesion-01-apuntes.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -4457,8 +4461,108 @@ I(X; Y) = H(X) - H(X \mid Y)
 </section>
 <section id="manos-a-la-obra" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Manos a la obra</h1>
-<section id="mini-colab" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="mini-colab"><span class="header-section-number">4.1</span> Mini-Colab</h2>
+<section id="cómo-se-lee-un-peso-del-llm" class="level2 smaller" data-number="4.1">
+<h2 class="smaller anchored" data-number="4.1" data-anchor-id="cómo-se-lee-un-peso-del-llm"><span class="header-section-number">4.1</span> Cómo se lee un peso del LLM</h2>
+<p>Cada peso ocupa 16 bits en formato <code>bfloat16</code>: 1 de <strong>signo</strong>, 8 de <strong>exponente</strong> y 7 de <strong>mantisa</strong>. Su valor es</p>
+<p><span id="eq-bf16"><span class="math display">\[
+\text{valor} = (-1)^{s} \cdot 2^{e-127} \cdot \left(1 + \frac{m}{128}\right)
+\tag{12}\]</span></span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(s\)</span></td>
+<td>bit de signo: 0 positivo, 1 negativo; <span class="math inline">\((-1)^0 = 1\)</span> y <span class="math inline">\((-1)^1 = -1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(e\)</span></td>
+<td>los 8 bits del exponente leídos como un entero de 0 a 255</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e - 127\)</span></td>
+<td>exponente <strong>sin sesgo</strong>: la potencia de 2 que da el <strong>tamaño</strong> del peso (se resta 127 para poder tener potencias negativas)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(m\)</span></td>
+<td>los 7 bits de la mantisa leídos como un entero de 0 a 127</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(1 + m/128\)</span></td>
+<td>factor entre 1 y 2 que ubica el peso dentro de su potencia de 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leer bits como entero:</strong> cada posición vale una potencia de 2, de derecha a izquierda <span class="math inline">\(1, 2, 4, 8, 16, 32, 64, 128\)</span>; se suman las posiciones que tienen 1. Por ejemplo, <code>00001011</code> <span class="math inline">\(= 8 + 2 + 1 = 11\)</span>.</p>
+</section>
+<section id="paso-a-paso-el-primer-peso-de-smollm2" class="level2 smaller" data-number="4.2">
+<h2 class="smaller anchored" data-number="4.2" data-anchor-id="paso-a-paso-el-primer-peso-de-smollm2"><span class="header-section-number">4.2</span> Paso a paso: el primer peso de SmolLM2</h2>
+<p>El primer peso guardado en el archivo (primer número de la tabla de <em>embeddings</em>) tiene estos 16 bits:</p>
+<div style="font-size:1.4em; text-align:center">
+<p><code>1</code> | <code>01111011</code> | <code>1110001</code></p>
+</div>
+<div class="fragment">
+<p><strong>Paso 1. Signo:</strong> <span class="math inline">\(s = 1\)</span> → negativo, <span class="math inline">\((-1)^1 = -1\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Paso 2. Exponente:</strong> <code>01111011</code> <span class="math inline">\(= 64 + 32 + 16 + 8 + 2 + 1 = 123\)</span>, así que <span class="math inline">\(e - 127 = 123 - 127 = -4\)</span> y <span class="math inline">\(2^{-4} = \tfrac1{16} = 0.0625\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Paso 3. Mantisa:</strong> <code>1110001</code> <span class="math inline">\(= 64 + 32 + 16 + 1 = 113\)</span>, así que <span class="math inline">\(1 + \tfrac{113}{128} = 1 + 0.8828 = 1.8828\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Paso 4. Valor</strong> (ec. <a href="#eq-bf16" class="quarto-xref">12</a>): <span class="math inline">\((-1) \times 0.0625 \times 1.8828 = \mathbf{-0.1177}\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Lectura:</strong> el peso está entre <span class="math inline">\(2^{-4} = 0.0625\)</span> y <span class="math inline">\(2^{-3} = 0.125\)</span> en valor absoluto. Su exponente, <span class="math inline">\(-4\)</span>, es uno de los cuatro que cubren el 82 % de los pesos (lámina 9): por eso el exponente trae tan poca información.</p>
+</div>
+</section>
+<section id="ejercicio-el-segundo-peso" class="level2 smaller" data-number="4.3">
+<h2 class="smaller anchored" data-number="4.3" data-anchor-id="ejercicio-el-segundo-peso"><span class="header-section-number">4.3</span> Ejercicio: el segundo peso</h2>
+<p>El segundo peso del archivo tiene estos 16 bits:</p>
+<div style="font-size:1.4em; text-align:center">
+<p><code>0</code> | <code>01111001</code> | <code>1100100</code></p>
+</div>
+<ol type="1">
+<li>¿Es positivo o negativo?</li>
+<li>¿Cuánto vale <span class="math inline">\(e\)</span>? ¿Y el exponente sin sesgo <span class="math inline">\(e - 127\)</span>? ¿Cuánto es <span class="math inline">\(2^{e-127}\)</span>?</li>
+<li>¿Cuánto vale <span class="math inline">\(m\)</span>? ¿Y <span class="math inline">\(1 + m/128\)</span>?</li>
+<li>¿Cuál es el valor del peso? (ec. <a href="#eq-bf16" class="quarto-xref">12</a>)</li>
+<li>¿Entre qué dos potencias de 2 está?</li>
+</ol>
+</section>
+<section id="solución-el-segundo-peso" class="level2 smaller" data-number="4.4">
+<h2 class="smaller anchored" data-number="4.4" data-anchor-id="solución-el-segundo-peso"><span class="header-section-number">4.4</span> Solución: el segundo peso</h2>
+<p><code>0</code> | <code>01111001</code> | <code>1100100</code></p>
+<ol type="1">
+<li><strong>Signo:</strong> <span class="math inline">\(s = 0\)</span> → positivo, <span class="math inline">\((-1)^0 = 1\)</span>.</li>
+<li><strong>Exponente:</strong> <code>01111001</code> <span class="math inline">\(= 64 + 32 + 16 + 8 + 1 = 121\)</span>, así que <span class="math inline">\(e - 127 = -6\)</span> y <span class="math inline">\(2^{-6} = \tfrac1{64} = 0.015625\)</span>.</li>
+<li><strong>Mantisa:</strong> <code>1100100</code> <span class="math inline">\(= 64 + 32 + 4 = 100\)</span>, así que <span class="math inline">\(1 + \tfrac{100}{128} = 1.78125\)</span>.</li>
+<li><strong>Valor:</strong> <span class="math inline">\(1 \times 0.015625 \times 1.78125 = \mathbf{0.0278}\)</span>.</li>
+<li>Está entre <span class="math inline">\(2^{-6} = 0.0156\)</span> y <span class="math inline">\(2^{-5} = 0.03125\)</span>.</li>
+</ol>
+<p>. . .</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Los dos pesos son pequeños: exponentes <span class="math inline">\(-4\)</span> y <span class="math inline">\(-6\)</span>, como casi todos. En el mini-Colab se hace esta misma separación para los <strong>134.5 millones</strong> de pesos a la vez, se cuenta cuántas veces aparece cada exponente y se calcula su entropía.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="mini-colab" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="mini-colab"><span class="header-section-number">4.5</span> Mini-Colab</h2>
 <p>Abre <strong><code>S01-entropia.ipynb</code></strong> en Google Colab. En clase: parte 0 y arrancar la descarga del modelo (celda 2.3); el resto se termina en casa.</p>
 <ol type="1">
 <li><strong>Español:</strong> entropía de las letras de <em>El Quijote</em>; luego, condicionada a la letra anterior.</li>
@@ -4476,8 +4580,8 @@ I(X; Y) = H(X) - H(X \mid Y)
 </div>
 </div>
 </section>
-<section id="resumen-de-hoy" class="level2 smaller" data-number="4.2">
-<h2 class="smaller anchored" data-number="4.2" data-anchor-id="resumen-de-hoy"><span class="header-section-number">4.2</span> Resumen de hoy</h2>
+<section id="resumen-de-hoy" class="level2 smaller" data-number="4.6">
+<h2 class="smaller anchored" data-number="4.6" data-anchor-id="resumen-de-hoy"><span class="header-section-number">4.6</span> Resumen de hoy</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 7%">
@@ -4560,12 +4664,18 @@ I(X; Y) = H(X) - H(X \mid Y)
 <td><span class="math inline">\(I(X;Y) = H(X) - H(X\mid Y)\)</span></td>
 <td>lo que <span class="math inline">\(Y\)</span> dice de <span class="math inline">\(X\)</span></td>
 </tr>
+<tr class="even">
+<td><a href="#eq-bf16" class="quarto-xref">12</a></td>
+<td>Peso bfloat16</td>
+<td><span class="math inline">\((-1)^s \cdot 2^{e-127} \cdot (1 + m/128)\)</span></td>
+<td>signo · tamaño · ajuste fino</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Idea clave:</strong> para Shannon, <em>información</em> es <strong>reducción de incertidumbre</strong> — no significado.</p>
 </section>
-<section id="para-la-próxima-sesión" class="level2 smaller" data-number="4.3">
-<h2 class="smaller anchored" data-number="4.3" data-anchor-id="para-la-próxima-sesión"><span class="header-section-number">4.3</span> Para la próxima sesión</h2>
+<section id="para-la-próxima-sesión" class="level2 smaller" data-number="4.7">
+<h2 class="smaller anchored" data-number="4.7" data-anchor-id="para-la-próxima-sesión"><span class="header-section-number">4.7</span> Para la próxima sesión</h2>
 <ol type="1">
 <li><strong>(Cover &amp; Thomas 2.1)</strong> Lanzas una moneda justa hasta que sale la primera cara. Sea <span class="math inline">\(X\)</span> el número de lanzamientos. Calcula <span class="math inline">\(H(X)\)</span> con la ec. <a href="#eq-entropia" class="quarto-xref">4</a>. <em>Pista:</em> para <span class="math inline">\(|r| &lt; 1\)</span>, <span class="math inline">\(\ \sum_{n\ge1} n\, r^n = \frac{r}{(1-r)^2}\)</span>.</li>
 <li>Construye una distribución conjunta <span class="math inline">\(2 \times 2\)</span> en la que <span class="math inline">\(H(X \mid Y{=}y) &gt; H(X)\)</span> para algún valor <span class="math inline">\(y\)</span>, pero aun así <span class="math inline">\(H(X\mid Y) \le H(X)\)</span>. ¿Contradice algo?</li>
