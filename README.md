@@ -22,12 +22,13 @@ Sin internet: descarga el repositorio (*Code → Download ZIP*) y abre `sesiones
 carpeta descargada (las animaciones se cargan de `anim/`).
 Teclas útiles: `→` avanzar, `F` pantalla completa, `Esc` vista general.
 
-**Prácticas.** Se habilitarán más adelante.
+**Prácticas.** El enlace "Abrir en Colab" abre el notebook directamente en Google Colab.
+Para guardar tu trabajo: *Archivo → Guardar una copia en Drive*.
 
 ## Contenido
 
-| Tema | Presentación | Apuntes |
-|---|---|---|
-| Encuadre del curso, contenido de información y entropía | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01-apuntes.html) |
+| Tema | Presentación | Apuntes | Práctica |
+|---|---|---|---|
+| Encuadre del curso, contenido de información y entropía | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01-apuntes.html) | [Abrir en Colab](https://colab.research.google.com/github/vsosahdz/TeoriaInformacion/blob/main/practicas/S01-entropia.ipynb) |
 
 **Repaso de conocimientos previos:** [repaso-prerrequisitos.pdf](https://vsosahdz.github.io/TeoriaInformacion/repaso/repaso-prerrequisitos.pdf)
