@@ -53,7 +53,7 @@
       <div class="sliders">
         <div class="sl p" id="sp"></div>
       </div>
-      <div class="note">Arriba de cada slider: el peso del símbolo; las probabilidades se normalizan para que sumen 1.
+      <div class="note">Cada control marca una probabilidad en la misma escala que las barras (de 0 a 1). Al mover uno, los demás de esa distribución se ajustan para que sigan sumando 1.
         Azul = <b>p</b> (la fuente real) · amarillo = <b>q</b> (el modelo con el que se diseñó el código).</div>
     </div>
 
@@ -91,23 +91,31 @@ function D(p,q){ let d=0; for(let i=0;i<4;i++){ if(p[i]>0){ if(q[i]===0) return 
 function H(p){ return -p.reduce((s,x)=> x>0 ? s + x*lg(x) : s, 0); }
 const fmt = v => !isFinite(v) ? "∞" : v.toFixed(3);
 
+function setProb(w, i, v){
+  // fija w[i] = v (probabilidad) y reparte 1 - v entre los demás, en proporción a lo que ya tenían
+  const n = norm(w), rest = n.reduce((a,b,k)=> k===i ? a : a+b, 0);
+  return n.map((x,k) => k===i ? v : (rest > 0 ? x/rest*(1-v) : (1-v)/3));
+}
+function syncSliders(){
+  const p = norm(wp), q = norm(wq);
+  document.querySelectorAll('#ctrls input').forEach(inp => {
+    const i = +inp.dataset.i, val = inp.dataset.k === "p" ? p[i] : q[i];
+    inp.value = val; inp.parentElement.querySelector("b").textContent = val.toFixed(3);
+  });
+}
 function buildSliders(){
-  const box = $("sp").parentElement; box.innerHTML = "";
-  S.forEach((s,i) => {
-    const d = document.createElement("div"); d.className="sl p";
-    d.innerHTML = `p(${s}) <input type="range" min="0" max="100" step="0.5" value="${wp[i]}" data-k="p" data-i="${i}">`;
+  const box = $("sp").parentElement; box.id = "ctrls"; box.innerHTML = "";
+  ["p","q"].forEach(k => S.forEach((s,i) => {
+    const d = document.createElement("div"); d.className = "sl " + k;
+    d.innerHTML = `<span>${k}(${s}) = <b></b></span><input type="range" min="0" max="1" step="0.005" data-k="${k}" data-i="${i}">`;
     box.appendChild(d);
-  });
-  S.forEach((s,i) => {
-    const d = document.createElement("div"); d.className="sl q";
-    d.innerHTML = `q(${s}) <input type="range" min="0" max="100" step="0.5" value="${wq[i]}" data-k="q" data-i="${i}">`;
-    box.appendChild(d);
-  });
+  }));
   box.querySelectorAll("input").forEach(inp => inp.oninput = e => {
-    const i = +e.target.dataset.i, v = +e.target.value;
-    if (e.target.dataset.k === "p") wp[i] = v; else wq[i] = v;
+    const i = +e.target.dataset.i, v = Math.min(1, Math.max(0, +e.target.value));
+    if (e.target.dataset.k === "p") wp = setProb(wp, i, v); else wq = setProb(wq, i, v);
     render();
   });
+  syncSliders();
 }
 
 function draw(p,q){
@@ -120,7 +128,10 @@ function draw(p,q){
     const x0=L+i*gw+gw*0.18, bw=gw*0.3;
     g.fillStyle="#4ea1ff"; g.fillRect(x0, T+ph-ph*p[i], bw, ph*p[i]);
     g.fillStyle="#ffc44d"; g.fillRect(x0+bw+4, T+ph-ph*q[i], bw, ph*q[i]);
-    g.fillStyle="#e8eaf0"; g.font="15px ui-sans-serif"; g.textAlign="center";
+    g.font="12px ui-sans-serif"; g.textAlign="center";
+    g.fillStyle="#4ea1ff"; g.fillText(p[i].toFixed(2), x0+bw/2, T+ph-ph*p[i]-6);
+    g.fillStyle="#ffc44d"; g.fillText(q[i].toFixed(2), x0+bw+4+bw/2, T+ph-ph*q[i]-6);
+    g.fillStyle="#e8eaf0"; g.font="15px ui-sans-serif";
     g.fillText(S[i], L+i*gw+gw*0.5, Hh-12); g.textAlign="left";
     if(p[i]>0 && q[i]===0){ g.fillStyle="#ff6b5a"; g.font="12px ui-sans-serif"; g.fillText("q = 0 ⚠", x0, T+ph-ph*p[i]-6); }
   }
@@ -128,7 +139,7 @@ function draw(p,q){
 
 function render(){
   const p=norm(wp), q=norm(wq);
-  draw(p,q);
+  draw(p,q); syncSliders();
   let rows = `<tr><th>x</th><th>p(x)</th><th>q(x)</th><th>término</th></tr>`;
   for(let i=0;i<4;i++){
     let t;

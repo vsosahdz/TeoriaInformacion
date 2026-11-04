@@ -1403,7 +1403,7 @@ L_q \;=\; H(p) \;+\; D(p\,\|\,q) \qquad\qquad 2 \;=\; 1.75 \;+\; 0.25
 <h2>Qué muestra la animación</h2>
 <p>La animación compara una fuente <strong>real</strong> <span class="math inline">\(p\)</span> con un <strong>modelo</strong> <span class="math inline">\(q\)</span> sobre cuatro símbolos.</p>
 <ol type="1">
-<li><strong>Barras azules</strong> (<span class="math inline">\(p\)</span>) y <strong>amarillas</strong> (<span class="math inline">\(q\)</span>): se ajustan con los controles; las probabilidades se normalizan solas.</li>
+<li><strong>Barras azules</strong> (<span class="math inline">\(p\)</span>) y <strong>amarillas</strong> (<span class="math inline">\(q\)</span>), en la misma escala de 0 a 1. Cada control marca la probabilidad de su barra; al mover uno, los demás se ajustan para que la distribución siga sumando 1.</li>
 <li><strong>Tabla “término por término”:</strong> cada término <span class="math inline">\(p(x)\log_2\frac{p(x)}{q(x)}\)</span> de la ec. <a href="#/eq-kl" class="quarto-xref">1</a>, en verde si es positivo y en rojo si es negativo.</li>
 <li><strong>Resultados:</strong> <span class="math inline">\(H(p)\)</span>, los bits que usa el código de <span class="math inline">\(q\)</span> y la diferencia <span class="math inline">\(D(p\,\|\,q)\)</span>, junto con <span class="math inline">\(D(q\,\|\,p)\)</span> para comparar.</li>
 <li><strong>Ejemplos:</strong> “código uniforme” (el de hoy), “iguales” (<span class="math inline">\(D = 0\)</span>), “asimetría” y “q ignora un símbolo” (<span class="math inline">\(D = \infty\)</span>).</li>
