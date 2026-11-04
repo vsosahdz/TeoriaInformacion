@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divergencia KL — el costo de usar el modelo equivocado</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:14px 20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:12px; }
+  .grid { display:grid; grid-template-columns:1fr 380px; gap:14px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .panel h2 { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 8px; font-weight:600; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  .sliders { display:grid; grid-template-columns:repeat(4,1fr); gap:6px 12px; margin-top:6px; }
+  .sl { display:flex; flex-direction:column; font-size:12px; color:var(--muted); }
+  .sl input { width:100%; }
+  .p input { accent-color:var(--cold); } .q input { accent-color:var(--warn); }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:6px 11px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover{ background:#2b3244; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
+  td, th { padding:4px 6px; border-bottom:1px solid var(--line); text-align:right; }
+  th { color:var(--muted); font-weight:500; }
+  td:first-child, th:first-child { text-align:left; }
+  .neg { color:var(--hot); } .pos { color:var(--ok); }
+  .big { font-size:20px; font-variant-numeric:tabular-nums; }
+  .note { color:var(--muted); font-size:12px; margin-top:8px; line-height:1.5; }
+  .kv { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .kv b { font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Divergencia KL — ¿cuántos bits de más cuesta usar el modelo equivocado?</h1>
+  <div class="sub">La fuente real produce los símbolos a, b, c, d con probabilidades <b style="color:var(--cold)">p</b>.
+    El código se diseñó pensando que eran <b style="color:var(--warn)">q</b>. Mueve las barras y observa el costo.</div>
+
+  <div class="row" id="presets"></div>
+
+  <div class="grid">
+    <div class="panel">
+      <canvas id="bars" width="720" height="300"></canvas>
+      <div class="sliders">
+        <div class="sl p" id="sp"></div>
+      </div>
+      <div class="note">Arriba de cada slider: el peso del símbolo; las probabilidades se normalizan para que sumen 1.
+        Azul = <b>p</b> (la fuente real) · amarillo = <b>q</b> (el modelo con el que se diseñó el código).</div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h2>Término por término: p(x) · log₂ (p(x) / q(x))</h2>
+        <table id="terms"></table>
+        <div class="note">Algunos términos salen <span class="neg">negativos</span>, pero la suma nunca es negativa.</div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <h2>Resultados</h2>
+        <div class="kv"><span>H(p): bits con el código correcto</span><b id="hp"></b></div>
+        <div class="kv"><span>bits con el código diseñado para q</span><b id="cross"></b></div>
+        <div class="kv"><span>D(p‖q): bits de más</span><b class="big" id="dpq" style="color:var(--hot)"></b></div>
+        <div class="kv"><span>D(q‖p): al revés</span><b id="dqp"></b></div>
+        <div class="note" id="msg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const S = ["a","b","c","d"];
+const lg = Math.log2;
+let wp = [50,25,12.5,12.5], wq = [25,25,25,25];
+const PRESETS = {
+  "código uniforme": [[50,25,12.5,12.5],[25,25,25,25]],
+  "iguales": [[50,25,12.5,12.5],[50,25,12.5,12.5]],
+  "asimetría": [[50,50,0,0],[25,75,0,0]],
+  "q ignora un símbolo": [[40,30,20,10],[50,30,20,0]],
+};
+function norm(w){ const s = w.reduce((a,b)=>a+b,0); return w.map(x => s>0 ? x/s : 0); }
+function D(p,q){ let d=0; for(let i=0;i<4;i++){ if(p[i]>0){ if(q[i]===0) return Infinity; d += p[i]*lg(p[i]/q[i]); } } return d; }
+function H(p){ return -p.reduce((s,x)=> x>0 ? s + x*lg(x) : s, 0); }
+const fmt = v => !isFinite(v) ? "∞" : v.toFixed(3);
+
+function buildSliders(){
+  const box = $("sp").parentElement; box.innerHTML = "";
+  S.forEach((s,i) => {
+    const d = document.createElement("div"); d.className="sl p";
+    d.innerHTML = `p(${s}) <input type="range" min="0" max="100" step="0.5" value="${wp[i]}" data-k="p" data-i="${i}">`;
+    box.appendChild(d);
+  });
+  S.forEach((s,i) => {
+    const d = document.createElement("div"); d.className="sl q";
+    d.innerHTML = `q(${s}) <input type="range" min="0" max="100" step="0.5" value="${wq[i]}" data-k="q" data-i="${i}">`;
+    box.appendChild(d);
+  });
+  box.querySelectorAll("input").forEach(inp => inp.oninput = e => {
+    const i = +e.target.dataset.i, v = +e.target.value;
+    if (e.target.dataset.k === "p") wp[i] = v; else wq[i] = v;
+    render();
+  });
+}
+
+function draw(p,q){
+  const c=$("bars"), g=c.getContext("2d"), W=c.width, Hh=c.height;
+  g.clearRect(0,0,W,Hh);
+  const L=40, B=36, T=14, ph=Hh-B-T, gw=(W-L-20)/4;
+  g.strokeStyle="#2a2f3a"; g.fillStyle="#9aa3b2"; g.font="12px ui-sans-serif";
+  for(let y=0;y<=4;y++){ const yy=T+ph-ph*y/4; g.beginPath(); g.moveTo(L,yy); g.lineTo(W-20,yy); g.stroke(); g.fillText((y/4).toFixed(2),4,yy+4); }
+  for(let i=0;i<4;i++){
+    const x0=L+i*gw+gw*0.18, bw=gw*0.3;
+    g.fillStyle="#4ea1ff"; g.fillRect(x0, T+ph-ph*p[i], bw, ph*p[i]);
+    g.fillStyle="#ffc44d"; g.fillRect(x0+bw+4, T+ph-ph*q[i], bw, ph*q[i]);
+    g.fillStyle="#e8eaf0"; g.font="15px ui-sans-serif"; g.textAlign="center";
+    g.fillText(S[i], L+i*gw+gw*0.5, Hh-12); g.textAlign="left";
+    if(p[i]>0 && q[i]===0){ g.fillStyle="#ff6b5a"; g.font="12px ui-sans-serif"; g.fillText("q = 0 ⚠", x0, T+ph-ph*p[i]-6); }
+  }
+}
+
+function render(){
+  const p=norm(wp), q=norm(wq);
+  draw(p,q);
+  let rows = `<tr><th>x</th><th>p(x)</th><th>q(x)</th><th>término</th></tr>`;
+  for(let i=0;i<4;i++){
+    let t;
+    if(p[i]===0) t = 0; else if(q[i]===0) t = Infinity; else t = p[i]*lg(p[i]/q[i]);
+    const cls = !isFinite(t) ? "neg" : t < -1e-9 ? "neg" : t > 1e-9 ? "pos" : "";
+    rows += `<tr><td>${S[i]}</td><td>${p[i].toFixed(3)}</td><td>${q[i].toFixed(3)}</td><td class="${cls}">${fmt(t)}</td></tr>`;
+  }
+  const dpq=D(p,q), dqp=D(q,p), hp=H(p);
+  rows += `<tr><td><b>suma</b></td><td></td><td></td><td><b>${fmt(dpq)}</b></td></tr>`;
+  $("terms").innerHTML = rows;
+  $("hp").textContent = hp.toFixed(3) + " bits";
+  $("cross").textContent = isFinite(dpq) ? (hp+dpq).toFixed(3) + " bits" : "∞";
+  $("dpq").textContent = fmt(dpq) + (isFinite(dpq) ? " bits" : "");
+  $("dqp").textContent = fmt(dqp) + (isFinite(dqp) ? " bits" : "");
+  let m;
+  if (!isFinite(dpq)) m = "El modelo q asigna probabilidad 0 a un símbolo que sí ocurre: el código no tiene palabra para él y falla. La divergencia es infinita.";
+  else if (dpq < 1e-6) m = "p y q coinciden: el código es el correcto y no se paga nada de más (D = 0).";
+  else {
+    m = `Cada símbolo cuesta en promedio ${dpq.toFixed(3)} bits de más por usar el código de q.`;
+    m += (isFinite(dqp) && Math.abs(dpq-dqp) < 5e-4)
+      ? " Aquí D(p‖q) y D(q‖p) coinciden por casualidad; prueba el ejemplo «asimetría»."
+      : " D(p‖q) ≠ D(q‖p): la divergencia no es simétrica.";
+  }
+  $("msg").textContent = m;
+}
+
+Object.keys(PRESETS).forEach(k => {
+  const b=document.createElement("button"); b.textContent=k;
+  b.onclick = () => { wp=[...PRESETS[k][0]]; wq=[...PRESETS[k][1]]; buildSliders(); render(); };
+  $("presets").appendChild(b);
+});
+buildSliders(); render();
+</script>
+</body>
+</html>

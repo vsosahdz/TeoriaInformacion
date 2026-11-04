@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desigualdad de Jensen — la cuerda y la curva</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:14px 20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:12px; }
+  .grid { display:grid; grid-template-columns:1fr 360px; gap:14px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .panel h2 { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 8px; font-weight:600; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  .rowc { display:flex; align-items:center; gap:10px; margin:8px 0; font-size:13px; }
+  .rowc label { color:var(--muted); min-width:120px; }
+  .rowc input { flex:1; accent-color:var(--cold); }
+  .val { min-width:52px; text-align:right; font-variant-numeric:tabular-nums; }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:6px 11px; font:inherit; font-size:13px; cursor:pointer; }
+  button.on { background:var(--cold); color:#03101f; border-color:var(--cold); font-weight:600; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .kv { display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .kv b { font-variant-numeric:tabular-nums; }
+  .big { font-size:20px; }
+  .note { color:var(--muted); font-size:12px; margin-top:8px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Desigualdad de Jensen — para una función convexa, el promedio de f queda arriba de f del promedio</h1>
+  <div class="sub">Una variable X vale <b>a</b> con probabilidad λ y <b>b</b> con probabilidad 1 − λ. Compara
+    <b style="color:var(--warn)">E[f(X)]</b> (punto sobre la cuerda) con <b style="color:var(--cold)">f(E[X])</b> (punto sobre la curva).</div>
+
+  <div class="row" id="funcs"></div>
+
+  <div class="grid">
+    <div class="panel"><canvas id="cv" width="760" height="380"></canvas>
+      <div class="note">La recta amarilla es la <b>cuerda</b> entre (a, f(a)) y (b, f(b)). Con una función convexa la cuerda
+        queda siempre por encima de la curva; con una cóncava (como log₂), por debajo.</div>
+    </div>
+    <div>
+      <div class="panel">
+        <div class="rowc"><label for="a">a</label><input id="a" type="range" min="0" max="100" value="12"><span class="val" id="av"></span></div>
+        <div class="rowc"><label for="b">b</label><input id="b" type="range" min="0" max="100" value="85"><span class="val" id="bv"></span></div>
+        <div class="rowc"><label for="l">λ = P(X = a)</label><input id="l" type="range" min="0" max="100" value="50"><span class="val" id="lv"></span></div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <h2>Cálculo</h2>
+        <div class="kv"><span>E[X] = λa + (1 − λ)b</span><b id="ex"></b></div>
+        <div class="kv"><span style="color:var(--cold)">f(E[X]) — curva</span><b id="fex"></b></div>
+        <div class="kv"><span style="color:var(--warn)">E[f(X)] = λf(a) + (1 − λ)f(b) — cuerda</span><b id="efx"></b></div>
+        <div class="kv"><span>diferencia E[f(X)] − f(E[X])</span><b class="big" id="gap"></b></div>
+        <div class="note" id="msg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const F = {
+  "x²":        { f:x=>x*x, lo:0, hi:3, conv:true },
+  "2^x":       { f:x=>Math.pow(2,x), lo:0, hi:3, conv:true },
+  "x·log₂ x":  { f:x=> x<=0 ? 0 : x*Math.log2(x), lo:0, hi:3, conv:true },
+  "log₂ x (cóncava)": { f:x=>Math.log2(x), lo:0.25, hi:4, conv:false },
+};
+let cur = "x²";
+function setF(k){ cur=k; document.querySelectorAll("#funcs button").forEach(b=>b.classList.toggle("on", b.textContent===k)); render(); }
+Object.keys(F).forEach(k=>{ const b=document.createElement("button"); b.textContent=k; b.onclick=()=>setF(k); $("funcs").appendChild(b); });
+
+function render(){
+  const fn=F[cur], f=fn.f;
+  const toX = v => fn.lo + (fn.hi-fn.lo)*v/100;
+  const a=toX(+$("a").value), b=toX(+$("b").value), l=+$("l").value/100;
+  $("av").textContent=a.toFixed(2); $("bv").textContent=b.toFixed(2); $("lv").textContent=l.toFixed(2);
+  const ex=l*a+(1-l)*b, fex=f(ex), efx=l*f(a)+(1-l)*f(b), gap=efx-fex;
+  $("ex").textContent=ex.toFixed(3); $("fex").textContent=fex.toFixed(3); $("efx").textContent=efx.toFixed(3);
+  $("gap").textContent=(gap>=0?"+":"")+gap.toFixed(3);
+  $("msg").textContent = fn.conv
+    ? "Función convexa: E[f(X)] ≥ f(E[X]). La diferencia nunca es negativa; vale 0 sólo si a = b o si λ es 0 o 1 (X constante)."
+    : "Función cóncava: la desigualdad se invierte, E[log₂ X] ≤ log₂ E[X]. Es la forma que se usa para demostrar D(p‖q) ≥ 0.";
+  // dibujo
+  const c=$("cv"), g=c.getContext("2d"), W=c.width, H=c.height, L=46, R=16, T=16, B=34;
+  g.clearRect(0,0,W,H);
+  const xs=[]; for(let i=0;i<=300;i++) xs.push(fn.lo+(fn.hi-fn.lo)*i/300);
+  const ys=xs.map(f); let ymin=Math.min(...ys), ymax=Math.max(...ys); const pad=(ymax-ymin)*0.08; ymin-=pad; ymax+=pad;
+  const X=x=>L+(x-fn.lo)/(fn.hi-fn.lo)*(W-L-R), Y=y=>T+(ymax-y)/(ymax-ymin)*(H-T-B);
+  g.strokeStyle="#2a2f3a"; g.fillStyle="#9aa3b2"; g.font="12px ui-sans-serif";
+  for(let i=0;i<=4;i++){ const yv=ymin+(ymax-ymin)*i/4; g.beginPath(); g.moveTo(L,Y(yv)); g.lineTo(W-R,Y(yv)); g.stroke(); g.fillText(yv.toFixed(1),4,Y(yv)+4); }
+  for(let i=0;i<=4;i++){ const xv=fn.lo+(fn.hi-fn.lo)*i/4; g.fillText(xv.toFixed(2),X(xv)-12,H-12); }
+  g.strokeStyle="#e8eaf0"; g.lineWidth=2.2; g.beginPath(); xs.forEach((x,i)=>{ i?g.lineTo(X(x),Y(ys[i])):g.moveTo(X(x),Y(ys[i])); }); g.stroke();
+  g.strokeStyle="#ffc44d"; g.lineWidth=2; g.beginPath(); g.moveTo(X(a),Y(f(a))); g.lineTo(X(b),Y(f(b))); g.stroke();
+  const dot=(x,y,col,r=6)=>{ g.fillStyle=col; g.beginPath(); g.arc(X(x),Y(y),r,0,7); g.fill(); };
+  dot(a,f(a),"#9aa3b2",5); dot(b,f(b),"#9aa3b2",5);
+  g.strokeStyle="rgba(232,234,240,.35)"; g.setLineDash([4,4]); g.lineWidth=1;
+  g.beginPath(); g.moveTo(X(ex),Y(ymin)); g.lineTo(X(ex),Y(Math.max(efx,fex))); g.stroke(); g.setLineDash([]);
+  dot(ex,efx,"#ffc44d"); dot(ex,fex,"#4ea1ff");
+  g.fillStyle="#e8eaf0"; g.font="13px ui-sans-serif";
+  g.fillText("E[f(X)]", X(ex)+10, Y(efx)+(efx>=fex?-6:14));
+  g.fillText("f(E[X])", X(ex)+10, Y(fex)+(efx>=fex?14:-6));
+  g.fillText("a", X(a)-4, Y(f(a))-10); g.fillText("b", X(b)-4, Y(f(b))-10);
+}
+["a","b","l"].forEach(id=>$(id).oninput=render);
+setF("x²");
+</script>
+</body>
+</html>

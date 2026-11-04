@@ -30,5 +30,6 @@ Para guardar tu trabajo: *Archivo → Guardar una copia en Drive*.
 | Tema | Presentación | Apuntes | Práctica |
 |---|---|---|---|
 | Encuadre del curso, contenido de información y entropía | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-01-apuntes.html) | [Abrir en Colab](https://colab.research.google.com/github/vsosahdz/TeoriaInformacion/blob/main/practicas/S01-entropia.ipynb) |
+| Entropía relativa, reglas de la cadena y Jensen | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-02.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-02-apuntes.html) | — |
 
 **Repaso de conocimientos previos:** [repaso-prerrequisitos.pdf](https://vsosahdz.github.io/TeoriaInformacion/repaso/repaso-prerrequisitos.pdf)
