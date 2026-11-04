@@ -1300,6 +1300,48 @@ D(p \,\|\, q) = \sum_x p(x)\,\log_2 \frac{p(x)}{q(x)}
 </div>
 </section>
 <section class="slide level2 smaller">
+<h2>¿Qué significa el costo de equivocarse?</h2>
+<p>Un buen código da a cada símbolo unos <span class="math inline">\(-\log_2 q(x)\)</span> bits, donde <span class="math inline">\(q\)</span> es la probabilidad que <strong>el diseñador creyó</strong>. Si acertó (<span class="math inline">\(q = p\)</span>), el promedio es la entropía, el mínimo posible. Si no, reparte mal las longitudes y el promedio sube:</p>
+<p><span class="math display">\[
+L_q \;=\; H(p) \;+\; D(p\,\|\,q) \qquad\qquad 2 \;=\; 1.75 \;+\; 0.25
+\]</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(L_q\)</span></td>
+<td>bits promedio por símbolo con el código diseñado para <span class="math inline">\(q\)</span> (en el ejemplo, <strong>2</strong>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H(p)\)</span></td>
+<td><strong>lo inevitable</strong>: bits que ningún código puede evitar, la información que realmente trae la fuente (<strong>1.75</strong>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D(p\,\|\,q)\)</span></td>
+<td><strong>el costo de equivocarse</strong>: bits que se pagan de más por culpa del modelo; se eliminan con un modelo mejor (<strong>0.25</strong>)</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>En números:</strong> con un millón de símbolos son <span class="math inline">\(0.25 \times 10^6 = 250{,}000\)</span> bits desperdiciados (unos 31 KB). El archivo queda <span class="math inline">\(\tfrac{2}{1.75} = 1.14\)</span>, es decir, <strong>14 % más grande</strong> de lo necesario, sólo por haber supuesto que las letras eran igual de probables. En el proyecto, usar una sola tabla de códigos para todas las capas del LLM paga una divergencia así en cada capa.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
 <h2>Propiedades de la divergencia</h2>
 <table class="caption-top">
 <colgroup>

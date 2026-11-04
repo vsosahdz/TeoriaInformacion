@@ -2324,13 +2324,14 @@ window.Quarto = {
   <li><a href="#un-código-diseñado-para-la-fuente-equivocada" id="toc-un-código-diseñado-para-la-fuente-equivocada" class="nav-link" data-scroll-target="#un-código-diseñado-para-la-fuente-equivocada"><span class="header-section-number">2.1</span> Un código diseñado para la fuente equivocada</a></li>
   <li><a href="#definición-entropía-relativa-divergencia-kl" id="toc-definición-entropía-relativa-divergencia-kl" class="nav-link" data-scroll-target="#definición-entropía-relativa-divergencia-kl"><span class="header-section-number">2.2</span> Definición: entropía relativa (divergencia KL)</a></li>
   <li><a href="#paso-a-paso-el-costo-del-código-equivocado" id="toc-paso-a-paso-el-costo-del-código-equivocado" class="nav-link" data-scroll-target="#paso-a-paso-el-costo-del-código-equivocado"><span class="header-section-number">2.3</span> Paso a paso: el costo del código equivocado</a></li>
-  <li><a href="#propiedades-de-la-divergencia" id="toc-propiedades-de-la-divergencia" class="nav-link" data-scroll-target="#propiedades-de-la-divergencia"><span class="header-section-number">2.4</span> Propiedades de la divergencia</a></li>
-  <li><a href="#ejercicio-la-asimetría" id="toc-ejercicio-la-asimetría" class="nav-link" data-scroll-target="#ejercicio-la-asimetría"><span class="header-section-number">2.5</span> Ejercicio: la asimetría</a></li>
-  <li><a href="#solución-la-asimetría" id="toc-solución-la-asimetría" class="nav-link" data-scroll-target="#solución-la-asimetría"><span class="header-section-number">2.6</span> Solución: la asimetría</a></li>
-  <li><a href="#qué-muestra-la-animación" id="toc-qué-muestra-la-animación" class="nav-link" data-scroll-target="#qué-muestra-la-animación"><span class="header-section-number">2.7</span> Qué muestra la animación</a></li>
-  <li><a href="#divergencia-kl" id="toc-divergencia-kl" class="nav-link" data-scroll-target="#divergencia-kl"><span class="header-section-number">2.8</span> Divergencia KL</a></li>
-  <li><a href="#la-información-mutua-es-una-divergencia" id="toc-la-información-mutua-es-una-divergencia" class="nav-link" data-scroll-target="#la-información-mutua-es-una-divergencia"><span class="header-section-number">2.9</span> La información mutua es una divergencia</a></li>
-  <li><a href="#paso-a-paso-clima-y-tráfico-otra-vez" id="toc-paso-a-paso-clima-y-tráfico-otra-vez" class="nav-link" data-scroll-target="#paso-a-paso-clima-y-tráfico-otra-vez"><span class="header-section-number">2.10</span> Paso a paso: clima y tráfico otra vez</a></li>
+  <li><a href="#qué-significa-el-costo-de-equivocarse" id="toc-qué-significa-el-costo-de-equivocarse" class="nav-link" data-scroll-target="#qué-significa-el-costo-de-equivocarse"><span class="header-section-number">2.4</span> ¿Qué significa el costo de equivocarse?</a></li>
+  <li><a href="#propiedades-de-la-divergencia" id="toc-propiedades-de-la-divergencia" class="nav-link" data-scroll-target="#propiedades-de-la-divergencia"><span class="header-section-number">2.5</span> Propiedades de la divergencia</a></li>
+  <li><a href="#ejercicio-la-asimetría" id="toc-ejercicio-la-asimetría" class="nav-link" data-scroll-target="#ejercicio-la-asimetría"><span class="header-section-number">2.6</span> Ejercicio: la asimetría</a></li>
+  <li><a href="#solución-la-asimetría" id="toc-solución-la-asimetría" class="nav-link" data-scroll-target="#solución-la-asimetría"><span class="header-section-number">2.7</span> Solución: la asimetría</a></li>
+  <li><a href="#qué-muestra-la-animación" id="toc-qué-muestra-la-animación" class="nav-link" data-scroll-target="#qué-muestra-la-animación"><span class="header-section-number">2.8</span> Qué muestra la animación</a></li>
+  <li><a href="#divergencia-kl" id="toc-divergencia-kl" class="nav-link" data-scroll-target="#divergencia-kl"><span class="header-section-number">2.9</span> Divergencia KL</a></li>
+  <li><a href="#la-información-mutua-es-una-divergencia" id="toc-la-información-mutua-es-una-divergencia" class="nav-link" data-scroll-target="#la-información-mutua-es-una-divergencia"><span class="header-section-number">2.10</span> La información mutua es una divergencia</a></li>
+  <li><a href="#paso-a-paso-clima-y-tráfico-otra-vez" id="toc-paso-a-paso-clima-y-tráfico-otra-vez" class="nav-link" data-scroll-target="#paso-a-paso-clima-y-tráfico-otra-vez"><span class="header-section-number">2.11</span> Paso a paso: clima y tráfico otra vez</a></li>
   </ul></li>
   <li><a href="#reglas-de-la-cadena" id="toc-reglas-de-la-cadena" class="nav-link" data-scroll-target="#reglas-de-la-cadena"><span class="header-section-number">3</span> Reglas de la cadena</a>
   <ul class="collapse">
@@ -2623,8 +2624,52 @@ D(p \,\|\, q) = \sum_x p(x)\,\log_2 \frac{p(x)}{q(x)}
 <p><span class="math display">\[\underbrace{2}_{\text{bits promedio con el código equivocado}} - \underbrace{1.75}_{\text{bits promedio con el código correcto } = H(p)} = 0.25\]</span></p>
 <p>En <span class="math inline">\(c\)</span> y <span class="math inline">\(d\)</span> el código equivocado <strong>ahorra</strong> (términos negativos: usa 2 bits donde el correcto usaba 3), pero en <span class="math inline">\(a\)</span>, que es lo más frecuente, <strong>pierde</strong> (usa 2 bits donde bastaba 1).</p>
 </section>
-<section id="propiedades-de-la-divergencia" class="level2 smaller" data-number="2.4">
-<h2 class="smaller anchored" data-number="2.4" data-anchor-id="propiedades-de-la-divergencia"><span class="header-section-number">2.4</span> Propiedades de la divergencia</h2>
+<section id="qué-significa-el-costo-de-equivocarse" class="level2 smaller" data-number="2.4">
+<h2 class="smaller anchored" data-number="2.4" data-anchor-id="qué-significa-el-costo-de-equivocarse"><span class="header-section-number">2.4</span> ¿Qué significa el costo de equivocarse?</h2>
+<p>Un buen código da a cada símbolo unos <span class="math inline">\(-\log_2 q(x)\)</span> bits, donde <span class="math inline">\(q\)</span> es la probabilidad que <strong>el diseñador creyó</strong>. Si acertó (<span class="math inline">\(q = p\)</span>), el promedio es la entropía, el mínimo posible. Si no, reparte mal las longitudes y el promedio sube:</p>
+<p><span class="math display">\[
+L_q \;=\; H(p) \;+\; D(p\,\|\,q) \qquad\qquad 2 \;=\; 1.75 \;+\; 0.25
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(L_q\)</span></td>
+<td>bits promedio por símbolo con el código diseñado para <span class="math inline">\(q\)</span> (en el ejemplo, <strong>2</strong>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H(p)\)</span></td>
+<td><strong>lo inevitable</strong>: bits que ningún código puede evitar, la información que realmente trae la fuente (<strong>1.75</strong>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D(p\,\|\,q)\)</span></td>
+<td><strong>el costo de equivocarse</strong>: bits que se pagan de más por culpa del modelo; se eliminan con un modelo mejor (<strong>0.25</strong>)</td>
+</tr>
+</tbody>
+</table>
+<p>. . .</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>En números:</strong> con un millón de símbolos son <span class="math inline">\(0.25 \times 10^6 = 250{,}000\)</span> bits desperdiciados (unos 31 KB). El archivo queda <span class="math inline">\(\tfrac{2}{1.75} = 1.14\)</span>, es decir, <strong>14 % más grande</strong> de lo necesario, sólo por haber supuesto que las letras eran igual de probables. En el proyecto, usar una sola tabla de códigos para todas las capas del LLM paga una divergencia así en cada capa.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="propiedades-de-la-divergencia" class="level2 smaller" data-number="2.5">
+<h2 class="smaller anchored" data-number="2.5" data-anchor-id="propiedades-de-la-divergencia"><span class="header-section-number">2.5</span> Propiedades de la divergencia</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 34%">
@@ -2666,8 +2711,8 @@ D(p \,\|\, q) = \sum_x p(x)\,\log_2 \frac{p(x)}{q(x)}
 </div>
 </div>
 </section>
-<section id="ejercicio-la-asimetría" class="level2 smaller" data-number="2.5">
-<h2 class="smaller anchored" data-number="2.5" data-anchor-id="ejercicio-la-asimetría"><span class="header-section-number">2.5</span> Ejercicio: la asimetría</h2>
+<section id="ejercicio-la-asimetría" class="level2 smaller" data-number="2.6">
+<h2 class="smaller anchored" data-number="2.6" data-anchor-id="ejercicio-la-asimetría"><span class="header-section-number">2.6</span> Ejercicio: la asimetría</h2>
 <p>Una moneda <strong>justa</strong>, <span class="math inline">\(p = (\tfrac12, \tfrac12)\)</span>, y un modelo que la cree <strong>cargada</strong>, <span class="math inline">\(q = (\tfrac14, \tfrac34)\)</span> (cara, cruz).</p>
 <ol type="1">
 <li>Calcular <span class="math inline">\(D(p \,\|\, q)\)</span> término por término.</li>
@@ -2676,16 +2721,16 @@ D(p \,\|\, q) = \sum_x p(x)\,\log_2 \frac{p(x)}{q(x)}
 </ol>
 <p><strong>Dato para el cálculo:</strong> al aplicar la ec. <a href="#eq-kl" class="quarto-xref">1</a> aparecen los cocientes <span class="math inline">\(\frac{1/2}{3/4} = \tfrac23\)</span> y <span class="math inline">\(\frac{3/4}{1/2} = \tfrac32\)</span>, cuyos logaritmos no son enteros. Se obtienen con <span class="math inline">\(\log_2 3 = 1.585\)</span> y las reglas de los logaritmos: <span class="math inline">\(\log_2 \tfrac23 = \log_2 2 - \log_2 3 = 1 - 1.585 = -0.585\)</span> y <span class="math inline">\(\log_2 \tfrac32 = \log_2 3 - \log_2 2 = 0.585\)</span>.</p>
 </section>
-<section id="solución-la-asimetría" class="level2 smaller" data-number="2.6">
-<h2 class="smaller anchored" data-number="2.6" data-anchor-id="solución-la-asimetría"><span class="header-section-number">2.6</span> Solución: la asimetría</h2>
+<section id="solución-la-asimetría" class="level2 smaller" data-number="2.7">
+<h2 class="smaller anchored" data-number="2.7" data-anchor-id="solución-la-asimetría"><span class="header-section-number">2.7</span> Solución: la asimetría</h2>
 <p><strong>1.</strong> <span class="math inline">\(D(p \,\|\, q)\)</span>, la fuente es justa y el código supone cargada:</p>
 <p><span class="math inline">\(\tfrac12 \log_2 \frac{1/2}{1/4} + \tfrac12 \log_2 \frac{1/2}{3/4} = \tfrac12 \log_2 2 + \tfrac12 \log_2 \tfrac23 = 0.5 + \tfrac12(-0.585) = 0.5 - 0.293 = \mathbf{0.208}\)</span> bits.</p>
 <p><strong>2.</strong> <span class="math inline">\(D(q \,\|\, p)\)</span>, la fuente es cargada y el código supone justa:</p>
 <p><span class="math inline">\(\tfrac14 \log_2 \frac{1/4}{1/2} + \tfrac34 \log_2 \frac{3/4}{1/2} = \tfrac14(-1) + \tfrac34 \log_2 \tfrac32 = -0.25 + \tfrac34(0.585) = -0.25 + 0.439 = \mathbf{0.189}\)</span> bits.</p>
 <p><strong>3.</strong> No son iguales. <span class="math inline">\(D(p\,\|\,q) = 0.208\)</span>: lo que se pierde al comprimir una moneda <strong>justa</strong> con un código pensado para una <strong>cargada</strong>. <span class="math inline">\(D(q\,\|\,p) = 0.189\)</span>: lo que se pierde en el caso contrario. El orden de los argumentos importa.</p>
 </section>
-<section id="qué-muestra-la-animación" class="level2 smaller" data-number="2.7">
-<h2 class="smaller anchored" data-number="2.7" data-anchor-id="qué-muestra-la-animación"><span class="header-section-number">2.7</span> Qué muestra la animación</h2>
+<section id="qué-muestra-la-animación" class="level2 smaller" data-number="2.8">
+<h2 class="smaller anchored" data-number="2.8" data-anchor-id="qué-muestra-la-animación"><span class="header-section-number">2.8</span> Qué muestra la animación</h2>
 <p>La animación compara una fuente <strong>real</strong> <span class="math inline">\(p\)</span> con un <strong>modelo</strong> <span class="math inline">\(q\)</span> sobre cuatro símbolos.</p>
 <ol type="1">
 <li><strong>Barras azules</strong> (<span class="math inline">\(p\)</span>) y <strong>amarillas</strong> (<span class="math inline">\(q\)</span>): se ajustan con los controles; las probabilidades se normalizan solas.</li>
@@ -2694,11 +2739,11 @@ D(p \,\|\, q) = \sum_x p(x)\,\log_2 \frac{p(x)}{q(x)}
 <li><strong>Ejemplos:</strong> “código uniforme” (el de hoy), “iguales” (<span class="math inline">\(D = 0\)</span>), “asimetría” y “q ignora un símbolo” (<span class="math inline">\(D = \infty\)</span>).</li>
 </ol>
 </section>
-<section id="divergencia-kl" class="level2" data-background-iframe="../anim/divergencia-kl.html" data-background-interactive="true" data-number="2.8">
-<h2 data-background-iframe="../anim/divergencia-kl.html" data-background-interactive="true" data-number="2.8" class="anchored" data-anchor-id="divergencia-kl"><span class="header-section-number">2.8</span> Divergencia KL</h2>
+<section id="divergencia-kl" class="level2" data-background-iframe="../anim/divergencia-kl.html" data-background-interactive="true" data-number="2.9">
+<h2 data-background-iframe="../anim/divergencia-kl.html" data-background-interactive="true" data-number="2.9" class="anchored" data-anchor-id="divergencia-kl"><span class="header-section-number">2.9</span> Divergencia KL</h2>
 </section>
-<section id="la-información-mutua-es-una-divergencia" class="level2 smaller" data-number="2.9">
-<h2 class="smaller anchored" data-number="2.9" data-anchor-id="la-información-mutua-es-una-divergencia"><span class="header-section-number">2.9</span> La información mutua es una divergencia</h2>
+<section id="la-información-mutua-es-una-divergencia" class="level2 smaller" data-number="2.10">
+<h2 class="smaller anchored" data-number="2.10" data-anchor-id="la-información-mutua-es-una-divergencia"><span class="header-section-number">2.10</span> La información mutua es una divergencia</h2>
 <p>¿Cuánto se pierde si se supone que <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son <strong>independientes</strong> cuando no lo son? El modelo “independiente” es <span class="math inline">\(q(x,y) = p(x)\,p(y)\)</span>:</p>
 <p><span id="eq-mi-kl"><span class="math display">\[
 I(X;Y) = D\big(p(x,y) \,\|\, p(x)\,p(y)\big) = \sum_{x,y} p(x,y)\log_2 \frac{p(x,y)}{p(x)\,p(y)}
@@ -2731,8 +2776,8 @@ I(X;Y) = D\big(p(x,y) \,\|\, p(x)\,p(y)\big) = \sum_{x,y} p(x,y)\log_2 \frac{p(x
 </table>
 <p>Es la misma información mutua de la presentación anterior, vista desde otro ángulo.</p>
 </section>
-<section id="paso-a-paso-clima-y-tráfico-otra-vez" class="level2 smaller" data-number="2.10">
-<h2 class="smaller anchored" data-number="2.10" data-anchor-id="paso-a-paso-clima-y-tráfico-otra-vez"><span class="header-section-number">2.10</span> Paso a paso: clima y tráfico otra vez</h2>
+<section id="paso-a-paso-clima-y-tráfico-otra-vez" class="level2 smaller" data-number="2.11">
+<h2 class="smaller anchored" data-number="2.11" data-anchor-id="paso-a-paso-clima-y-tráfico-otra-vez"><span class="header-section-number">2.11</span> Paso a paso: clima y tráfico otra vez</h2>
 <p>La tabla de la presentación anterior: <span class="math inline">\(p(\text{sol}) = p(\text{lluvia}) = \tfrac12\)</span>, <span class="math inline">\(\ p(\text{ligero}) = \tfrac38\)</span>, <span class="math inline">\(\ p(\text{pesado}) = \tfrac58\)</span>.</p>
 <table class="caption-top table">
 <colgroup>
