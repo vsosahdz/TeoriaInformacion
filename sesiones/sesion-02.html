@@ -1600,13 +1600,15 @@ I(X_1, X_2; Y) = I(X_1; Y) + I(X_2; Y \mid X_1)
 <p>Revisar cuerdas una por una no es práctico. Basta la segunda derivada: <span class="math inline">\(f&#39;&#39; \ge 0\)</span> → convexa; <span class="math inline">\(f&#39;&#39; \le 0\)</span> → cóncava.</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 40%">
-<col style="width: 30%">
+<col style="width: 20%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 24%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Función</th>
+<th><span class="math inline">\(f&#39;(x)\)</span></th>
 <th><span class="math inline">\(f&#39;&#39;(x)\)</span></th>
 <th>Tipo</th>
 </tr>
@@ -1614,27 +1616,31 @@ I(X_1, X_2; Y) = I(X_1; Y) + I(X_2; Y \mid X_1)
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(x^2\)</span></td>
+<td><span class="math inline">\(2x\)</span></td>
 <td><span class="math inline">\(2\)</span></td>
 <td>convexa</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(2^x\)</span></td>
+<td><span class="math inline">\((\ln 2)\, 2^x\)</span></td>
 <td><span class="math inline">\((\ln 2)^2\, 2^x\)</span></td>
 <td>convexa</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(x \log_2 x\)</span></td>
+<td><span class="math inline">\(\log_2 x + \frac{1}{\ln 2}\)</span></td>
 <td><span class="math inline">\(\frac{1}{x \ln 2}\)</span></td>
 <td>convexa (para <span class="math inline">\(x &gt; 0\)</span>)</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\log_2 x\)</span></td>
+<td><span class="math inline">\(\frac{1}{x \ln 2}\)</span></td>
 <td><span class="math inline">\(-\frac{1}{x^2 \ln 2}\)</span></td>
 <td><strong>cóncava</strong></td>
 </tr>
 </tbody>
 </table>
-<p>El documento de repaso tiene la definición formal y un ejercicio resuelto.</p>
+<p>La primera derivada es la pendiente; la segunda dice si esa pendiente crece (<span class="math inline">\(f&#39;&#39; \ge 0\)</span>, la curva se dobla hacia arriba: convexa) o decrece (<span class="math inline">\(f&#39;&#39; \le 0\)</span>: cóncava). El documento de repaso tiene la definición formal y un ejercicio resuelto.</p>
 </section>
 <section class="slide level2 smaller">
 <h2>Valor esperado y desigualdad de Jensen</h2>
