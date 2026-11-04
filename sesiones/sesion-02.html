@@ -1499,6 +1499,7 @@ I(X;Y) = D\big(p(x,y) \,\|\, p(x)\,p(y)\big) = \sum_{x,y} p(x,y)\log_2 \frac{p(x
 </table>
 <div class="fragment">
 <p>Coincide con <span class="math inline">\(H(Y) - H(Y \mid X) = 0.954 - 0.906 = 0.048\)</span> (diferencia por redondeo). Hay términos negativos, pero el total no lo es.</p>
+<p><strong>Lectura:</strong> suponer que el clima y el tráfico no tienen nada que ver cuesta sólo 0.049 bits por día, de los 0.954 que trae el tráfico (5 %). Están relacionados, pero poco: con lluvia hay algo más de tráfico pesado, nada más.</p>
 </div>
 </section></section>
 <section>
@@ -1537,7 +1538,7 @@ H(X_1, X_2, \ldots, X_n) = H(X_1) + H(X_2 \mid X_1) + H(X_3 \mid X_1, X_2) + \cd
 <div class="fragment">
 <p><strong>Con el español (valores de la práctica):</strong> tres letras seguidas de <em>El Quijote</em>:</p>
 <p><span class="math display">\[H(X_1, X_2, X_3) = \underbrace{3.982}_{H(X_1)} + \underbrace{3.042}_{H(X_2 \mid X_1)} + \underbrace{2.575}_{H(X_3 \mid X_1, X_2)} = 9.599 \text{ bits}\]</span></p>
-<p>Cada letra aporta menos que la anterior porque se conoce más contexto. Así comprime texto un LLM: letra por letra (o palabra por palabra), cada una condicionada a todas las anteriores.</p>
+<p><strong>Lectura:</strong> tres letras traen 9.6 bits, unos <strong>3.2 bits por letra</strong>, en lugar de los <span class="math inline">\(3 \times 3.982 = 11.9\)</span> que traerían si cada letra se adivinara sin mirar las anteriores. Cada letra aporta menos que la anterior porque se conoce más contexto. Así comprime texto un LLM: letra por letra (o palabra por palabra), cada una condicionada a todas las anteriores.</p>
 </div>
 </section>
 <section class="slide level2 smaller">
@@ -1636,16 +1637,15 @@ I(X_1, X_2; Y) = I(X_1; Y) + I(X_2; Y \mid X_1)
 <p>El documento de repaso tiene la definición formal y un ejercicio resuelto.</p>
 </section>
 <section class="slide level2 smaller">
-<h2>La desigualdad de Jensen</h2>
-<p><span id="eq-jensen"><span class="math display">\[
-f \text{ convexa} \;\Longrightarrow\; E[f(X)] \ge f(E[X])
-\qquad\qquad
-f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
+<h2>Valor esperado y desigualdad de Jensen</h2>
+<p>El <strong>valor esperado</strong> es el promedio de una variable aleatoria, pesando cada valor por su probabilidad:</p>
+<p><span id="eq-esperanza"><span class="math display">\[
+E[X] = \sum_x x\,p(x) \qquad\qquad E[f(X)] = \sum_x f(x)\,p(x)
 \tag{6}\]</span></span></p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 78%">
+<col style="width: 18%">
+<col style="width: 82%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1656,40 +1656,79 @@ f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(E[X]\)</span></td>
-<td>el promedio de <span class="math inline">\(X\)</span></td>
+<td>promedio de los <strong>valores</strong> de <span class="math inline">\(X\)</span>: cada valor <span class="math inline">\(x\)</span> multiplicado por su probabilidad, y sumado</td>
 </tr>
 <tr class="even">
+<td><span class="math inline">\(E[f(X)]\)</span></td>
+<td>promedio de los valores <strong>transformados</strong>: primero se aplica <span class="math inline">\(f\)</span> a cada valor y luego se promedia</td>
+</tr>
+</tbody>
+</table>
+<p>La desigualdad de Jensen compara “transformar y luego promediar” con “promediar y luego transformar”:</p>
+<p><span id="eq-jensen"><span class="math display">\[
+f \text{ convexa} \;\Longrightarrow\; E[f(X)] \ge f(E[X])
+\qquad\qquad
+f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
+\tag{7}\]</span></span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td><span class="math inline">\(f(E[X])\)</span></td>
-<td>la función evaluada <strong>en el promedio</strong></td>
+<td><strong>promediar primero</strong> y luego aplicar <span class="math inline">\(f\)</span>: es el punto azul, sobre la curva</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(E[f(X)]\)</span></td>
+<td><strong>aplicar <span class="math inline">\(f\)</span> primero</strong> y luego promediar: es el punto amarillo, sobre la cuerda</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(E[f(X)]\)</span></td>
-<td>el <strong>promedio de la función</strong></td>
-</tr>
-<tr class="even">
 <td>igualdad</td>
 <td>sólo si <span class="math inline">\(X\)</span> es constante (o <span class="math inline">\(f\)</span> es una recta)</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
+</section>
+<section class="slide level2 smaller">
+<h2>Paso a paso: Jensen con dos ejemplos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Ejemplo convexo:</strong> <span class="math inline">\(X \in \{1, 3\}\)</span> igual de probables, <span class="math inline">\(f(x) = x^2\)</span>.</p>
-<ul>
-<li><span class="math inline">\(E[X] = 2\)</span>, así que <span class="math inline">\(f(E[X]) = 4\)</span>.</li>
-<li><span class="math inline">\(E[f(X)] = \tfrac{1^2 + 3^2}{2} = 5\)</span>.</li>
-<li><span class="math inline">\(5 \ge 4\)</span> ✓</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><strong>Ejemplo cóncavo:</strong> <span class="math inline">\(X \in \{1, 4\}\)</span> igual de probables, <span class="math inline">\(f(x) = \log_2 x\)</span>.</p>
-<ul>
-<li><span class="math inline">\(E[X] = 2.5\)</span>, así que <span class="math inline">\(f(E[X]) = \log_2 2.5 = 1.32\)</span>.</li>
-<li><span class="math inline">\(E[f(X)] = \tfrac{0 + 2}{2} = 1\)</span>.</li>
-<li><span class="math inline">\(1 \le 1.32\)</span> ✓</li>
-</ul>
-</div></div>
+<p><strong>Convexa:</strong> <span class="math inline">\(X\)</span> vale 1 o 3 con probabilidad ½ cada uno; <span class="math inline">\(f(x) = x^2\)</span>.</p>
+<div class="fragment">
+<ol type="1">
+<li>Promedio (ec. <a href="#/eq-esperanza" class="quarto-xref">6</a>): <span class="math inline">\(E[X] = 1 \cdot \tfrac12 + 3 \cdot \tfrac12 = 2\)</span>.</li>
+<li>Promediar y transformar: <span class="math inline">\(f(E[X]) = 2^2 = 4\)</span>.</li>
+<li>Transformar cada valor: <span class="math inline">\(f(1) = 1\)</span>, <span class="math inline">\(f(3) = 9\)</span>.</li>
+<li>Transformar y promediar: <span class="math inline">\(E[f(X)] = 1 \cdot \tfrac12 + 9 \cdot \tfrac12 = 5\)</span>.</li>
+<li>Comparar: <span class="math inline">\(5 \ge 4\)</span> ✓</li>
+</ol>
 </div>
+<div class="fragment">
+<p><strong>Lectura:</strong> el promedio de los cuadrados (5) es mayor que el cuadrado del promedio (4). La diferencia, <span class="math inline">\(5 - 4 = 1\)</span>, es justo la <strong>varianza</strong> de <span class="math inline">\(X\)</span>: Jensen dice que la varianza nunca es negativa.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>Cóncava:</strong> <span class="math inline">\(X\)</span> vale 1 o 4 con probabilidad ½ cada uno; <span class="math inline">\(f(x) = \log_2 x\)</span>.</p>
+<div class="fragment">
+<ol type="1">
+<li>Promedio: <span class="math inline">\(E[X] = 1 \cdot \tfrac12 + 4 \cdot \tfrac12 = 2.5\)</span>.</li>
+<li>Promediar y transformar: <span class="math inline">\(f(E[X]) = \log_2 2.5 = 1.32\)</span>.</li>
+<li>Transformar cada valor: <span class="math inline">\(\log_2 1 = 0\)</span>, <span class="math inline">\(\log_2 4 = 2\)</span>.</li>
+<li>Transformar y promediar: <span class="math inline">\(E[f(X)] = 0 \cdot \tfrac12 + 2 \cdot \tfrac12 = 1\)</span>.</li>
+<li>Comparar: <span class="math inline">\(1 \le 1.32\)</span> ✓</li>
+</ol>
+</div>
+<div class="fragment">
+<p><strong>Lectura:</strong> el promedio de los logaritmos (1) es menor que el logaritmo del promedio (1.32). Ésta es la forma que se usa con la información, porque toda medida de información es un promedio de logaritmos.</p>
+</div>
+</div></div>
 </section>
 <section class="slide level2 smaller">
 <h2>Qué muestra la animación</h2>
@@ -1712,7 +1751,7 @@ f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
 <section class="slide level2 smaller">
 <h2>La divergencia nunca es negativa</h2>
 <p><strong>Teorema (desigualdad de Gibbs):</strong> <span class="math inline">\(D(p \,\|\, q) \ge 0\)</span>, con igualdad sólo si <span class="math inline">\(p = q\)</span>.</p>
-<p><strong>Demostración</strong>, paso a paso, usando que <span class="math inline">\(\log_2\)</span> es <strong>cóncava</strong> (ec. <a href="#/eq-jensen" class="quarto-xref">6</a>):</p>
+<p><strong>Demostración</strong>, paso a paso, usando que <span class="math inline">\(\log_2\)</span> es <strong>cóncava</strong> (ec. <a href="#/eq-jensen" class="quarto-xref">7</a>):</p>
 <div class="fragment">
 <p><strong>Paso 1.</strong> Se cambia el signo dando la vuelta a la fracción: <span class="math inline">\(\ -D(p\,\|\,q) = \sum_x p(x) \log_2 \frac{q(x)}{p(x)}\)</span>.</p>
 </div>
@@ -1724,6 +1763,9 @@ f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
 </div>
 <div class="fragment">
 <p><strong>Paso 4.</strong> Entonces <span class="math inline">\(\ -D(p\,\|\,q) \le \log_2 1 = 0\)</span>, es decir, <span class="math inline">\(\ \mathbf{D(p\,\|\,q) \ge 0}\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+<div class="fragment">
+<p><strong>Lectura:</strong> usar un modelo equivocado <strong>nunca</strong> sale gratis en promedio. Puede ahorrar en algunos símbolos (los términos negativos de la lámina del paso a paso), pero siempre pierde más en los otros. El único modelo sin costo es el correcto.</p>
 </div>
 </section>
 <section class="slide level2 smaller">
@@ -1750,7 +1792,7 @@ f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
 </tr>
 <tr class="odd">
 <td><strong>3.</strong> <span class="math inline">\(H(X) \le \log_2 n\)</span></td>
-<td>Con <span class="math inline">\(u\)</span> uniforme (<span class="math inline">\(u(x) = \tfrac1n\)</span>): <span class="math inline">\(D(p \,\|\, u) = \sum_x p(x) \log_2 \frac{p(x)}{1/n} = \log_2 n - H(X) \ge 0\)</span></td>
+<td>Con <span class="math inline">\(u\)</span> uniforme (<span class="math inline">\(u(x) = \tfrac1n\)</span>): <span class="math inline">\(D(p \,\|\, u) = \sum_x p(x) \log_2 \frac{p(x)}{1/n} = \log_2 n - H(X) \ge 0\)</span>. Lectura: ninguna fuente es más incierta que la uniforme, y <span class="math inline">\(\log_2 n - H(X)\)</span> es lo que se pierde por usar un código de longitud fija (<span class="math inline">\(\log_2 n\)</span> bits para todo)</td>
 </tr>
 </tbody>
 </table>
@@ -1769,7 +1811,7 @@ f \text{ cóncava} \;\Longrightarrow\; E[f(X)] \le f(E[X])
 <p>Juntando la regla de la cadena (ec. <a href="#/eq-cadena-n" class="quarto-xref">3</a>) con la promesa 2:</p>
 <p><span id="eq-cota-indep"><span class="math display">\[
 H(X_1, X_2, \ldots, X_n) \le H(X_1) + H(X_2) + \cdots + H(X_n)
-\tag{7}\]</span></span></p>
+\tag{8}\]</span></span></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 22%">
@@ -1823,7 +1865,7 @@ H(X_1, X_2, \ldots, X_n) \le H(X_1) + H(X_2) + \cdots + H(X_n)
 </tr>
 </tbody>
 </table>
-<p>Por eso el “límite de 66 %” de la primera presentación no es el final: codificar los campos <strong>juntos</strong> baja un poco más.</p>
+<p><strong>Lectura:</strong> la diferencia entre las dos columnas es lo que se ahorra por aprovechar la relación entre variables. Con dos letras: <span class="math inline">\(7.964 - 7.024 = 0.94\)</span> bits, que es la información mutua entre una letra y la siguiente. Con el peso: <span class="math inline">\(10.632 - 10.595 = 0.037\)</span> bits, muy poco: los tres campos de un peso son casi independientes. Por eso el “límite de 66 %” de la primera presentación es casi el final para codificar peso por peso; para bajar más hay que aprovechar la relación <strong>entre</strong> pesos.</p>
 </div>
 </section></section>
 <section>
@@ -1879,7 +1921,7 @@ H(X_1, X_2, \ldots, X_n) \le H(X_1) + H(X_2) + \cdots + H(X_n)
 </tr>
 <tr class="odd">
 <td>5</td>
-<td><strong>Jensen</strong> con función cóncava (ec. <a href="#/eq-jensen" class="quarto-xref">6</a>)</td>
+<td><strong>Jensen</strong> con función cóncava (ec. <a href="#/eq-jensen" class="quarto-xref">7</a>)</td>
 <td><span class="math inline">\(\log_2\)</span> es cóncava</td>
 </tr>
 </tbody>
@@ -1955,13 +1997,19 @@ H(X_1, X_2, \ldots, X_n) \le H(X_1) + H(X_2) + \cdots + H(X_n)
 <td>dos pistas = la primera + lo que añade la segunda</td>
 </tr>
 <tr class="even">
-<td><a href="#/eq-jensen" class="quarto-xref">6</a></td>
+<td><a href="#/eq-esperanza" class="quarto-xref">6</a></td>
+<td>Valor esperado</td>
+<td><span class="math inline">\(E[X] = \sum_x x\,p(x)\)</span></td>
+<td>promedio pesado por la probabilidad</td>
+</tr>
+<tr class="odd">
+<td><a href="#/eq-jensen" class="quarto-xref">7</a></td>
 <td>Jensen</td>
 <td><span class="math inline">\(E[f(X)] \ge f(E[X])\)</span> si <span class="math inline">\(f\)</span> es convexa</td>
 <td>el promedio de <span class="math inline">\(f\)</span> queda arriba de <span class="math inline">\(f\)</span> del promedio</td>
 </tr>
-<tr class="odd">
-<td><a href="#/eq-cota-indep" class="quarto-xref">7</a></td>
+<tr class="even">
+<td><a href="#/eq-cota-indep" class="quarto-xref">8</a></td>
 <td>Cota de independencia</td>
 <td><span class="math inline">\(H(X_1,\ldots,X_n) \le \sum_i H(X_i)\)</span></td>
 <td>juntas nunca informan más que por separado</td>
