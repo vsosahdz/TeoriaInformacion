@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Código de Huffman — el árbol paso a paso</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:14px 20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:10px; }
+  .grid { display:grid; grid-template-columns:1fr 360px; gap:14px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .panel h2 { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 8px; font-weight:600; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:6px 11px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover{ background:#2b3244; }
+  button.primary{ background:var(--hot); color:#1a0603; border-color:var(--hot); font-weight:600; }
+  button.on { background:var(--cold); color:#03101f; border-color:var(--cold); font-weight:600; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; align-items:center; }
+  input[type=text]{ background:#0c0e12; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:5px 8px; font:inherit; font-size:13px; width:260px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
+  td, th { padding:4px 6px; border-bottom:1px solid var(--line); text-align:right; }
+  th { color:var(--muted); font-weight:500; }
+  td:first-child, th:first-child { text-align:left; }
+  td.code { font-family:ui-monospace,Menlo,monospace; color:var(--warn); text-align:left; }
+  .msg { font-size:14px; min-height:44px; margin-top:8px; }
+  .msg b { color:var(--warn); }
+  .kv { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .note { color:var(--muted); font-size:12px; margin-top:8px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Código de Huffman — juntar siempre los dos menos probables</h1>
+  <div class="sub">Cada paso une los dos nodos de menor probabilidad en uno nuevo cuya probabilidad es la suma. Al final, el camino
+    desde la raíz hasta cada símbolo (0 = izquierda, 1 = derecha) es su palabra de código.</div>
+
+  <div class="row" id="presets"></div>
+  <div class="row">
+    <span style="color:var(--muted);font-size:13px">Probabilidades propias:</span>
+    <input type="text" id="custom" value="0.4, 0.2, 0.2, 0.1, 0.1">
+    <button id="load">Cargar</button>
+    <span style="flex:1"></span>
+    <button id="step" class="primary">Paso</button>
+    <button id="all">Terminar</button>
+    <button id="reset">Reiniciar</button>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <canvas id="cv" width="760" height="420"></canvas>
+      <div class="msg" id="msg"></div>
+    </div>
+    <div>
+      <div class="panel">
+        <h2>Código resultante</h2>
+        <table id="tab"></table>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <h2>¿Qué tan cerca del límite?</h2>
+        <div class="kv"><span>Entropía H (mínimo posible)</span><b id="h">—</b></div>
+        <div class="kv"><span>Longitud promedio L = Σ p · ℓ</span><b id="l">—</b></div>
+        <div class="kv"><span>Diferencia L − H</span><b id="d">—</b></div>
+        <div class="note">Siempre se cumple H ≤ L &lt; H + 1. Si las probabilidades son potencias de ½, L = H exactamente.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const PRESETS = {
+  "ejemplo de clase": [0.4,0.2,0.2,0.1,0.1],
+  "potencias de ½": [0.5,0.25,0.125,0.125],
+  "muy desigual": [0.7,0.1,0.1,0.05,0.05],
+  "uniforme": [0.25,0.25,0.25,0.25],
+};
+const NAMES = "abcdefghij";
+let leaves=[], forest=[], merges=0, done=false;
+
+function load(ps){
+  const s = ps.reduce((a,b)=>a+b,0);
+  leaves = ps.map((p,i)=>({name:NAMES[i], p:p/s, leaf:true}));
+  forest = leaves.map(n=>n); merges=0; done = forest.length<=1;
+  render("Lista inicial: un nodo por símbolo. Pulsa «Paso» para unir los dos menos probables.");
+}
+function step(){
+  if (forest.length<=1) return;
+  forest.sort((a,b)=>a.p-b.p);
+  const a=forest.shift(), b=forest.shift();
+  const n={name:a.name+b.name, p:a.p+b.p, left:a, right:b, fresh:true};
+  forest.forEach(x=>x.fresh=false); forest.push(n); merges++;
+  done = forest.length===1;
+  render(`Paso ${merges}: se unen <b>${a.name}</b> (${a.p.toFixed(3)}) y <b>${b.name}</b> (${b.p.toFixed(3)}) → nuevo nodo de ${n.p.toFixed(3)}.` +
+         (done ? " Árbol terminado: los códigos se leen de la raíz a cada hoja." : ""));
+}
+function codes(node, pre, out){
+  if (!node.left){ out[node.name] = pre || "0"; return out; }
+  codes(node.left, pre+"0", out); codes(node.right, pre+"1", out); return out;
+}
+function depth(n){ return n.left ? 1+Math.max(depth(n.left),depth(n.right)) : 0; }
+function width(n){ return n.left ? width(n.left)+width(n.right) : 1; }
+
+function drawTree(g, n, x0, x1, y, dy, cd){
+  const x = n.left ? null : (x0+x1)/2;
+  if (!n.left){
+    node(g, x, y, n, true, cd); return x;
+  }
+  const wl=width(n.left), wr=width(n.right), xm = x0 + (x1-x0)*wl/(wl+wr);
+  const xl = drawTree(g, n.left, x0, xm, y+dy, dy, cd), xr = drawTree(g, n.right, xm, x1, y+dy, dy, cd);
+  const xc=(xl+xr)/2;
+  g.strokeStyle="#5b6577"; g.lineWidth=1.5;
+  g.beginPath(); g.moveTo(xc,y); g.lineTo(xl,y+dy); g.moveTo(xc,y); g.lineTo(xr,y+dy); g.stroke();
+  g.fillStyle="#ffc44d"; g.font="bold 13px ui-monospace,Menlo,monospace";
+  g.fillText("0", (xc+xl)/2-12, y+dy/2); g.fillText("1", (xc+xr)/2+5, y+dy/2);
+  node(g, xc, y, n, false, cd); return xc;
+}
+function node(g, x, y, n, leaf, cd){
+  g.fillStyle = n.fresh ? "#3a2a10" : (leaf ? "#16263d" : "#1c2433");
+  g.strokeStyle = n.fresh ? "#ffc44d" : (leaf ? "#4ea1ff" : "#5b6577");
+  g.lineWidth = n.fresh ? 2.5 : 1.5;
+  g.beginPath(); g.arc(x,y,20,0,7); g.fill(); g.stroke();
+  g.fillStyle="#e8eaf0"; g.textAlign="center"; g.font="12px ui-sans-serif";
+  g.fillText(n.p.toFixed(2), x, y+4);
+  if (leaf){
+    g.font="bold 14px ui-sans-serif"; g.fillStyle="#4ea1ff"; g.fillText(n.name, x, y+38);
+    if (cd && cd[n.name]){ g.font="13px ui-monospace,Menlo,monospace"; g.fillStyle="#ffc44d"; g.fillText(cd[n.name], x, y+56); }
+  }
+  g.textAlign="left";
+}
+function render(m){
+  const c=$("cv"), g=c.getContext("2d"), W=c.width, H=c.height;
+  g.clearRect(0,0,W,H);
+  const sorted=[...forest].sort((a,b)=>b.p-a.p);
+  const tot = sorted.reduce((s,n)=>s+width(n),0);
+  const maxd = Math.max(...sorted.map(depth));
+  const dy = Math.min(80, (H-110)/Math.max(1,maxd));
+  let x=10; const cd = done ? codes(forest[0],"",{}) : null;
+  sorted.forEach(n=>{ const w=(W-20)*width(n)/tot; drawTree(g,n,x,x+w,36,dy,cd); x+=w; });
+  $("msg").innerHTML = m;
+  // tabla
+  const Hs = -leaves.reduce((s,l)=> l.p>0 ? s+l.p*Math.log2(l.p) : s, 0);
+  let rows = `<tr><th>símbolo</th><th>p</th><th>código</th><th>ℓ</th><th>p · ℓ</th></tr>`;
+  let L = 0;
+  leaves.forEach(l=>{
+    const cw = cd ? cd[l.name] : null, len = cw ? cw.length : null;
+    if (len) L += l.p*len;
+    rows += `<tr><td>${l.name}</td><td>${l.p.toFixed(3)}</td><td class="code">${cw||"…"}</td><td>${len||"…"}</td><td>${len?(l.p*len).toFixed(3):"…"}</td></tr>`;
+  });
+  $("tab").innerHTML = rows;
+  $("h").textContent = Hs.toFixed(3)+" bits";
+  $("l").textContent = cd ? L.toFixed(3)+" bits" : "—";
+  $("d").textContent = cd ? (L-Hs).toFixed(3)+" bits" : "—";
+}
+Object.keys(PRESETS).forEach(k=>{
+  const b=document.createElement("button"); b.textContent=k;
+  b.onclick=()=>{ document.querySelectorAll("#presets button").forEach(x=>x.classList.remove("on")); b.classList.add("on");
+    $("custom").value=PRESETS[k].join(", "); load(PRESETS[k]); };
+  $("presets").appendChild(b);
+});
+$("load").onclick=()=>{ const ps=$("custom").value.split(/[,\s]+/).map(Number).filter(x=>x>0).slice(0,10); if(ps.length>=2) load(ps); };
+$("step").onclick=step;
+$("all").onclick=()=>{ while(forest.length>1) step(); };
+$("reset").onclick=()=>load(leaves.map(l=>l.p));
+document.querySelector("#presets button").classList.add("on");
+load(PRESETS["ejemplo de clase"]);
+</script>
+</body>
+</html>
