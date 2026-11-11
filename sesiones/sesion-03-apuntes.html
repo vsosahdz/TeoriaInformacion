@@ -2341,24 +2341,12 @@ window.Quarto = {
   <li><a href="#paso-a-paso-un-reconocedor-de-letras-borrosas" id="toc-paso-a-paso-un-reconocedor-de-letras-borrosas" class="nav-link" data-scroll-target="#paso-a-paso-un-reconocedor-de-letras-borrosas"><span class="header-section-number">4.2</span> Paso a paso: un reconocedor de letras borrosas</a></li>
   <li><a href="#una-versión-más-simple-de-fano" id="toc-una-versión-más-simple-de-fano" class="nav-link" data-scroll-target="#una-versión-más-simple-de-fano"><span class="header-section-number">4.3</span> Una versión más simple de Fano</a></li>
   </ul></li>
-  <li><a href="#códigos-de-huffman" id="toc-códigos-de-huffman" class="nav-link" data-scroll-target="#códigos-de-huffman"><span class="header-section-number">5</span> Códigos de Huffman</a>
+  <li><a href="#para-qué-sirve" id="toc-para-qué-sirve" class="nav-link" data-scroll-target="#para-qué-sirve"><span class="header-section-number">5</span> Para qué sirve</a>
   <ul class="collapse">
-  <li><a href="#de-la-teoría-al-código" id="toc-de-la-teoría-al-código" class="nav-link" data-scroll-target="#de-la-teoría-al-código"><span class="header-section-number">5.1</span> De la teoría al código</a></li>
-  <li><a href="#el-algoritmo-de-huffman" id="toc-el-algoritmo-de-huffman" class="nav-link" data-scroll-target="#el-algoritmo-de-huffman"><span class="header-section-number">5.2</span> El algoritmo de Huffman</a></li>
-  <li><a href="#paso-a-paso-construir-un-código-de-huffman" id="toc-paso-a-paso-construir-un-código-de-huffman" class="nav-link" data-scroll-target="#paso-a-paso-construir-un-código-de-huffman"><span class="header-section-number">5.3</span> Paso a paso: construir un código de Huffman</a></li>
-  <li><a href="#decodificar" id="toc-decodificar" class="nav-link" data-scroll-target="#decodificar"><span class="header-section-number">5.4</span> Decodificar</a></li>
-  <li><a href="#qué-muestra-la-animación" id="toc-qué-muestra-la-animación" class="nav-link" data-scroll-target="#qué-muestra-la-animación"><span class="header-section-number">5.5</span> Qué muestra la animación</a></li>
-  <li><a href="#código-de-huffman" id="toc-código-de-huffman" class="nav-link" data-scroll-target="#código-de-huffman"><span class="header-section-number">5.6</span> Código de Huffman</a></li>
-  <li><a href="#ejercicio-huffman-a-mano" id="toc-ejercicio-huffman-a-mano" class="nav-link" data-scroll-target="#ejercicio-huffman-a-mano"><span class="header-section-number">5.7</span> Ejercicio: Huffman a mano</a></li>
-  <li><a href="#solución-huffman-a-mano" id="toc-solución-huffman-a-mano" class="nav-link" data-scroll-target="#solución-huffman-a-mano"><span class="header-section-number">5.8</span> Solución: Huffman a mano</a></li>
-  <li><a href="#en-el-proyecto-huffman-para-el-exponente" id="toc-en-el-proyecto-huffman-para-el-exponente" class="nav-link" data-scroll-target="#en-el-proyecto-huffman-para-el-exponente"><span class="header-section-number">5.9</span> En el proyecto: Huffman para el exponente</a></li>
-  </ul></li>
-  <li><a href="#para-qué-sirve" id="toc-para-qué-sirve" class="nav-link" data-scroll-target="#para-qué-sirve"><span class="header-section-number">6</span> Para qué sirve</a>
-  <ul class="collapse">
-  <li><a href="#cuál-se-usa" id="toc-cuál-se-usa" class="nav-link" data-scroll-target="#cuál-se-usa"><span class="header-section-number">6.1</span> ¿Cuál se usa?</a></li>
-  <li><a href="#respuestas" id="toc-respuestas" class="nav-link" data-scroll-target="#respuestas"><span class="header-section-number">6.2</span> Respuestas</a></li>
-  <li><a href="#resumen-de-hoy" id="toc-resumen-de-hoy" class="nav-link" data-scroll-target="#resumen-de-hoy"><span class="header-section-number">6.3</span> Resumen de hoy</a></li>
-  <li><a href="#para-la-próxima-sesión" id="toc-para-la-próxima-sesión" class="nav-link" data-scroll-target="#para-la-próxima-sesión"><span class="header-section-number">6.4</span> Para la próxima sesión</a></li>
+  <li><a href="#cuál-se-usa" id="toc-cuál-se-usa" class="nav-link" data-scroll-target="#cuál-se-usa"><span class="header-section-number">5.1</span> ¿Cuál se usa?</a></li>
+  <li><a href="#respuestas" id="toc-respuestas" class="nav-link" data-scroll-target="#respuestas"><span class="header-section-number">5.2</span> Respuestas</a></li>
+  <li><a href="#resumen-de-hoy" id="toc-resumen-de-hoy" class="nav-link" data-scroll-target="#resumen-de-hoy"><span class="header-section-number">5.3</span> Resumen de hoy</a></li>
+  <li><a href="#para-la-próxima-sesión" id="toc-para-la-próxima-sesión" class="nav-link" data-scroll-target="#para-la-próxima-sesión"><span class="header-section-number">5.4</span> Para la próxima sesión</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="_pub-sesion-03-apuntes.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -2368,7 +2356,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Procesar no crea información</h1>
-<p class="subtitle lead">Teoría de la Información · Log-suma, procesamiento de datos, Fano y códigos de Huffman</p>
+<p class="subtitle lead">Teoría de la Información · Log-suma, procesamiento de datos y Fano</p>
 </div>
 
 
@@ -2426,12 +2414,11 @@ window.Quarto = {
 </tbody>
 </table>
 <p>. . .</p>
-<p><strong>Hoy, cuatro preguntas:</strong></p>
+<p><strong>Hoy, tres preguntas:</strong></p>
 <ol type="1">
 <li>¿Qué pasa con la divergencia si se <strong>juntan</strong> categorías? → desigualdad <strong>log-suma</strong>.</li>
 <li>¿Puede un procesamiento (filtrar, redondear, comprimir) <strong>aumentar</strong> la información? → <strong>procesamiento de datos</strong>.</li>
 <li>Si queda incertidumbre, ¿qué tan bien se puede <strong>adivinar</strong>? → desigualdad de <strong>Fano</strong>.</li>
-<li>¿Cómo se construye <strong>en la práctica</strong> el código que se acerca a la entropía? → <strong>códigos de Huffman</strong>.</li>
 </ol>
 </section>
 </section>
@@ -2817,355 +2804,19 @@ P_e \;\ge\; \frac{H(X \mid Y) - 1}{\log_2 n}
 <p>Con el reconocedor: <span class="math inline">\(\ P_e \ge \tfrac{1.5 - 1}{\log_2 4} = \tfrac{0.5}{2} = 0.25\)</span>. Es más débil (dice “al menos 25 %” en lugar de “al menos 35 %”), pero se calcula sin probar valores.</p>
 </section>
 </section>
-<section id="códigos-de-huffman" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Códigos de Huffman</h1>
-<section id="de-la-teoría-al-código" class="level2 smaller" data-number="5.1">
-<h2 class="smaller anchored" data-number="5.1" data-anchor-id="de-la-teoría-al-código"><span class="header-section-number">5.1</span> De la teoría al código</h2>
-<p>Desde la primera presentación se sabe que la entropía es el <strong>mínimo</strong> de bits por símbolo, y que con probabilidades potencias de ½ un código de preguntas llega exactamente a ella. Falta lo práctico: <strong>¿cómo se construye el mejor código para cualquier distribución?</strong></p>
-<p>. . .</p>
-<p>Primero, qué códigos sirven. Un código es <strong>prefijo</strong> si ninguna palabra es el inicio de otra:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 30%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Código</th>
-<th>¿Prefijo?</th>
-<th>Problema</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 01\)</span>, <span class="math inline">\(c = 1\)</span></td>
-<td><strong>no</strong>: <span class="math inline">\(0\)</span> es el inicio de <span class="math inline">\(01\)</span></td>
-<td><code>01</code> puede ser <span class="math inline">\(b\)</span> o <span class="math inline">\(a\,c\)</span>: ambiguo</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 10\)</span>, <span class="math inline">\(c = 11\)</span></td>
-<td><strong>sí</strong></td>
-<td>se lee de izquierda a derecha sin separadores: <code>01011</code> = <span class="math inline">\(a\,b\,c\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>Con un código prefijo, cada palabra se reconoce en cuanto termina: no hace falta marcar dónde empieza la siguiente.</p>
-</section>
-<section id="el-algoritmo-de-huffman" class="level2 smaller" data-number="5.2">
-<h2 class="smaller anchored" data-number="5.2" data-anchor-id="el-algoritmo-de-huffman"><span class="header-section-number">5.2</span> El algoritmo de Huffman</h2>
-<p>David Huffman (1952) encontró un procedimiento sencillo que produce el <strong>mejor</strong> código prefijo posible:</p>
-<ol type="1">
-<li>Escribir cada símbolo como un nodo con su probabilidad.</li>
-<li>Tomar los <strong>dos nodos menos probables</strong> y unirlos en uno nuevo, cuya probabilidad es la <strong>suma</strong>.</li>
-<li>Repetir hasta que quede un solo nodo (la raíz).</li>
-<li>Leer los códigos: desde la raíz, cada rama izquierda es un <code>0</code> y cada derecha un <code>1</code>.</li>
-</ol>
-<p>. . .</p>
-<p><span id="eq-huffman"><span class="math display">\[
-L = \sum_x p(x)\,\ell(x) \qquad\qquad H(X) \;\le\; L_{\text{Huffman}} \;&lt;\; H(X) + 1
-\tag{7}\]</span></span></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 18%">
-<col style="width: 82%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Parte</th>
-<th>Qué significa</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\ell(x)\)</span></td>
-<td>longitud (número de bits) de la palabra del símbolo <span class="math inline">\(x\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(L\)</span></td>
-<td>longitud <strong>promedio</strong> del código, en bits por símbolo</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(H \le L\)</span></td>
-<td>ningún código baja de la entropía</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(L &lt; H + 1\)</span></td>
-<td>Huffman queda a menos de 1 bit de ella; ningún otro código prefijo logra un <span class="math inline">\(L\)</span> menor</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="paso-a-paso-construir-un-código-de-huffman" class="level2 smaller" data-number="5.3">
-<h2 class="smaller anchored" data-number="5.3" data-anchor-id="paso-a-paso-construir-un-código-de-huffman"><span class="header-section-number">5.3</span> Paso a paso: construir un código de Huffman</h2>
-<p>Cinco símbolos con probabilidades <span class="math inline">\(a = 0.4\)</span>, <span class="math inline">\(b = 0.2\)</span>, <span class="math inline">\(c = 0.2\)</span>, <span class="math inline">\(d = 0.1\)</span>, <span class="math inline">\(e = 0.1\)</span>.</p>
-<div class="columns">
-<div class="column" style="width:55%;">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 50%">
-<col style="width: 36%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Paso</th>
-<th>Se unen</th>
-<th>Nuevo nodo</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><span class="math inline">\(d\)</span> (0.1) y <span class="math inline">\(e\)</span> (0.1)</td>
-<td><span class="math inline">\(de\)</span> = 0.2</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><span class="math inline">\(b\)</span> (0.2) y <span class="math inline">\(c\)</span> (0.2)</td>
-<td><span class="math inline">\(bc\)</span> = 0.4</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><span class="math inline">\(de\)</span> (0.2) y <span class="math inline">\(a\)</span> (0.4)</td>
-<td><span class="math inline">\(dea\)</span> = 0.6</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><span class="math inline">\(bc\)</span> (0.4) y <span class="math inline">\(dea\)</span> (0.6)</td>
-<td>raíz = 1.0</td>
-</tr>
-</tbody>
-</table>
-</div><div class="column" style="width:45%;">
-<div style="font-size:1.15em">
-<pre><code>          raíz
-        0/    \1
-      bc        dea
-    0/  \1    0/   \1
-    b    c   de     a
-            0/ \1
-            d   e</code></pre>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Símbolo</th>
-<th><span class="math inline">\(a\)</span></th>
-<th><span class="math inline">\(b\)</span></th>
-<th><span class="math inline">\(c\)</span></th>
-<th><span class="math inline">\(d\)</span></th>
-<th><span class="math inline">\(e\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Código</td>
-<td><code>11</code></td>
-<td><code>00</code></td>
-<td><code>01</code></td>
-<td><code>100</code></td>
-<td><code>101</code></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\ell(x)\)</span></td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<p><span class="math inline">\(L = 0.4 \cdot 2 + 0.2 \cdot 2 + 0.2 \cdot 2 + 0.1 \cdot 3 + 0.1 \cdot 3 = \mathbf{2.2}\)</span> bits, frente a <span class="math inline">\(H = 2.122\)</span> (ec. <a href="#eq-huffman" class="quarto-xref">7</a>).</p>
-<p><strong>Lectura:</strong> el código desperdicia sólo <span class="math inline">\(2.2 - 2.122 = 0.078\)</span> bits por símbolo. Un código de longitud fija para 5 símbolos necesitaría 3 bits.</p>
-</section>
-<section id="decodificar" class="level2 smaller" data-number="5.4">
-<h2 class="smaller anchored" data-number="5.4" data-anchor-id="decodificar"><span class="header-section-number">5.4</span> Decodificar</h2>
-<p>Con el código anterior (<span class="math inline">\(a\)</span> <code>11</code>, <span class="math inline">\(b\)</span> <code>00</code>, <span class="math inline">\(c\)</span> <code>01</code>, <span class="math inline">\(d\)</span> <code>100</code>, <span class="math inline">\(e\)</span> <code>101</code>), ¿qué dice la cadena <code>1100101100</code>?</p>
-<div class="fragment">
-<p>Se lee de izquierda a derecha y se corta en cuanto se reconoce una palabra:</p>
-<p><code>11</code> → <span class="math inline">\(a\)</span> · <code>00</code> → <span class="math inline">\(b\)</span> · <code>101</code> → <span class="math inline">\(e\)</span> · <code>100</code> → <span class="math inline">\(d\)</span></p>
-</div>
-<div class="fragment">
-<p><strong>Resultado:</strong> <span class="math inline">\(a\,b\,e\,d\)</span>, con 10 bits. En longitud fija (3 bits por símbolo) habrían sido 12.</p>
-</div>
-<p>. . .</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Empates:</strong> cuando hay dos nodos con la misma probabilidad, se puede escoger cualquiera. Los códigos cambian, pero la longitud promedio <span class="math inline">\(L\)</span> es la misma: todos son igual de buenos.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="qué-muestra-la-animación" class="level2 smaller" data-number="5.5">
-<h2 class="smaller anchored" data-number="5.5" data-anchor-id="qué-muestra-la-animación"><span class="header-section-number">5.5</span> Qué muestra la animación</h2>
-<ol type="1">
-<li><strong>Nodos azules:</strong> los símbolos con su probabilidad. <strong>Nodos grises:</strong> los que se forman al unir dos.</li>
-<li><strong>Botón «Paso»:</strong> une los dos nodos menos probables; el nodo nuevo se resalta en amarillo.</li>
-<li><strong>Ramas:</strong> <code>0</code> a la izquierda y <code>1</code> a la derecha. Al terminar, bajo cada símbolo aparece su código.</li>
-<li><strong>Tabla:</strong> probabilidad, código, longitud <span class="math inline">\(\ell\)</span> y el término <span class="math inline">\(p \cdot \ell\)</span> de cada símbolo.</li>
-<li><strong>Recuadro final:</strong> compara la entropía <span class="math inline">\(H\)</span> con la longitud promedio <span class="math inline">\(L\)</span> (ec. <a href="#eq-huffman" class="quarto-xref">7</a>).</li>
-<li><strong>Ejemplos:</strong> el de clase, “potencias de ½” (<span class="math inline">\(L = H\)</span>), “muy desigual”, “uniforme”; también se pueden escribir probabilidades propias.</li>
-</ol>
-</section>
-<section id="código-de-huffman" class="level2" data-background-iframe="../anim/huffman.html" data-background-interactive="true" data-number="5.6">
-<h2 data-background-iframe="../anim/huffman.html" data-background-interactive="true" data-number="5.6" class="anchored" data-anchor-id="código-de-huffman"><span class="header-section-number">5.6</span> Código de Huffman</h2>
-</section>
-<section id="ejercicio-huffman-a-mano" class="level2 smaller" data-number="5.7">
-<h2 class="smaller anchored" data-number="5.7" data-anchor-id="ejercicio-huffman-a-mano"><span class="header-section-number">5.7</span> Ejercicio: Huffman a mano</h2>
-<p>Construir el código de Huffman para cinco símbolos con probabilidades</p>
-<p><span class="math display">\[a = 0.5, \quad b = 0.2, \quad c = 0.15, \quad d = 0.1, \quad e = 0.05\]</span></p>
-<ol type="1">
-<li>Hacer la tabla de pasos (qué dos nodos se unen en cada paso).</li>
-<li>Dibujar el árbol y leer el código de cada símbolo.</li>
-<li>Calcular la longitud promedio <span class="math inline">\(L\)</span> (ec. <a href="#eq-huffman" class="quarto-xref">7</a>).</li>
-<li>Comparar con la entropía <span class="math inline">\(H = 1.923\)</span> bits. ¿Cuántos bits se desperdician por símbolo?</li>
-<li>Decodificar la cadena <code>0101110</code> con el código obtenido.</li>
-</ol>
-</section>
-<section id="solución-huffman-a-mano" class="level2 smaller" data-number="5.8">
-<h2 class="smaller anchored" data-number="5.8" data-anchor-id="solución-huffman-a-mano"><span class="header-section-number">5.8</span> Solución: Huffman a mano</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 56%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Paso</th>
-<th>Se unen</th>
-<th>Nuevo nodo</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><span class="math inline">\(e\)</span> (0.05) y <span class="math inline">\(d\)</span> (0.1)</td>
-<td>0.15</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><span class="math inline">\(c\)</span> (0.15) y <span class="math inline">\(ed\)</span> (0.15)</td>
-<td>0.3</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><span class="math inline">\(b\)</span> (0.2) y <span class="math inline">\(ced\)</span> (0.3)</td>
-<td>0.5</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><span class="math inline">\(a\)</span> (0.5) y <span class="math inline">\(bced\)</span> (0.5)</td>
-<td>1.0</td>
-</tr>
-</tbody>
-</table>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Símbolo</th>
-<th><span class="math inline">\(a\)</span></th>
-<th><span class="math inline">\(b\)</span></th>
-<th><span class="math inline">\(c\)</span></th>
-<th><span class="math inline">\(d\)</span></th>
-<th><span class="math inline">\(e\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Código</td>
-<td><code>0</code></td>
-<td><code>10</code></td>
-<td><code>110</code></td>
-<td><code>1111</code></td>
-<td><code>1110</code></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\ell\)</span></td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
-</div><div class="column" style="width:50%;">
-<p><strong>3.</strong> <span class="math inline">\(L = 0.5 \cdot 1 + 0.2 \cdot 2 + 0.15 \cdot 3 + 0.1 \cdot 4 + 0.05 \cdot 4\)</span> <span class="math inline">\(= 0.5 + 0.4 + 0.45 + 0.4 + 0.2 = \mathbf{1.95}\)</span> bits.</p>
-<p><strong>4.</strong> <span class="math inline">\(1.95 - 1.923 = 0.027\)</span> bits por símbolo: casi perfecto.</p>
-<p><strong>5.</strong> <code>0</code> → <span class="math inline">\(a\)</span> · <code>10</code> → <span class="math inline">\(b\)</span> · <code>1110</code> → <span class="math inline">\(e\)</span>: la cadena dice <span class="math inline">\(a\,b\,e\)</span>.</p>
-</div>
-</div>
-<p>. . .</p>
-<p><strong>Lectura:</strong> como <span class="math inline">\(a\)</span> sale la mitad de las veces, recibe una palabra de <strong>1 bit</strong>; los símbolos raros pagan con palabras largas, pero casi nunca aparecen. Por eso <span class="math inline">\(L\)</span> queda tan cerca de <span class="math inline">\(H\)</span>.</p>
-</section>
-<section id="en-el-proyecto-huffman-para-el-exponente" class="level2 smaller" data-number="5.9">
-<h2 class="smaller anchored" data-number="5.9" data-anchor-id="en-el-proyecto-huffman-para-el-exponente"><span class="header-section-number">5.9</span> En el proyecto: Huffman para el exponente</h2>
-<p>El código del modelo de juguete de 8 pesos de la primera presentación (<span class="math inline">\(-3\)</span> → <code>0</code>, <span class="math inline">\(-4\)</span> → <code>10</code>, <span class="math inline">\(-5\)</span> → <code>110</code>, <span class="math inline">\(-2\)</span> → <code>111</code>) <strong>es un código de Huffman</strong>: probabilidades ½, ¼, ⅛, ⅛, y por eso <span class="math inline">\(L = H = 1.75\)</span> bits exactamente.</p>
-<p>. . .</p>
-<p>En la <strong>etapa 2</strong> del proyecto se programa Huffman para el exponente real de SmolLM2:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Bits por exponente</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Como está guardado (bfloat16)</td>
-<td>8</td>
-</tr>
-<tr class="even">
-<td>Entropía (límite teórico)</td>
-<td>2.66</td>
-</tr>
-<tr class="odd">
-<td>Huffman</td>
-<td>entre 2.66 y 3.66 (ec. <a href="#eq-huffman" class="quarto-xref">7</a>); en la práctica, muy cerca de 2.66</td>
-</tr>
-</tbody>
-</table>
-<p>La pregunta del análisis: <strong>¿qué tan cerca de 2.66 llega Huffman, y cuánto se acerca la codificación aritmética?</strong></p>
-</section>
-</section>
-<section id="para-qué-sirve" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Para qué sirve</h1>
-<section id="cuál-se-usa" class="level2 smaller" data-number="6.1">
-<h2 class="smaller anchored" data-number="6.1" data-anchor-id="cuál-se-usa"><span class="header-section-number">6.1</span> ¿Cuál se usa?</h2>
+<section id="para-qué-sirve" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Para qué sirve</h1>
+<section id="cuál-se-usa" class="level2 smaller" data-number="5.1">
+<h2 class="smaller anchored" data-number="5.1" data-anchor-id="cuál-se-usa"><span class="header-section-number">5.1</span> ¿Cuál se usa?</h2>
 <ol type="1">
 <li>Se compara la distribución de letras de un texto con un modelo, pero sólo se anota si cada letra es vocal o consonante.</li>
 <li>Una foto se guarda en JPEG y después se vuelve a guardar en JPEG con menor calidad.</li>
 <li>Un sistema de reconocimiento de voz duda entre 10 palabras. ¿Cuál es el mínimo de errores posible?</li>
-<li>Se quiere comprimir sin pérdida un archivo cuyos símbolos tienen probabilidades conocidas.</li>
 <li>Se pregunta si cuantizar los pesos de un LLM puede mejorar lo que el modelo sabe del texto.</li>
 </ol>
 </section>
-<section id="respuestas" class="level2 smaller" data-number="6.2">
-<h2 class="smaller anchored" data-number="6.2" data-anchor-id="respuestas"><span class="header-section-number">6.2</span> Respuestas</h2>
+<section id="respuestas" class="level2 smaller" data-number="5.2">
+<h2 class="smaller anchored" data-number="5.2" data-anchor-id="respuestas"><span class="header-section-number">5.2</span> Respuestas</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 5%">
@@ -3197,19 +2848,14 @@ L = \sum_x p(x)\,\ell(x) \qquad\qquad H(X) \;\le\; L_{\text{Huffman}} \;&lt;\; H
 </tr>
 <tr class="even">
 <td>4</td>
-<td><strong>Huffman</strong> (ec. <a href="#eq-huffman" class="quarto-xref">7</a>)</td>
-<td>el mejor código prefijo, a menos de 1 bit de la entropía</td>
-</tr>
-<tr class="odd">
-<td>5</td>
 <td><strong>Procesamiento de datos</strong></td>
 <td>cuantizar es procesar: no puede aumentar la información</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="resumen-de-hoy" class="level2 smaller" data-number="6.3">
-<h2 class="smaller anchored" data-number="6.3" data-anchor-id="resumen-de-hoy"><span class="header-section-number">6.3</span> Resumen de hoy</h2>
+<section id="resumen-de-hoy" class="level2 smaller" data-number="5.3">
+<h2 class="smaller anchored" data-number="5.3" data-anchor-id="resumen-de-hoy"><span class="header-section-number">5.3</span> Resumen de hoy</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 6%">
@@ -3262,24 +2908,18 @@ L = \sum_x p(x)\,\ell(x) \qquad\qquad H(X) \;\le\; L_{\text{Huffman}} \;&lt;\; H
 <td><span class="math inline">\(P_e \ge \frac{H(X\mid Y) - 1}{\log_2 n}\)</span></td>
 <td>error mínimo fácil de calcular</td>
 </tr>
-<tr class="odd">
-<td><a href="#eq-huffman" class="quarto-xref">7</a></td>
-<td>Huffman</td>
-<td><span class="math inline">\(H \le L &lt; H + 1\)</span></td>
-<td>el mejor código prefijo</td>
-</tr>
 </tbody>
 </table>
 </section>
-<section id="para-la-próxima-sesión" class="level2 smaller" data-number="6.4">
-<h2 class="smaller anchored" data-number="6.4" data-anchor-id="para-la-próxima-sesión"><span class="header-section-number">6.4</span> Para la próxima sesión</h2>
+<section id="para-la-próxima-sesión" class="level2 smaller" data-number="5.4">
+<h2 class="smaller anchored" data-number="5.4" data-anchor-id="para-la-próxima-sesión"><span class="header-section-number">5.4</span> Para la próxima sesión</h2>
 <ol type="1">
 <li>Un bit pasa por <strong>dos</strong> canales binarios simétricos con <span class="math inline">\(\varepsilon = 0.2\)</span>. Calcular <span class="math inline">\(I(X;Y)\)</span>, <span class="math inline">\(\varepsilon_2\)</span> e <span class="math inline">\(I(X;Z)\)</span>. Dato: <span class="math inline">\(H(0.2) = 0.722\)</span>, <span class="math inline">\(H(0.32) = 0.904\)</span>.</li>
-<li>Construir el código de Huffman para <span class="math inline">\(a = 0.35\)</span>, <span class="math inline">\(b = 0.25\)</span>, <span class="math inline">\(c = 0.2\)</span>, <span class="math inline">\(d = 0.1\)</span>, <span class="math inline">\(e = 0.1\)</span>. Calcular <span class="math inline">\(L\)</span> y compararla con <span class="math inline">\(H = 2.159\)</span> bits.</li>
+<li>Verificar la desigualdad log-suma (ec. <a href="#eq-logsuma" class="quarto-xref">1</a>) con <span class="math inline">\(a = (1, 1, 2)\)</span> y <span class="math inline">\(b = (2, 1, 1)\)</span>: calcular los dos lados paso a paso. ¿Por qué el lado derecho vale exactamente 0?</li>
 <li>Una variable tiene 3 valores y, después de observar <span class="math inline">\(Y\)</span>, quedan <span class="math inline">\(H(X \mid Y) = 1\)</span> bit. Usar la ec. <a href="#eq-fano-simple" class="quarto-xref">6</a> para obtener un mínimo de error. ¿Es posible equivocarse sólo el 10 % de las veces? (Probar <span class="math inline">\(P_e = 0.1\)</span> en la ec. <a href="#eq-fano" class="quarto-xref">5</a>.)</li>
 </ol>
 <p>. . .</p>
-<p><strong>Próxima sesión:</strong> la propiedad asintótica de equipartición y los conjuntos típicos: por qué casi todas las secuencias largas tienen probabilidad cercana a <span class="math inline">\(2^{-nH}\)</span>, y qué tiene que ver eso con comprimir.</p>
+<p><strong>Próxima sesión:</strong> códigos de Huffman: cómo se construye en la práctica el código que se acerca a la entropía.</p>
 </section>
 </section>
 
