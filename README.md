@@ -33,5 +33,6 @@ Para guardar tu trabajo: *Archivo → Guardar una copia en Drive*.
 | Entropía relativa, reglas de la cadena y Jensen | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-02.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-02-apuntes.html) | — |
 | Procesamiento de datos y Fano | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-03.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-03-apuntes.html) | — |
 | Códigos de Huffman | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-04.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-04-apuntes.html) | — |
+| De zip a la cuantización | [Abrir presentación](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-05.html) | [Abrir apuntes](https://vsosahdz.github.io/TeoriaInformacion/sesiones/sesion-05-apuntes.html) | — |
 
 **Repaso de conocimientos previos:** [repaso-prerrequisitos.pdf](https://vsosahdz.github.io/TeoriaInformacion/repaso/repaso-prerrequisitos.pdf)

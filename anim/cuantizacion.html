@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuantización — bits, error y el límite de tasa–distorsión</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8eaf0; --muted:#9aa3b2;
+    --hot:#ff6b5a; --cold:#4ea1ff; --ok:#3ddc84; --warn:#ffc44d; --teal:#5cc6d0;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:14px 20px; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:650; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:10px; }
+  .grid { display:grid; grid-template-columns:1fr 360px; gap:14px; align-items:start; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .panel h2 { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 8px; font-weight:600; }
+  canvas { width:100%; height:auto; display:block; border-radius:6px; background:#0a0c10; }
+  button { background:#222836; color:var(--ink); border:1px solid var(--line); border-radius:7px;
+    padding:5px 10px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover{ background:#2b3244; }
+  button.on { background:var(--cold); color:#03101f; border-color:var(--cold); font-weight:600; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; align-items:center; }
+  .lbl { color:var(--muted); font-size:13px; min-width:92px; }
+  .rowc { display:flex; align-items:center; gap:10px; margin:6px 0 10px; font-size:13px; }
+  .rowc input { flex:1; accent-color:var(--warn); }
+  .val { min-width:60px; text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
+  .kv { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .kv b { font-variant-numeric:tabular-nums; }
+  .note { color:var(--muted); font-size:12px; margin-top:8px; line-height:1.5; }
+  .msg { font-size:13.5px; margin-top:8px; min-height:40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Cuantización — cada bit de menos cuesta error</h1>
+  <div class="sub">20 000 pesos simulados (σ = 1). Cada peso se redondea al <b style="color:var(--warn)">nivel</b> más cercano;
+    con <b>b</b> bits hay 2<sup>b</sup> niveles. Abajo, el punto de este cuantizador frente al límite de tasa–distorsión.</div>
+
+  <div class="row"><span class="lbl">Pesos</span><span id="dist"></span></div>
+  <div class="row"><span class="lbl">Rango</span><span id="rango"></span></div>
+  <div class="row"><span class="lbl">Niveles</span><span id="metodo"></span></div>
+  <div class="rowc"><span class="lbl">Bits por peso b</span><input id="b" type="range" min="1" max="8" value="3"><span class="val" id="bv"></span></div>
+
+  <div class="grid">
+    <div>
+      <div class="panel"><canvas id="hist" width="760" height="250"></canvas>
+        <div class="note">Gris: histograma de los pesos. Líneas amarillas: los niveles permitidos (cada peso se redondea al más cercano).
+          Zona roja: pesos fuera del rango, que se recortan al nivel extremo.</div></div>
+      <div class="panel" style="margin-top:12px"><canvas id="rd" width="760" height="270"></canvas>
+        <div class="note">Curva blanca: límite de Shannon para pesos gaussianos, D/σ² = 2<sup>−2R</sup>. Puntos
+          <b style="color:var(--hot)">rojos</b>: guardar cada peso con b bits fijos. Puntos <b style="color:var(--teal)">teal</b>: comprimir
+          además los niveles con un código entrópico (≈ H(Ŵ) bits). El punto grande es el valor actual de b.</div></div>
+    </div>
+    <div class="panel">
+      <h2>Cálculo</h2>
+      <div class="kv"><span>niveles 2<sup>b</sup></span><b id="nl"></b></div>
+      <div class="kv"><span>paso Δ = 2A / 2<sup>b</sup></span><b id="dl"></b></div>
+      <div class="kv"><span>D medido = promedio de (w − ŵ)²</span><b id="dm"></b></div>
+      <div class="kv"><span>Δ² / 12 (sin recorte)</span><b id="d12"></b></div>
+      <div class="kv"><span>D / σ²</span><b id="dr"></b></div>
+      <div class="kv"><span>H(Ŵ): bits tras un código entrópico</span><b id="hq" style="color:var(--teal)"></b></div>
+      <div class="kv"><span>R(D) = ½ log₂(σ²/D): límite gaussiano</span><b id="rdv"></b></div>
+      <div class="kv"><span>b − R(D): desperdicio con b fijos</span><b id="g1" style="color:var(--hot)"></b></div>
+      <div class="kv"><span>H(Ŵ) − R(D): desperdicio con código</span><b id="g2" style="color:var(--teal)"></b></div>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const N = 20000;
+function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function gauss(r){ let u=0; while(u===0) u=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*r()); }
+const DIST = {
+  "gaussiana": r => gauss(r),
+  "laplaciana (colas pesadas)": r => { const u = r() - 0.5; return -Math.sign(u)*Math.log(1-2*Math.abs(u))/Math.SQRT2; },
+  "con valores atípicos": r => r() < 0.003 ? gauss(r)*8 : gauss(r),
+};
+const RANGOS = { "máximo |w|": null, "±4σ": 4, "±3σ": 3, "±2σ": 2 };
+const METODOS = ["uniforme", "no uniforme (Lloyd)"];
+let dist = "gaussiana", rango = "±4σ", metodo = "uniforme";
+let xs = [], S1 = [], S2 = [], sigma2 = 1, amax = 1;
+
+function datos(){
+  const r = rng(7); xs = Array.from({length:N}, () => DIST[dist](r)).sort((a,b)=>a-b);
+  S1 = [0]; S2 = [0];
+  for (const x of xs){ S1.push(S1[S1.length-1]+x); S2.push(S2[S2.length-1]+x*x); }
+  const m = S1[N]/N; sigma2 = S2[N]/N - m*m; amax = Math.max(-xs[0], xs[N-1]);
+}
+function lower(v){ let lo=0, hi=N; while(lo<hi){ const md=(lo+hi)>>1; if(xs[md]<v) lo=md+1; else hi=md; } return lo; }
+function evalua(lv){ // asigna cada peso al nivel más cercano (niveles ordenados)
+  const k = lv.length, cuts = [0];
+  for (let i=0;i<k-1;i++) cuts.push(lower((lv[i]+lv[i+1])/2));
+  cuts.push(N);
+  let D = 0, H = 0; const n = [];
+  for (let i=0;i<k;i++){
+    const a=cuts[i], b=cuts[i+1], c=b-a, s1=S1[b]-S1[a], s2=S2[b]-S2[a];
+    n.push(c); D += s2 - 2*lv[i]*s1 + c*lv[i]*lv[i];
+    if (c>0){ const p=c/N; H -= p*Math.log2(p); }
+  }
+  return { D: D/N, H, n, cuts };
+}
+function niveles(b){
+  const k = 2**b, A = RANGOS[rango] === null ? amax : RANGOS[rango]*Math.sqrt(sigma2);
+  const d = 2*A/k; let lv = Array.from({length:k}, (_,i) => -A + d/2 + d*i);
+  if (metodo !== "uniforme"){
+    for (let it=0; it<25; it++){
+      const e = evalua(lv); const nv = [];
+      for (let i=0;i<k;i++){ const a=e.cuts[i], c=e.cuts[i+1]-a; nv.push(c>0 ? (S1[a+c]-S1[a])/c : lv[i]); }
+      lv = nv.sort((p,q)=>p-q);
+    }
+  }
+  return { lv, A, d };
+}
+function curva(){ const pts=[]; for(let b=1;b<=8;b++){ const q=niveles(b), e=evalua(q.lv); pts.push({b, D:e.D, H:e.H}); } return pts; }
+
+function dibujaHist(q){
+  const c=$("hist"), g=c.getContext("2d"), W=c.width, H=c.height, L=10, R=10, T=10, B=26;
+  g.clearRect(0,0,W,H);
+  const span = Math.max(4.2, Math.min(amax, 9)) , X = v => L + (v+span)/(2*span)*(W-L-R);
+  const nb = 160, bins = new Array(nb).fill(0);
+  for (const x of xs){ const i = Math.floor((x+span)/(2*span)*nb); if(i>=0&&i<nb) bins[i]++; }
+  const mx = Math.max(...bins);
+  if (q.A < span){ g.fillStyle="rgba(255,107,90,.12)"; g.fillRect(L,T,X(-q.A)-L,H-T-B); g.fillRect(X(q.A),T,W-R-X(q.A),H-T-B); }
+  g.fillStyle="#3a4150";
+  bins.forEach((v,i)=>{ const x0=L+i*(W-L-R)/nb, h=(H-T-B)*v/mx; g.fillRect(x0, H-B-h, (W-L-R)/nb-0.5, h); });
+  g.strokeStyle="#ffc44d"; g.lineWidth = q.lv.length > 64 ? 0.6 : 1.6;
+  q.lv.forEach(v=>{ if(Math.abs(v)<=span){ g.beginPath(); g.moveTo(X(v),T); g.lineTo(X(v),H-B); g.stroke(); } });
+  g.fillStyle="#9aa3b2"; g.font="12px ui-sans-serif"; g.textAlign="center";
+  for (let v=-Math.floor(span); v<=Math.floor(span); v++) g.fillText(v+"σ", X(v), H-8);
+  g.textAlign="left";
+}
+function dibujaRD(pts, b){
+  const c=$("rd"), g=c.getContext("2d"), W=c.width, H=c.height, L=52, R=16, T=14, B=32;
+  g.clearRect(0,0,W,H);
+  const X = r => L + r/8*(W-L-R), Y = d => T + (-Math.log10(Math.max(d,1e-6)))/5*(H-T-B);
+  g.strokeStyle="#2a2f3a"; g.fillStyle="#9aa3b2"; g.font="12px ui-sans-serif";
+  for(let e=0;e<=5;e++){ g.beginPath(); g.moveTo(L,Y(10**-e)); g.lineTo(W-R,Y(10**-e)); g.stroke(); g.fillText("10^-"+e, 6, Y(10**-e)+4); }
+  for(let r=0;r<=8;r++){ g.fillText(r, X(r)-3, H-14); }
+  g.fillText("bits por peso", W-R-80, H-2);
+  g.strokeStyle="#e8eaf0"; g.lineWidth=2; g.beginPath();
+  for(let r=0;r<=8.001;r+=0.05){ const d=2**(-2*r); r? g.lineTo(X(r),Y(d)) : g.moveTo(X(r),Y(d)); } g.stroke();
+  const serie=(key,col)=>{ g.strokeStyle=col; g.lineWidth=1.5; g.beginPath();
+    pts.forEach((p,i)=>{ const x=X(key==="b"?p.b:p.H), y=Y(p.D/sigma2); i? g.lineTo(x,y):g.moveTo(x,y); }); g.stroke();
+    pts.forEach(p=>{ const x=X(key==="b"?p.b:p.H), y=Y(p.D/sigma2); g.fillStyle=col; g.beginPath(); g.arc(x,y,p.b===b?7:3.5,0,7); g.fill(); }); };
+  serie("b","#ff6b5a"); serie("H","#5cc6d0");
+}
+function render(){
+  const b = +$("b").value; $("bv").textContent = b;
+  const q = niveles(b), e = evalua(q.lv), pts = curva();
+  const R = Math.max(0, 0.5*Math.log2(sigma2/e.D));
+  $("nl").textContent = 2**b;
+  $("dl").textContent = metodo==="uniforme" ? q.d.toFixed(4) : "variable";
+  $("dm").textContent = e.D.toExponential(2);
+  $("d12").textContent = metodo==="uniforme" ? (q.d*q.d/12).toExponential(2) : "—";
+  $("dr").textContent = (e.D/sigma2).toExponential(2);
+  $("hq").textContent = e.H.toFixed(3)+" bits";
+  $("rdv").textContent = R.toFixed(3)+" bits";
+  $("g1").textContent = (b-R).toFixed(3)+" bits";
+  $("g2").textContent = (e.H-R).toFixed(3)+" bits";
+  let m = `Con ${b} bits fijos el error relativo es D/σ² = ${(e.D/sigma2).toExponential(1)}. `;
+  m += `Un código entrópico baja la tasa a ${e.H.toFixed(2)} bits sin cambiar el error; el límite de Shannon para ese error es ${R.toFixed(2)} bits.`;
+  if (dist==="con valores atípicos" && rango==="máximo |w|") m += " Los pocos atípicos estiran el rango: casi todos los niveles quedan vacíos. Prueba ±4σ.";
+  $("msg").textContent = m;
+  dibujaHist(q); dibujaRD(pts, b);
+}
+function grupo(id, opciones, get, set){
+  const box=$(id); opciones.forEach(k=>{ const bt=document.createElement("button"); bt.textContent=k;
+    bt.onclick=()=>{ set(k); [...box.children].forEach(x=>x.classList.toggle("on", x.textContent===get())); if(id==="dist") datos(); render(); };
+    box.appendChild(bt); });
+  [...box.children].forEach(x=>x.classList.toggle("on", x.textContent===get()));
+}
+grupo("dist", Object.keys(DIST), ()=>dist, k=>dist=k);
+grupo("rango", Object.keys(RANGOS), ()=>rango, k=>rango=k);
+grupo("metodo", METODOS, ()=>metodo, k=>metodo=k);
+$("b").oninput = render;
+datos(); render();
+</script>
+</body>
+</html>
