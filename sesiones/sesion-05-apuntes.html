@@ -2324,13 +2324,18 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#lo-que-huffman-no-ve" id="toc-lo-que-huffman-no-ve" class="nav-link" data-scroll-target="#lo-que-huffman-no-ve"><span class="header-section-number">2.1</span> Lo que Huffman no ve</a></li>
   <li><a href="#lempel-ziv-lz77-copiar-lo-que-ya-se-vio" id="toc-lempel-ziv-lz77-copiar-lo-que-ya-se-vio" class="nav-link" data-scroll-target="#lempel-ziv-lz77-copiar-lo-que-ya-se-vio"><span class="header-section-number">2.2</span> Lempel-Ziv (LZ77): copiar lo que ya se vio</a></li>
-  <li><a href="#paso-a-paso-lz77-sobre-mama-amasa-la-masa" id="toc-paso-a-paso-lz77-sobre-mama-amasa-la-masa" class="nav-link" data-scroll-target="#paso-a-paso-lz77-sobre-mama-amasa-la-masa"><span class="header-section-number">2.3</span> Paso a paso: LZ77 sobre MAMA AMASA LA MASA</a></li>
-  <li><a href="#paso-a-paso-una-copia-que-se-alimenta-de-sí-misma" id="toc-paso-a-paso-una-copia-que-se-alimenta-de-sí-misma" class="nav-link" data-scroll-target="#paso-a-paso-una-copia-que-se-alimenta-de-sí-misma"><span class="header-section-number">2.4</span> Paso a paso: una copia que se alimenta de sí misma</a></li>
-  <li><a href="#ejercicio-lempel-ziv-a-mano" id="toc-ejercicio-lempel-ziv-a-mano" class="nav-link" data-scroll-target="#ejercicio-lempel-ziv-a-mano"><span class="header-section-number">2.5</span> Ejercicio: Lempel-Ziv a mano</a></li>
-  <li><a href="#solución-lempel-ziv-a-mano" id="toc-solución-lempel-ziv-a-mano" class="nav-link" data-scroll-target="#solución-lempel-ziv-a-mano"><span class="header-section-number">2.6</span> Solución: Lempel-Ziv a mano</a></li>
-  <li><a href="#zip-lempel-ziv-huffman" id="toc-zip-lempel-ziv-huffman" class="nav-link" data-scroll-target="#zip-lempel-ziv-huffman"><span class="header-section-number">2.7</span> zip = Lempel-Ziv + Huffman</a></li>
-  <li><a href="#por-qué-funciona-sin-conocer-las-probabilidades" id="toc-por-qué-funciona-sin-conocer-las-probabilidades" class="nav-link" data-scroll-target="#por-qué-funciona-sin-conocer-las-probabilidades"><span class="header-section-number">2.8</span> Por qué funciona sin conocer las probabilidades</a></li>
-  <li><a href="#por-qué-zip-se-queda-corto-con-los-pesos" id="toc-por-qué-zip-se-queda-corto-con-los-pesos" class="nav-link" data-scroll-target="#por-qué-zip-se-queda-corto-con-los-pesos"><span class="header-section-number">2.9</span> Por qué zip se queda corto con los pesos</a></li>
+  <li><a href="#la-regla-paso-por-paso" id="toc-la-regla-paso-por-paso" class="nav-link" data-scroll-target="#la-regla-paso-por-paso"><span class="header-section-number">2.3</span> La regla, paso por paso</a></li>
+  <li><a href="#paso-a-paso-13-mama-amasa-la-masa-posiciones-1-a-5" id="toc-paso-a-paso-13-mama-amasa-la-masa-posiciones-1-a-5" class="nav-link" data-scroll-target="#paso-a-paso-13-mama-amasa-la-masa-posiciones-1-a-5"><span class="header-section-number">2.4</span> Paso a paso (1/3): MAMA AMASA LA MASA, posiciones 1 a 5</a></li>
+  <li><a href="#paso-a-paso-23-la-primera-referencia-posición-6" id="toc-paso-a-paso-23-la-primera-referencia-posición-6" class="nav-link" data-scroll-target="#paso-a-paso-23-la-primera-referencia-posición-6"><span class="header-section-number">2.5</span> Paso a paso (2/3): la primera referencia, posición 6</a></li>
+  <li><a href="#paso-a-paso-33-posiciones-9-a-18" id="toc-paso-a-paso-33-posiciones-9-a-18" class="nav-link" data-scroll-target="#paso-a-paso-33-posiciones-9-a-18"><span class="header-section-number">2.6</span> Paso a paso (3/3): posiciones 9 a 18</a></li>
+  <li><a href="#decodificar-seguir-las-instrucciones" id="toc-decodificar-seguir-las-instrucciones" class="nav-link" data-scroll-target="#decodificar-seguir-las-instrucciones"><span class="header-section-number">2.7</span> Decodificar: seguir las instrucciones</a></li>
+  <li><a href="#una-copia-que-se-alimenta-de-sí-misma-12-codificar" id="toc-una-copia-que-se-alimenta-de-sí-misma-12-codificar" class="nav-link" data-scroll-target="#una-copia-que-se-alimenta-de-sí-misma-12-codificar"><span class="header-section-number">2.8</span> Una copia que se alimenta de sí misma (1/2): codificar</a></li>
+  <li><a href="#una-copia-que-se-alimenta-de-sí-misma-22-decodificar" id="toc-una-copia-que-se-alimenta-de-sí-misma-22-decodificar" class="nav-link" data-scroll-target="#una-copia-que-se-alimenta-de-sí-misma-22-decodificar"><span class="header-section-number">2.9</span> Una copia que se alimenta de sí misma (2/2): decodificar</a></li>
+  <li><a href="#ejercicio-lempel-ziv-a-mano" id="toc-ejercicio-lempel-ziv-a-mano" class="nav-link" data-scroll-target="#ejercicio-lempel-ziv-a-mano"><span class="header-section-number">2.10</span> Ejercicio: Lempel-Ziv a mano</a></li>
+  <li><a href="#solución-lempel-ziv-a-mano" id="toc-solución-lempel-ziv-a-mano" class="nav-link" data-scroll-target="#solución-lempel-ziv-a-mano"><span class="header-section-number">2.11</span> Solución: Lempel-Ziv a mano</a></li>
+  <li><a href="#zip-lempel-ziv-huffman" id="toc-zip-lempel-ziv-huffman" class="nav-link" data-scroll-target="#zip-lempel-ziv-huffman"><span class="header-section-number">2.12</span> zip = Lempel-Ziv + Huffman</a></li>
+  <li><a href="#por-qué-funciona-sin-conocer-las-probabilidades" id="toc-por-qué-funciona-sin-conocer-las-probabilidades" class="nav-link" data-scroll-target="#por-qué-funciona-sin-conocer-las-probabilidades"><span class="header-section-number">2.13</span> Por qué funciona sin conocer las probabilidades</a></li>
+  <li><a href="#por-qué-zip-se-queda-corto-con-los-pesos" id="toc-por-qué-zip-se-queda-corto-con-los-pesos" class="nav-link" data-scroll-target="#por-qué-zip-se-queda-corto-con-los-pesos"><span class="header-section-number">2.14</span> Por qué zip se queda corto con los pesos</a></li>
   </ul></li>
   <li><a href="#cuando-sin-pérdida-ya-no-alcanza" id="toc-cuando-sin-pérdida-ya-no-alcanza" class="nav-link" data-scroll-target="#cuando-sin-pérdida-ya-no-alcanza"><span class="header-section-number">3</span> Cuando sin pérdida ya no alcanza</a>
   <ul class="collapse">
@@ -2581,48 +2586,333 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="paso-a-paso-lz77-sobre-mama-amasa-la-masa" class="level2 smaller" data-number="2.3">
-<h2 class="smaller anchored" data-number="2.3" data-anchor-id="paso-a-paso-lz77-sobre-mama-amasa-la-masa"><span class="header-section-number">2.3</span> Paso a paso: LZ77 sobre MAMA AMASA LA MASA</h2>
-<p>Posiciones: <code>M</code>₁ <code>A</code>₂ <code>M</code>₃ <code>A</code>₄ <code>␣</code>₅ <code>A</code>₆ <code>M</code>₇ <code>A</code>₈ <code>S</code>₉ <code>A</code>₁₀ <code>␣</code>₁₁ <code>L</code>₁₂ <code>A</code>₁₃ <code>␣</code>₁₄ <code>M</code>₁₅ <code>A</code>₁₆ <code>S</code>₁₇ <code>A</code>₁₈</p>
+<section id="la-regla-paso-por-paso" class="level2 smaller" data-number="2.3">
+<h2 class="smaller anchored" data-number="2.3" data-anchor-id="la-regla-paso-por-paso"><span class="header-section-number">2.3</span> La regla, paso por paso</h2>
+<p>Para <strong>codificar</strong> se recorre el texto con un cursor. En cada posición:</p>
+<ol type="1">
+<li>Buscar <strong>hacia atrás</strong> cada lugar donde aparece el carácter actual.</li>
+<li>Desde cada uno de esos lugares, comparar carácter por carácter hacia adelante y contar <strong>cuántos coinciden seguidos</strong>.</li>
+<li>Quedarse con la coincidencia <strong>más larga</strong>:
+<ul>
+<li>si mide <strong>3 o más</strong>: escribir la referencia <span class="math inline">\((d, \ell)\)</span> y avanzar el cursor <span class="math inline">\(\ell\)</span> posiciones;</li>
+<li>si mide menos de 3 (o no hay): escribir el carácter como <strong>literal</strong> y avanzar 1.</li>
+</ul></li>
+</ol>
+<p>. . .</p>
+<p>Las dos cuentas de la referencia:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 22%">
-<col style="width: 44%">
-<col style="width: 20%">
+<col style="width: 24%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cantidad</th>
+<th>Cómo se calcula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(d\)</span> (distancia)</td>
+<td><span class="math inline">\(d\)</span> = posición actual − posición donde empieza la coincidencia</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\ell\)</span> (longitud)</td>
+<td>cuántos caracteres coincidieron seguidos</td>
+</tr>
+</tbody>
+</table>
+<p>Para <strong>decodificar</strong> se hace al revés: un literal se escribe tal cual; una referencia <span class="math inline">\((d, \ell)\)</span> dice “regresa <span class="math inline">\(d\)</span> posiciones desde donde vas y copia <span class="math inline">\(\ell\)</span> caracteres, <strong>uno por uno</strong>”.</p>
+</section>
+<section id="paso-a-paso-13-mama-amasa-la-masa-posiciones-1-a-5" class="level2 smaller" data-number="2.4">
+<h2 class="smaller anchored" data-number="2.4" data-anchor-id="paso-a-paso-13-mama-amasa-la-masa-posiciones-1-a-5"><span class="header-section-number">2.4</span> Paso a paso (1/3): MAMA AMASA LA MASA, posiciones 1 a 5</h2>
+<div style="font-size:0.9em">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Posición</th>
-<th>Lo que sigue</th>
-<th>Coincidencia más larga en lo ya leído</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carácter</td>
+<td>M</td>
+<td>A</td>
+<td>M</td>
+<td>A</td>
+<td>␣</td>
+<td>A</td>
+<td>M</td>
+<td>A</td>
+<td>S</td>
+<td>A</td>
+<td>␣</td>
+<td>L</td>
+<td>A</td>
+<td>␣</td>
+<td>M</td>
+<td>A</td>
+<td>S</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>. . .</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 20%">
+<col style="width: 40%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición</th>
+<th>Carácter</th>
+<th>¿Apareció antes?</th>
+<th>Coincidencia más larga</th>
 <th>Se escribe</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1 a 5</td>
-<td><code>M</code>, <code>A</code>, <code>M</code>, <code>A</code>, <code>␣</code></td>
-<td>ninguna de 3 o más (<code>MA</code> en 3 sólo mide 2)</td>
-<td>5 literales</td>
+<td>1</td>
+<td>M</td>
+<td>no: todavía no hay nada leído</td>
+<td>—</td>
+<td>literal <code>M</code></td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td><code>AMA…</code></td>
-<td><code>AMA</code> en las posiciones 2–4: 4 atrás, 3 caracteres</td>
-<td><span class="math inline">\((4, 3)\)</span></td>
+<td>2</td>
+<td>A</td>
+<td>no</td>
+<td>—</td>
+<td>literal <code>A</code></td>
 </tr>
 <tr class="odd">
-<td>9 a 14</td>
-<td><code>S</code>, <code>A</code>, <code>␣</code>, <code>L</code>, <code>A</code>, <code>␣</code></td>
-<td>ninguna de 3 o más</td>
-<td>6 literales</td>
+<td>3</td>
+<td>M</td>
+<td>sí, en 1</td>
+<td>3 = 1 (M), 4 = 2 (A), pero 5 (␣) ≠ 3 (M): <strong>2</strong> caracteres</td>
+<td>literal <code>M</code> (2 &lt; 3)</td>
 </tr>
 <tr class="even">
+<td>4</td>
+<td>A</td>
+<td>sí, en 2</td>
+<td>4 = 2 (A), pero 5 (␣) ≠ 3 (M): <strong>1</strong> carácter</td>
+<td>literal <code>A</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>␣</td>
+<td>no</td>
+<td>—</td>
+<td>literal <code>␣</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lectura:</strong> hasta aquí todo son literales. Que un carácter ya haya salido no basta: tiene que repetirse un pedazo de al menos 3.</p>
+</section>
+<section id="paso-a-paso-23-la-primera-referencia-posición-6" class="level2 smaller" data-number="2.5">
+<h2 class="smaller anchored" data-number="2.5" data-anchor-id="paso-a-paso-23-la-primera-referencia-posición-6"><span class="header-section-number">2.5</span> Paso a paso (2/3): la primera referencia, posición 6</h2>
+<p>Ya se leyó <code>MAMA␣</code>. En la posición 6 está <code>A</code>, que apareció antes en las posiciones <strong>2</strong> y <strong>4</strong>. Se prueban los dos lugares:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Empezando en 2:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición nueva</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carácter</td>
+<td>A</td>
+<td>M</td>
+<td>A</td>
+<td>S</td>
+</tr>
+<tr class="even">
+<td>Posición vieja</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Carácter</td>
+<td>A</td>
+<td>M</td>
+<td>A</td>
+<td>␣</td>
+</tr>
+<tr class="even">
+<td>¿Igual?</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<p>Coinciden <strong>3</strong> seguidos.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Empezando en 4:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición nueva</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carácter</td>
+<td>A</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td>Posición vieja</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Carácter</td>
+<td>A</td>
+<td>␣</td>
+</tr>
+<tr class="even">
+<td>¿Igual?</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<p>Coincide <strong>1</strong>.</p>
+</div>
+</div>
+<p>. . .</p>
+<p><strong>Se elige la más larga</strong> (empieza en 2, mide 3): <span class="math inline">\(\ d = 6 - 2 = 4\)</span>, <span class="math inline">\(\ \ell = 3\)</span> → se escribe <span class="math inline">\((4, 3)\)</span> y el cursor salta a <span class="math inline">\(6 + 3 = 9\)</span>.</p>
+</section>
+<section id="paso-a-paso-33-posiciones-9-a-18" class="level2 smaller" data-number="2.6">
+<h2 class="smaller anchored" data-number="2.6" data-anchor-id="paso-a-paso-33-posiciones-9-a-18"><span class="header-section-number">2.6</span> Paso a paso (3/3): posiciones 9 a 18</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 56%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición</th>
+<th>Carácter</th>
+<th>Coincidencia más larga hacia atrás</th>
+<th>Se escribe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9</td>
+<td>S</td>
+<td>no apareció antes</td>
+<td>literal <code>S</code></td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>A</td>
+<td><code>A␣</code> en 4–5 (luego <code>A</code> ≠ <code>L</code>): <strong>2</strong></td>
+<td>literal <code>A</code></td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>␣</td>
+<td><code>␣</code> en 5 (luego <code>A</code> ≠ <code>L</code>): <strong>1</strong></td>
+<td>literal <code>␣</code></td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>L</td>
+<td>no apareció antes</td>
+<td>literal <code>L</code></td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>A</td>
+<td><code>A␣</code> en 4–5 o en 10–11 (luego no sigue <code>M</code>): <strong>2</strong></td>
+<td>literal <code>A</code></td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>␣</td>
+<td><code>␣</code> en 5 u 11: <strong>1</strong></td>
+<td>literal <code>␣</code></td>
+</tr>
+<tr class="odd">
 <td>15</td>
-<td><code>MASA</code></td>
-<td><code>MASA</code> en las posiciones 7–10: 8 atrás, 4 caracteres</td>
-<td><span class="math inline">\((8, 4)\)</span></td>
+<td>M</td>
+<td><code>MA</code> en 1–2 o 3–4: 2; <strong><code>MASA</code> en 7–10: 4</strong></td>
+<td><span class="math inline">\((15 - 7, 4) = (8, 4)\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -2630,76 +2920,284 @@ window.Quarto = {
 <p><strong>Resultado:</strong> <code>M A M A ␣</code> <span class="math inline">\((4,3)\)</span> <code>S A ␣ L A ␣</code> <span class="math inline">\((8,4)\)</span>: 11 literales y 2 referencias en lugar de 18 caracteres.</p>
 <p><strong>Lectura:</strong> en un texto corto se gana poco. En un texto largo casi todo ya apareció antes (palabras, sílabas, frases), y la mayor parte del archivo se vuelve referencias.</p>
 </section>
-<section id="paso-a-paso-una-copia-que-se-alimenta-de-sí-misma" class="level2 smaller" data-number="2.4">
-<h2 class="smaller anchored" data-number="2.4" data-anchor-id="paso-a-paso-una-copia-que-se-alimenta-de-sí-misma"><span class="header-section-number">2.4</span> Paso a paso: una copia que se alimenta de sí misma</h2>
-<p><strong>LA MASA LA MASA LA MASA</strong> se codifica como 8 literales y <strong>una</strong> referencia:</p>
-<p><code>L A ␣ M A S A ␣</code> <span class="math inline">\((8, 15)\)</span></p>
-<div class="fragment">
-<p>¿Cómo se copian 15 caracteres si sólo hay 8 escritos? <strong>Uno por uno</strong>: cada carácter copiado ya está disponible para el siguiente.</p>
+<section id="decodificar-seguir-las-instrucciones" class="level2 smaller" data-number="2.7">
+<h2 class="smaller anchored" data-number="2.7" data-anchor-id="decodificar-seguir-las-instrucciones"><span class="header-section-number">2.7</span> Decodificar: seguir las instrucciones</h2>
+<p>El receptor recibe <code>M A M A ␣</code> <span class="math inline">\((4,3)\)</span> <code>S A ␣ L A ␣</code> <span class="math inline">\((8,4)\)</span> y reconstruye el texto de izquierda a derecha:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 8%">
 <col style="width: 14%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 12%">
+<col style="width: 56%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Copia número</th>
-<th>1</th>
-<th>2</th>
-<th>…</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-<th>…</th>
-<th>15</th>
+<th>Se lee</th>
+<th>Qué se hace</th>
+<th>Texto reconstruido</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Se copia el carácter de la posición</td>
-<td>1 (<code>L</code>)</td>
-<td>2 (<code>A</code>)</td>
+<td><code>M A M A ␣</code></td>
+<td>5 literales: se escriben tal cual (posiciones 1 a 5)</td>
+<td><code>MAMA␣</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((4, 3)\)</span></td>
+<td>se va a escribir la posición 6; la copia empieza en <span class="math inline">\(6 - 4 = 2\)</span>; se copian 3: <code>A</code>, <code>M</code>, <code>A</code></td>
+<td><code>MAMA␣AMA</code></td>
+</tr>
+<tr class="odd">
+<td><code>S A ␣ L A ␣</code></td>
+<td>6 literales (posiciones 9 a 14)</td>
+<td><code>MAMA␣AMASA␣LA␣</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((8, 4)\)</span></td>
+<td>se va a escribir la posición 15; la copia empieza en <span class="math inline">\(15 - 8 = 7\)</span>; se copian 4: <code>M</code>, <code>A</code>, <code>S</code>, <code>A</code></td>
+<td><code>MAMA␣AMASA␣LA␣MASA</code></td>
+</tr>
+</tbody>
+</table>
+<p>. . .</p>
+<p><strong>Lectura:</strong> decodificar es mucho más rápido que codificar: no hay que buscar nada, sólo copiar. Por eso <code>zip</code> descomprime casi al instante aunque comprimir tarde más.</p>
+</section>
+<section id="una-copia-que-se-alimenta-de-sí-misma-12-codificar" class="level2 smaller" data-number="2.8">
+<h2 class="smaller anchored" data-number="2.8" data-anchor-id="una-copia-que-se-alimenta-de-sí-misma-12-codificar"><span class="header-section-number">2.8</span> Una copia que se alimenta de sí misma (1/2): codificar</h2>
+<p>Texto <strong>LA MASA LA MASA LA MASA</strong> (23 caracteres): la frase <code>LA MASA␣</code> de 8 caracteres, repetida.</p>
+<p><strong>Posiciones 1 a 8:</strong> ninguna coincidencia llega a 3 (la más larga es <code>A␣</code> en la posición 7, de 2) → 8 literales <code>L A ␣ M A S A ␣</code>.</p>
+<p>. . .</p>
+<p><strong>Posición 9:</strong> <code>L</code> apareció en la posición 1. Se compara hacia adelante:</p>
+<div style="font-size:0.85em">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición nueva</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>…</th>
+<th>23</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Posición vieja</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td><strong>9</strong></td>
+<td><strong>10</strong></td>
 <td>…</td>
-<td>8 (<code>␣</code>)</td>
-<td>9 (<code>L</code>, recién copiado)</td>
-<td>10 (<code>A</code>)</td>
+<td><strong>15</strong></td>
+</tr>
+<tr class="even">
+<td>¿Igual?</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
 <td>…</td>
-<td>15 (<code>A</code>)</td>
+<td>✓</td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>. . .</p>
-<p><strong>Lectura:</strong> una referencia puede pisar lo que ella misma está escribiendo. Así se comprimen las rachas: <code>AAAAAAAA</code> es <code>A</code> <span class="math inline">\((1, 7)\)</span>, dos símbolos para ocho caracteres. Para LZ, repetir no cuesta casi nada.</p>
+<p>Coinciden <strong>15</strong> caracteres, hasta el final del texto: <span class="math inline">\(\ d = 9 - 1 = 8\)</span>, <span class="math inline">\(\ \ell = 15\)</span> → <code>L A ␣ M A S A ␣</code> <span class="math inline">\((8, 15)\)</span>.</p>
+<p><strong>Lectura:</strong> a partir de la posición 17 la comparación usa posiciones <strong>viejas</strong> (9, 10, …) que forman parte del mismo pedazo que se está comparando. Está permitido: sólo importa que la posición vieja quede <strong>antes</strong> que la nueva.</p>
 </section>
-<section id="ejercicio-lempel-ziv-a-mano" class="level2 smaller" data-number="2.5">
-<h2 class="smaller anchored" data-number="2.5" data-anchor-id="ejercicio-lempel-ziv-a-mano"><span class="header-section-number">2.5</span> Ejercicio: Lempel-Ziv a mano</h2>
-<p>Usar la regla de la lámina anterior (referencia sólo si la coincidencia mide 3 o más).</p>
+<section id="una-copia-que-se-alimenta-de-sí-misma-22-decodificar" class="level2 smaller" data-number="2.9">
+<h2 class="smaller anchored" data-number="2.9" data-anchor-id="una-copia-que-se-alimenta-de-sí-misma-22-decodificar"><span class="header-section-number">2.9</span> Una copia que se alimenta de sí misma (2/2): decodificar</h2>
+<p>El receptor tiene 8 caracteres y la instrucción <span class="math inline">\((8, 15)\)</span>: “copia 15 caracteres empezando 8 atrás”. Se copian <strong>uno por uno</strong>; cada posición nueva <span class="math inline">\(k\)</span> toma el carácter de la posición <span class="math inline">\(k - 8\)</span>:</p>
+<div style="font-size:0.85em">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Se escribe la posición</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>copiando de la posición</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>15</td>
+</tr>
+<tr class="even">
+<td>carácter</td>
+<td>L</td>
+<td>A</td>
+<td>␣</td>
+<td>M</td>
+<td>A</td>
+<td>S</td>
+<td>A</td>
+<td>␣</td>
+<td>L</td>
+<td>A</td>
+<td>␣</td>
+<td>M</td>
+<td>A</td>
+<td>S</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Cuando se escribe la posición 17, la posición 9 <strong>ya se escribió</strong> dos renglones antes en esta misma copia.</p>
+<p>. . .</p>
+<p><strong>Otro ejemplo, una racha:</strong> <code>AAAAAAAA</code> se codifica <code>A</code> <span class="math inline">\((1, 7)\)</span>. Para decodificar: la posición 2 copia de la 1, la 3 de la 2, la 4 de la 3… cada <code>A</code> copiada sirve para la siguiente.</p>
+<p><strong>Lectura:</strong> una referencia puede ser <strong>más larga que su distancia</strong>. Así LZ comprime repeticiones y rachas con un solo símbolo.</p>
+</section>
+<section id="ejercicio-lempel-ziv-a-mano" class="level2 smaller" data-number="2.10">
+<h2 class="smaller anchored" data-number="2.10" data-anchor-id="ejercicio-lempel-ziv-a-mano"><span class="header-section-number">2.10</span> Ejercicio: Lempel-Ziv a mano</h2>
+<p>Usar la regla de la lámina «La regla, paso por paso» (referencia sólo si la coincidencia mide 3 o más).</p>
 <ol type="1">
 <li>Codificar <strong>ABRACADABRA</strong>.</li>
 <li>Decodificar la lista <code>G</code>, <code>A</code>, <code>T</code>, <span class="math inline">\((3, 6)\)</span>, <code>C</code>.</li>
 <li>¿Cuántos símbolos (literales más referencias) produce <strong>ABABABABAB</strong>?</li>
 </ol>
+<blockquote class="blockquote">
+<p><strong>Pistas.</strong> Para codificar debes numerar las posiciones y, en cada una, buscar hacia atrás la coincidencia más larga, como en el paso a paso de MAMA AMASA LA MASA. Para decodificar, recuerda que <span class="math inline">\((d, \ell)\)</span> copia <strong>uno por uno</strong> desde <span class="math inline">\(d\)</span> posiciones atrás, como en «Una copia que se alimenta de sí misma».</p>
+</blockquote>
 </section>
-<section id="solución-lempel-ziv-a-mano" class="level2 smaller" data-number="2.6">
-<h2 class="smaller anchored" data-number="2.6" data-anchor-id="solución-lempel-ziv-a-mano"><span class="header-section-number">2.6</span> Solución: Lempel-Ziv a mano</h2>
-<ol type="1">
-<li><code>A B R A C A D</code> <span class="math inline">\((7, 4)\)</span>: en la posición 8 empieza <code>ABRA</code>, que ya apareció en las posiciones 1–4 (7 atrás). Son 7 literales y 1 referencia.</li>
-<li><code>GAT</code> y luego se copian 6 caracteres desde 3 atrás, uno por uno: <code>GAT</code> → <code>GATGAT</code> → <code>GATGATGAT</code>; al final <code>C</code>: <strong>GATGATGATC</strong>.</li>
-<li><code>A B</code> <span class="math inline">\((2, 8)\)</span>: <strong>3 símbolos</strong> para 10 caracteres; la referencia se alimenta de sí misma.</li>
-</ol>
+<section id="solución-lempel-ziv-a-mano" class="level2 smaller" data-number="2.11">
+<h2 class="smaller anchored" data-number="2.11" data-anchor-id="solución-lempel-ziv-a-mano"><span class="header-section-number">2.11</span> Solución: Lempel-Ziv a mano</h2>
+<p><strong>1.</strong> Posiciones <code>A</code>₁ <code>B</code>₂ <code>R</code>₃ <code>A</code>₄ <code>C</code>₅ <code>A</code>₆ <code>D</code>₇ <code>A</code>₈ <code>B</code>₉ <code>R</code>₁₀ <code>A</code>₁₁. De la 1 a la 7 ninguna coincidencia llega a 3 (en 4 y 6, la <code>A</code> sólo coincide 1). En la 8, <code>A</code> apareció en 1, 4 y 6; desde 1: 8 = 1, 9 = 2, 10 = 3, 11 = 4 → <strong>4</strong> seguidos. <span class="math inline">\(d = 8 - 1 = 7\)</span>: <code>A B R A C A D</code> <span class="math inline">\((7, 4)\)</span>, 7 literales y 1 referencia.</p>
 <p>. . .</p>
+<p><strong>2.</strong> <code>GAT</code> ocupa las posiciones 1–3. <span class="math inline">\((3, 6)\)</span>: cada posición nueva <span class="math inline">\(k\)</span> copia de <span class="math inline">\(k - 3\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Se escribe la posición</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>copiando de</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>literal</td>
+</tr>
+<tr class="even">
+<td>carácter</td>
+<td>G</td>
+<td>A</td>
+<td>T</td>
+<td>G</td>
+<td>A</td>
+<td>T</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p>Resultado: <strong>GATGATGATC</strong>.</p>
+<p>. . .</p>
+<p><strong>3.</strong> <code>A</code>₁ y <code>B</code>₂ son literales. En la 3, <code>A</code> apareció en 1: 3 = 1, 4 = 2, …, 10 = 8 → <strong>8</strong> seguidos, <span class="math inline">\(d = 3 - 1 = 2\)</span>: <code>A B</code> <span class="math inline">\((2, 8)\)</span>, <strong>3 símbolos</strong> para 10 caracteres.</p>
 <p><strong>Lectura:</strong> mientras más repetitivo el texto, menos símbolos. Ninguno de estos cálculos necesitó saber las probabilidades de las letras: LZ <strong>aprende</strong> las repeticiones conforme lee.</p>
 </section>
-<section id="zip-lempel-ziv-huffman" class="level2 smaller" data-number="2.7">
-<h2 class="smaller anchored" data-number="2.7" data-anchor-id="zip-lempel-ziv-huffman"><span class="header-section-number">2.7</span> zip = Lempel-Ziv + Huffman</h2>
+<section id="zip-lempel-ziv-huffman" class="level2 smaller" data-number="2.12">
+<h2 class="smaller anchored" data-number="2.12" data-anchor-id="zip-lempel-ziv-huffman"><span class="header-section-number">2.12</span> zip = Lempel-Ziv + Huffman</h2>
 <p>Los literales y las referencias de LZ77 todavía se pueden comprimir: unos salen mucho más que otros. <code>zip</code> (algoritmo <strong>DEFLATE</strong>) les aplica <strong>Huffman</strong> al final. Así se arma cada compresor del proyecto:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2735,8 +3233,8 @@ window.Quarto = {
 <p>. . .</p>
 <p><strong>Lectura:</strong> los tres hacen lo mismo en dos etapas, primero quitar repeticiones y luego comprimir lo que queda según su frecuencia. Se distinguen en qué tan lejos buscan repeticiones y en qué tan cerca de la entropía llega su segunda etapa.</p>
 </section>
-<section id="por-qué-funciona-sin-conocer-las-probabilidades" class="level2 smaller" data-number="2.8">
-<h2 class="smaller anchored" data-number="2.8" data-anchor-id="por-qué-funciona-sin-conocer-las-probabilidades"><span class="header-section-number">2.8</span> Por qué funciona sin conocer las probabilidades</h2>
+<section id="por-qué-funciona-sin-conocer-las-probabilidades" class="level2 smaller" data-number="2.13">
+<h2 class="smaller anchored" data-number="2.13" data-anchor-id="por-qué-funciona-sin-conocer-las-probabilidades"><span class="header-section-number">2.13</span> Por qué funciona sin conocer las probabilidades</h2>
 <p>Cuando los símbolos dependen unos de otros, el límite no es la entropía de un símbolo suelto sino la <strong>tasa de entropía</strong>:</p>
 <p><span id="eq-tasa"><span class="math display">\[
 H_{\infty} = \lim_{n \to \infty} \frac{1}{n}\, H(X_1, X_2, \ldots, X_n)
@@ -2771,8 +3269,8 @@ H_{\infty} = \lim_{n \to \infty} \frac{1}{n}\, H(X_1, X_2, \ldots, X_n)
 <p>En el Quijote (presentación 1): <span class="math inline">\(H(X) = 3.98\)</span>, <span class="math inline">\(\ H(X_2 \mid X_1) = 3.04\)</span>, <span class="math inline">\(\ H(X_3 \mid X_1, X_2) = 2.58\)</span> bits por letra, y sigue bajando.</p>
 <p><strong>Lectura:</strong> el teorema de Lempel y Ziv dice que, con textos suficientemente largos, LZ llega a la tasa de entropía <strong>sin conocer las probabilidades</strong>: es un compresor <strong>universal</strong>. Huffman necesita la tabla de probabilidades; LZ no.</p>
 </section>
-<section id="por-qué-zip-se-queda-corto-con-los-pesos" class="level2 smaller" data-number="2.9">
-<h2 class="smaller anchored" data-number="2.9" data-anchor-id="por-qué-zip-se-queda-corto-con-los-pesos"><span class="header-section-number">2.9</span> Por qué zip se queda corto con los pesos</h2>
+<section id="por-qué-zip-se-queda-corto-con-los-pesos" class="level2 smaller" data-number="2.14">
+<h2 class="smaller anchored" data-number="2.14" data-anchor-id="por-qué-zip-se-queda-corto-con-los-pesos"><span class="header-section-number">2.14</span> Por qué zip se queda corto con los pesos</h2>
 <p>Un peso <code>bfloat16</code> son <strong>2 bytes</strong>, y <code>zip</code> trabaja byte por byte:</p>
 <div style="font-size:1.2em">
 <pre><code>  byte alto                 byte bajo
