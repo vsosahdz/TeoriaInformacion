@@ -1278,7 +1278,7 @@ Prof. Víctor Adrián Sosa Hernández
 </div>
 </section>
 <section class="slide level2 smaller">
-<h2>Paso a paso (1/5): qué es “coincidir” · posiciones 1 y 2</h2>
+<h2>Paso a paso (1/6): qué es “coincidir” · posiciones 1 y 2</h2>
 <p>Se codifica <strong>MAMA AMASA LA MASA</strong>. Se numeran las posiciones; el <strong>cursor</strong> ▲ marca la posición que se está codificando (las ya codificadas se ven tenues):</p>
 <div style="font-size:0.85em">
 <table class="caption-top">
@@ -1409,7 +1409,7 @@ Prof. Víctor Adrián Sosa Hernández
 </div>
 </section>
 <section class="slide level2 smaller">
-<h2>Paso a paso (2/5): posición 3</h2>
+<h2>Paso a paso (2/6): posición 3</h2>
 <div style="font-size:0.85em">
 <table class="caption-top">
 <colgroup>
@@ -1555,7 +1555,7 @@ Prof. Víctor Adrián Sosa Hernández
 </div>
 </section>
 <section class="slide level2 smaller">
-<h2>Paso a paso (3/5): posiciones 4 y 5</h2>
+<h2>Paso a paso (3/6): posiciones 4 y 5</h2>
 <div style="font-size:0.85em">
 <table class="caption-top">
 <colgroup>
@@ -1697,7 +1697,7 @@ Prof. Víctor Adrián Sosa Hernández
 </div>
 </section>
 <section class="slide level2 smaller">
-<h2>Paso a paso (4/5): la primera referencia, posición 6</h2>
+<h2>Paso a paso (4/6): la primera referencia, posición 6</h2>
 <div style="font-size:0.8em">
 <table class="caption-top">
 <colgroup>
@@ -1884,11 +1884,165 @@ Prof. Víctor Adrián Sosa Hernández
 <p>Coincide <strong>1</strong>.</p>
 </div></div>
 <div class="fragment">
-<p><strong>Se elige la más larga</strong> (empieza en 2, mide 3): <span class="math inline">\(\ d = 6 - 2 = 4\)</span>, <span class="math inline">\(\ \ell = 3\)</span> → se escribe <span class="math inline">\((4, 3)\)</span> y el cursor <strong>salta</strong> a <span class="math inline">\(6 + 3 = 9\)</span>: las posiciones 7 y 8 ya no se analizan, quedan cubiertas por la copia.</p>
+<p><strong>Se elige la más larga</strong> (empieza en 2, mide 3): <span class="math inline">\(\ d = 6 - 2 = 4\)</span>, <span class="math inline">\(\ \ell = 3\)</span> → se escribe <span class="math inline">\((4, 3)\)</span> y el cursor <strong>salta</strong> a <span class="math inline">\(6 + 3 = 9\)</span>. La lámina siguiente explica por qué la 7 y la 8 ya no se analizan.</p>
 </div>
 </section>
 <section class="slide level2 smaller">
-<h2>Paso a paso (5/5): posiciones 9 a 18</h2>
+<h2>Paso a paso (5/6): por qué el cursor salta de 6 a 9</h2>
+<div style="font-size:0.8em">
+<table class="caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carácter</td>
+<td><span style="opacity:.35">M</span></td>
+<td><span style="opacity:.35">A</span></td>
+<td><span style="opacity:.35">M</span></td>
+<td><span style="opacity:.35">A</span></td>
+<td><span style="opacity:.35">␣</span></td>
+<td><b style="color:#ffc44d">A</b></td>
+<td><b style="color:#ffc44d">M</b></td>
+<td><b style="color:#ffc44d">A</b></td>
+<td>S</td>
+<td>A</td>
+<td>␣</td>
+<td>L</td>
+<td>A</td>
+<td>␣</td>
+<td>M</td>
+<td>A</td>
+<td>S</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td>Lo describe</td>
+<td>lit.</td>
+<td>lit.</td>
+<td>lit.</td>
+<td>lit.</td>
+<td>lit.</td>
+<td><strong>(4,3)</strong></td>
+<td><strong>(4,3)</strong></td>
+<td><strong>(4,3)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Cursor</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><span style="color:#ffc44d;font-weight:700">▲</span></td>
+<td></td>
+<td></td>
+<td><span style="color:#5cc6d0;font-weight:700">▲</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>La referencia <span class="math inline">\((4, 3)\)</span> es <strong>una sola instrucción</strong> que describe <strong>tres</strong> posiciones: la 6, la 7 y la 8. Dice: “lo que va en 6, 7 y 8 es lo mismo que en 2, 3 y 4”. El cursor estaba en 6 (▲ amarillo) y pasa a la primera posición que <strong>todavía no está descrita</strong>: la 9 (▲ azul). En la tabla, “lit.” = literal.</p>
+<div class="fragment">
+<p><strong>Del lado del receptor:</strong> al leer <span class="math inline">\((4, 3)\)</span> escribe de una vez las tres posiciones:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Posición que se escribe</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>copiando de la posición</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>carácter</td>
+<td>A</td>
+<td>M</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><strong>¿Y si el cursor se detuviera en 7?</strong> La <code>M</code> de la posición 7 quedaría descrita <strong>dos veces</strong>: una por <span class="math inline">\((4, 3)\)</span> y otra por lo que se escribiera en 7. El receptor reconstruiría <code>MAMA␣</code> + <code>AMA</code> + <code>M</code>… = <code>MAMA␣AMAM…</code>, con una <code>M</code> de más.</p>
+<p><strong>Lectura:</strong> cada posición se describe <strong>exactamente una vez</strong>. Un literal describe 1 posición y el cursor avanza 1; una referencia describe <span class="math inline">\(\ell\)</span> posiciones y el cursor avanza <span class="math inline">\(\ell\)</span>. Ahí está el ahorro: <strong>un</strong> símbolo en lugar de <span class="math inline">\(\ell\)</span>.</p>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Paso a paso (6/6): posiciones 9 a 18</h2>
 <div style="font-size:0.75em">
 <table class="caption-top">
 <colgroup>
